@@ -12,6 +12,7 @@ import FeaturedPost from './FeaturedPost'
 import Main from './Main'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -86,11 +87,11 @@ const sidebar = {
   ],
 }
 
-const onSignUpClick = (history) => history.push('/login')
+const onSignUpClick = (router) => router.push('login')
 
-export default function Blog(props) {
+export default function Blog() {
   const classes = useStyles()
-  const { history } = props
+  const router = useRouter()
 
   return (
     <React.Fragment>
@@ -99,8 +100,7 @@ export default function Blog(props) {
         <Header
           title="Blog"
           sections={sections}
-          history={history}
-          onSignUpClick={() => onSignUpClick(history)}
+          onSignUpClick={() => onSignUpClick(router)}
         />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
