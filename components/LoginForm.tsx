@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useForm } from 'react-hook-form'
-import { performLogin } from '../logic/auth'
+import { performLogin } from 'logic/auth'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -86,6 +86,7 @@ export default function SignIn() {
             label="Remember me"
           />
           <Button
+            data-testid="signInButton"
             type="submit"
             fullWidth
             variant="contained"

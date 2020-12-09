@@ -1,9 +1,9 @@
-import LoginFormComponent from '../components/LoginForm'
+import LoginForm from 'components/LoginForm'
 
-export const LoginForm = (): JSX.Element => (
+export const Login = (): JSX.Element => (
   <div className="container">
-    <LoginFormComponent />
+    <LoginForm />
   </div>
 )
 
-export default LoginForm
+export default Login
