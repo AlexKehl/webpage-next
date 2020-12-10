@@ -1,46 +1,23 @@
-import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import { useForm as useFormDI } from 'react-hook-form'
-import { performLogin as performLoginDI } from 'logic/auth'
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}))
+import CssBaseline from '@material-ui/core/CssBaseline'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import useStyles from 'components/LoginForm/styles'
+import { Alert } from '@material-ui/lab'
+import { Snackbar } from '@material-ui/core'
+import { useForm as useFormDI } from 'components/LoginForm/useForm'
 
 export default function SignIn({
   useForm = useFormDI,
-  performLogin = performLoginDI,
+  // hasValidCredentials = hasValidCredentialsDI,
 }) {
   const classes = useStyles()
-
-  const { register, errors, handleSubmit } = useForm()
-
-  // const [loginFail, setLoginFail] = useState()
+  const { register, errors, handleSubmit, loginFail } = useForm()
 
   return (
     <Container component="main" maxWidth="xs">
@@ -52,7 +29,7 @@ export default function SignIn({
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit(performLogin)}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             inputProps={{ 'data-testid': 'emailInput' }}
             variant="outlined"
@@ -66,7 +43,7 @@ export default function SignIn({
             name="email"
             inputRef={register({
               required: true,
-              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+              pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
             })}
           />
           <TextField
@@ -88,6 +65,13 @@ export default function SignIn({
             id="password"
             autoComplete="current-password"
           />
+          <Snackbar
+            open={loginFail}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            autoHideDuration={1000 * 10}
+          >
+            <Alert severity="error">Invalid email or password</Alert>
+          </Snackbar>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

@@ -10,7 +10,7 @@ const useFormReturnObj = {
   handleSubmit: jest.fn(),
 }
 
-const performLogin = jest.fn()
+const hasValidCredentials = jest.fn()
 
 const useForm = () => useFormReturnObj
 
@@ -35,7 +35,7 @@ describe('SignIn', () => {
     render(<LoginForm useForm={useForm} />)
     expect(useFormReturnObj.register).toHaveBeenCalledWith({
       required: true,
-      pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+      pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
     })
   })
 
@@ -50,7 +50,7 @@ describe('SignIn', () => {
   it('shows an error text if email has wrong format', async () => {
     console.error = jest.fn()
     const { getByTestId, getByText } = render(
-      <LoginForm performLogin={jest.fn()} />,
+      <LoginForm hasValidCredentials={jest.fn()} />,
     )
     fireEvent.change(getByTestId('emailInput'), { target: { value: 'foo' } })
     fireEvent.click(getByTestId('signInButton'))
@@ -61,7 +61,7 @@ describe('SignIn', () => {
   it('shows an error text if password has wrong format', async () => {
     console.error = jest.fn()
     const { getByTestId, getByText } = render(
-      <LoginForm performLogin={jest.fn()} />,
+      <LoginForm hasValidCredentials={jest.fn()} />,
     )
     fireEvent.change(getByTestId('passwordInput'), { target: { value: '42' } })
     fireEvent.click(getByTestId('signInButton'))
@@ -71,10 +71,10 @@ describe('SignIn', () => {
     )
   })
 
-  // it('calls performLogin with data from input fields', async () => {
+  // it('calls hasValidCredentials with data from input fields', async () => {
   //   console.error = jest.fn()
   //   const { getByTestId, getByText } = render(
-  //     <LoginForm performLogin={performLogin} />,
+  //     <LoginForm hasValidCredentials={hasValidCredentials} />,
   //   )
   //
   //   fireEvent.change(getByTestId('passwordInput'), {
@@ -89,7 +89,7 @@ describe('SignIn', () => {
   //
   //   console.log(getByTestId('passwordInput').value)
   //
-  //   expect(performLogin).toHaveBeenCalledWith({
+  //   expect(hasValidCredentials).toHaveBeenCalledWith({
   //     email: 'test@test.com',
   //     password: 'somePassword',
   //   })
