@@ -9,8 +9,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import { useForm } from 'react-hook-form'
-import { performLogin } from 'logic/auth'
+import { useForm as useFormDI } from 'react-hook-form'
+import { performLogin as performLoginDI } from 'logic/auth'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -32,10 +32,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SignIn() {
+export default function SignIn({
+  useForm = useFormDI,
+  performLogin = performLoginDI,
+}) {
   const classes = useStyles()
 
   const { register, errors, handleSubmit } = useForm()
+
+  // const [loginFail, setLoginFail] = useState()
 
   return (
     <Container component="main" maxWidth="xs">
@@ -47,8 +52,9 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit(performLogin())}>
+        <form className={classes.form} onSubmit={handleSubmit(performLogin)}>
           <TextField
+            inputProps={{ 'data-testid': 'emailInput' }}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -60,10 +66,11 @@ export default function SignIn() {
             name="email"
             inputRef={register({
               required: true,
-              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, // eslint-disable-line
+              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
             })}
           />
           <TextField
+            inputProps={{ 'data-testid': 'passwordInput' }}
             variant="outlined"
             margin="normal"
             fullWidth
