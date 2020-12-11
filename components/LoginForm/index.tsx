@@ -12,12 +12,9 @@ import { Alert } from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
 import { useForm as useFormDI } from 'components/LoginForm/useForm'
 
-export default function SignIn({
-  useForm = useFormDI,
-  // hasValidCredentials = hasValidCredentialsDI,
-}) {
+export default function SignIn({ useForm = useFormDI }) {
   const classes = useStyles()
-  const { register, errors, handleSubmit, loginFail } = useForm()
+  const { register, errors, handleSubmit, hasFalseCredentials } = useForm()
 
   return (
     <Container component="main" maxWidth="xs">
@@ -66,7 +63,7 @@ export default function SignIn({
             autoComplete="current-password"
           />
           <Snackbar
-            open={loginFail}
+            open={hasFalseCredentials}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             autoHideDuration={1000 * 10}
           >
