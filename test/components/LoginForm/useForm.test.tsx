@@ -29,6 +29,7 @@ describe('useForm', () => {
     await waitForNextUpdate()
 
     expect(routerMock.push).toHaveBeenCalled()
+    expect(routerMock.push).toHaveBeenCalledWith('/')
     expect(result.current.hasFalseCredentials).toBe(false)
   })
 

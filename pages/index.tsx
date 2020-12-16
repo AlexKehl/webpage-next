@@ -1,9 +1,9 @@
-import Blog from 'components/Blog'
+import Home from 'components/Home'
 
-export const Home = (): JSX.Element => (
+export const EntryPoint = (): JSX.Element => (
   <div className="container">
-    <Blog />
+    <Home />
   </div>
 )
 
-export default Home
+export default EntryPoint

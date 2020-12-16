@@ -5,7 +5,10 @@ const BASE_URL = 'http://127.0.0.1:3001'
 
 const hasValidCredentials = async (credentials: Credentials) => {
   try {
-    await axios.post(`${BASE_URL}/login`, credentials)
+    const res = await axios.post(`${BASE_URL}/login`, credentials, {
+      withCredentials: true,
+    })
+    console.log(res)
     return true
   } catch (e) {
     return false

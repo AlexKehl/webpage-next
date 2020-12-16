@@ -70,7 +70,7 @@ export default function SignIn({ useForm = useFormDI }) {
             <Alert severity="error">Invalid email or password</Alert>
           </Snackbar>
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox value="remember" color="primary" checked />}
             label="Remember me"
           />
           <Button
