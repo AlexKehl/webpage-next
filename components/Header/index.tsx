@@ -7,22 +7,11 @@ import { useCookies } from 'react-cookie'
 import UserPanel from '../UserPanel'
 import { useRouter } from 'next/router'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
     display: 'flex',
-    justifyContent: 'space-between'
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
     justifyContent: 'space-between',
-    overflowX: 'auto',
-  },
-  toolbarLink: {
-    padding: theme.spacing(1),
-    flexShrink: 0,
+    margin: '2em'
   },
   rightHalf: {
     display: 'flex',
@@ -41,6 +30,7 @@ export default function Header() {
       <Toolbar className={classes.toolbar}>
         <Button onClick={() => router.push('/')} size="small">Home</Button>
         <div className={classes.rightHalf}>
+          <Button size="small" onClick={() => router.push('/about')}>About</Button>
           <Button size="small">Gallery</Button>
           {!cookies?.hasActiveToken ? 
             <Button variant="outlined" size="small" onClick={() => router.push('login')}>
@@ -50,12 +40,6 @@ export default function Header() {
             <UserPanel/>
           }
         </div>
-      </Toolbar>
-      <Toolbar
-        component="nav"
-        variant="dense"
-        className={classes.toolbarSecondary}
-      >
       </Toolbar>
     </Fragment>
   )

@@ -1,15 +1,8 @@
-import { Fragment } from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Container from '@material-ui/core/Container'
-import Header from 'components/Header'
+import ImageCarousel from '../ImageCarousel'
+import WithHeader from '../WithHeader'
 
-export default function Blog() {
-  return (
-    <Fragment>
-      <CssBaseline />
-      <Container maxWidth="xl">
-        <Header />
-      </Container>
-    </Fragment>
-  )
+const Home = () => {
+  return <ImageCarousel />
 }
+
+export default WithHeader(Home)
