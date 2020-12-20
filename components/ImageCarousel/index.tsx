@@ -10,8 +10,10 @@ const useStyles = makeStyles(() => ({
 
 const images = [
   {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    original:
+      'https://www.itl.cat/pngfile/big/14-146662_ocean-wallpaper-high-resolution-wallpaper-high-resolution-ocean.jpg',
+    thumbnail:
+      'https://www.itl.cat/pngfile/big/14-146662_ocean-wallpaper-high-resolution-wallpaper-high-resolution-ocean.jpg',
   },
   {
     original: 'https://picsum.photos/id/1015/1000/600/',
@@ -31,9 +33,9 @@ const ImageCarousel = () => {
       <ImageGallery
         showNav={true}
         showPlayButton={false}
-        showFullscreenButton={false}
-        showBullets={true}
+        showFullscreenButton={true}
         items={images}
+        thumbnailPosition={'bottom'}
       />
     </div>
   )

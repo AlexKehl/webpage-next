@@ -1,4 +1,5 @@
 import About from '../components/About'
+import WithHeader from 'components/WithHeader'
 
 export const AboutPage = (): JSX.Element => (
   <div className="container">
@@ -6,4 +7,4 @@ export const AboutPage = (): JSX.Element => (
   </div>
 )
 
-export default AboutPage
+export default WithHeader(AboutPage)

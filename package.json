@@ -35,6 +35,8 @@
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.12.2",
     "react-image-gallery": "^1.0.8",
+    "react-images": "^1.1.7",
+    "react-photo-gallery": "^8.0.0",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {

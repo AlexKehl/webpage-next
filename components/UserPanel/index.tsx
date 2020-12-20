@@ -1,18 +1,34 @@
 import { Fragment } from 'react'
-import Button from '@material-ui/core/Button'
 import useLogout from './UseLogout'
+import HeaderButton from '../HeaderButton'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 
 const UserPanel = () => {
   const { performLogout } = useLogout()
+  const [cookies] = useCookies(['cookie-name'])
+  const router = useRouter()
 
   return (
     <Fragment>
-      <Button variant="text" size="small">
-        Admin panel
-      </Button>
-      <Button variant="outlined" size="small" onClick={performLogout}>
-        Log out
-      </Button>
+      {!cookies.hasActiveToken ? (
+        <HeaderButton
+          variant="outlined"
+          size="small"
+          onClick={() => router.push('login')}
+        >
+          Sign up
+        </HeaderButton>
+      ) : (
+        <Fragment>
+          <HeaderButton variant="text" size="small">
+            Admin panel
+          </HeaderButton>
+          <HeaderButton variant="outlined" size="small" onClick={performLogout}>
+            Log out
+          </HeaderButton>
+        </Fragment>
+      )}
     </Fragment>
   )
 }
