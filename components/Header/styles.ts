@@ -4,21 +4,12 @@ const useStyles = makeStyles(() => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
-    margin: '2em',
+    margin: '1em 2em 1em 2em',
   },
-  leftHalf: {
-    flexGrow: 16,
-  },
+  leftHalf: {},
   rightHalf: {
     display: 'flex',
-    flexGrow: 1,
     justifyContent: 'space-between',
-  },
-  headerItem: {
-    fontFamily: 'bebas-neue-by-fontfabric',
-    fontWeight: 400,
-    fontStyle: 'normal',
-    fontSize: '14px',
   },
 }))
 

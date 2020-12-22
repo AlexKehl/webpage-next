@@ -1,12 +1,5 @@
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles(() => ({
-  gallery: {
-    margin: 'auto',
-  },
-}))
 
 const images = [
   {
@@ -26,10 +19,8 @@ const images = [
 ]
 
 const ImageCarousel = () => {
-  const classes = useStyles()
-
   return (
-    <div className={classes.gallery}>
+    <div>
       <ImageGallery
         showNav={true}
         showPlayButton={false}

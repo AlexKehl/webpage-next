@@ -8,7 +8,6 @@ const useLogout = (useRouter = useRouterDI) => {
   const removeAuthCookies = () => {
     removeCookie('refreshToken')
     removeCookie('accessToken')
-    removeCookie('hasActiveToken')
   }
 
   const performLogout = () => {

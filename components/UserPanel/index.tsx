@@ -21,7 +21,11 @@ const UserPanel = () => {
         </HeaderButton>
       ) : (
         <Fragment>
-          <HeaderButton variant="text" size="small">
+          <HeaderButton
+            onClick={() => router.push('adminpanel')}
+            variant="text"
+            size="small"
+          >
             Admin panel
           </HeaderButton>
           <HeaderButton variant="outlined" size="small" onClick={performLogout}>

@@ -26,6 +26,7 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/react-image-gallery": "^1.0.1",
     "axios": "^0.21.0",
+    "dotenv": "^8.2.0",
     "markdown-to-jsx": "^6.11.4",
     "material-ui-icons": "^1.0.0-beta.36",
     "next": "latest",
@@ -33,11 +34,14 @@
     "react": "^16.13.1",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^11.2.4",
+    "react-dropzone-uploader": "^2.11.0",
     "react-hook-form": "^6.12.2",
     "react-image-gallery": "^1.0.8",
     "react-images": "^1.1.7",
     "react-photo-gallery": "^8.0.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "sass": "^1.30.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "4.2.4",
@@ -46,6 +50,7 @@
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.5",
     "@types/react": "^16.9.27",
+    "@types/sass": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "babel-jest": "^25.2.3",
