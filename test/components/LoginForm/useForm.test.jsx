@@ -1,10 +1,8 @@
-import { useForm } from 'components/LoginForm/useForm'
+import { useForm } from '../../../components/LoginForm/useForm'
 import { renderHook, act } from '@testing-library/react-hooks'
 import axios from 'axios'
 
 jest.mock('axios')
-
-const mockedAxiosPost = axios.post as jest.Mock
 
 const routerMock = {
   push: jest.fn(),
@@ -17,9 +15,9 @@ beforeEach(() => {
 
 describe('useForm', () => {
   test('it navigates to home on existing credentials', async () => {
-    mockedAxiosPost.mockResolvedValue('foo')
+    axios.post.mockResolvedValue('foo')
     const { result, waitForNextUpdate } = renderHook(() =>
-      useForm(useRouterMock),
+      useForm(useRouterMock)
     )
 
     act(() => {
@@ -34,9 +32,9 @@ describe('useForm', () => {
   })
 
   test('It sets hasFalseCredentials to true if credentials are invalid', async () => {
-    mockedAxiosPost.mockRejectedValue('foo')
+    axios.post.mockRejectedValue('foo')
     const { result, waitForNextUpdate } = renderHook(() =>
-      useForm(useRouterMock),
+      useForm(useRouterMock)
     )
 
     act(() => {

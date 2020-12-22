@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginForm from 'components/LoginForm'
+import LoginForm from '../../../components/LoginForm'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { screen } from '@testing-library/dom'
 import { renderHook, act } from '@testing-library/react-hooks'
@@ -50,7 +50,7 @@ describe('SignIn', () => {
   it('shows an error text if email has wrong format', async () => {
     console.error = jest.fn()
     const { getByTestId, getByText } = render(
-      <LoginForm hasValidCredentials={jest.fn()} />,
+      <LoginForm hasValidCredentials={jest.fn()} />
     )
     fireEvent.change(getByTestId('emailInput'), { target: { value: 'foo' } })
     fireEvent.click(getByTestId('signInButton'))
@@ -61,13 +61,13 @@ describe('SignIn', () => {
   it('shows an error text if password has wrong format', async () => {
     console.error = jest.fn()
     const { getByTestId, getByText } = render(
-      <LoginForm hasValidCredentials={jest.fn()} />,
+      <LoginForm hasValidCredentials={jest.fn()} />
     )
     fireEvent.change(getByTestId('passwordInput'), { target: { value: '42' } })
     fireEvent.click(getByTestId('signInButton'))
 
     await waitFor(() =>
-      expect(getByText('Password length must be greater than 8')).toBeDefined(),
+      expect(getByText('Password length must be greater than 8')).toBeDefined()
     )
   })
 

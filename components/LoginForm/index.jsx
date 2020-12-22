@@ -7,10 +7,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import useStyles from 'components/LoginForm/styles'
+import useStyles from './styles'
 import { Alert } from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
-import { useForm as useFormDI } from 'components/LoginForm/useForm'
+import { useForm as useFormDI } from './useForm'
 
 export default function SignIn({ useForm = useFormDI }) {
   const classes = useStyles()

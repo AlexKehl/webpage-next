@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { hasValidCredentials } from 'components/LoginForm/auth'
+import { hasValidCredentials } from './auth'
 import { useRouter as useRouterDI } from 'next/router'
-import { Credentials } from 'types/'
 
 const customUseForm = (useRouter = useRouterDI) => {
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
@@ -10,7 +9,7 @@ const customUseForm = (useRouter = useRouterDI) => {
   const { handleSubmit } = useFormStuff
   const router = useRouter()
 
-  const performLogin = async (credentials: Credentials) => {
+  const performLogin = async (credentials) => {
     const res = await hasValidCredentials(credentials)
     if (res) {
       return router.push('/')

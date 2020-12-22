@@ -1,10 +1,10 @@
 import 'react-dropzone-uploader/dist/styles.css'
-import Dropzone, { IFileWithMeta } from 'react-dropzone-uploader'
+import Dropzone from 'react-dropzone-uploader'
 import submitFiles from './FileSubmit'
 
 const MyUploader = () => {
-  const handleSubmit = async (dropZoneFiles: IFileWithMeta[]) => {
-    const files = dropZoneFiles.map(file => file.file)
+  const handleSubmit = async (dropZoneFiles) => {
+    const files = dropZoneFiles.map((file) => file.file)
     await submitFiles(files)
   }
 

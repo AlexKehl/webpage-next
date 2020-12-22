@@ -1,8 +1,8 @@
 import Header from './Header'
-import React, { ComponentType } from 'react'
+import React from 'react'
 
-const WithHeader = <P extends object>(Component: ComponentType<P>) => {
-  return (props: P) => {
+const WithHeader = Component => {
+  return props => {
     return (
       <div>
         <Header />

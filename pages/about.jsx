@@ -1,7 +1,7 @@
 import About from '../components/About'
-import WithHeader from 'components/WithHeader'
+import WithHeader from '../components/WithHeader'
 
-export const AboutPage = (): JSX.Element => (
+export const AboutPage = () => (
   <div className="container">
     <About />
   </div>

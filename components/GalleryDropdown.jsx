@@ -3,20 +3,10 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import HeaderButton from './HeaderButton'
 
-interface MenuItem {
-  name: string
-  onClick: (event: unknown) => unknown
-}
+const GalleryDropdown = ({ buttonLabel, menuItems }) => {
+  const [anchorEl, setAnchorEl] = useState(null)
 
-interface Props {
-  buttonLabel: string
-  menuItems: MenuItem[]
-}
-
-const GalleryDropdown = ({ buttonLabel, menuItems }: Props) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget)
   }
 

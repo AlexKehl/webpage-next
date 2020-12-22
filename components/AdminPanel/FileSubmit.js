@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const submitFile = async (file: File) => {
+const submitFile = async file => {
   const URL = `${process.env.SERVER_URL}/fileupload`
 
   const data = new FormData()
@@ -22,7 +22,7 @@ const submitFile = async (file: File) => {
   }
 }
 
-const submitFiles = async (files: File[]) => {
+const submitFiles = async files => {
   return await Promise.all(files.map(submitFile))
 }
 

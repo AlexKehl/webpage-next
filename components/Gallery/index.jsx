@@ -10,7 +10,7 @@ const Gallery = () => {
   const [currentImage, setCurrentImage] = useState(0)
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
 
-  const openLightbox = (event: any, { index }: { index: number }) => {
+  const openLightbox = (event, { index }) => {
     setCurrentImage(index)
     setViewerIsOpen(true)
   }

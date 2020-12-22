@@ -1,5 +1,5 @@
-import Gallery from 'components/Gallery'
-import WithHeader from 'components/WithHeader'
+import Gallery from '../components/Gallery'
+import WithHeader from '../components/WithHeader'
 
 export const GalleryPage = () => (
   <div className="container">
