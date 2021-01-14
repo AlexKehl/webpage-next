@@ -111,7 +111,7 @@ const CATEGORY_PICTURE_MAP = {
     },
     {
       src:
-        '/Acryl/Tschernikov Anatoly. Рекламный щит ф.ALG. 95х49 акрил, арголит.jpeg',
+        '/Acryl/Tschernikov Anatoly. Рекламный щит ф.ALG. 95x49 акрил, арголит.jpeg',
       width: 40,
       height: 95,
     },
@@ -124,13 +124,13 @@ const CATEGORY_PICTURE_MAP = {
   Oil: [
     {
       src:
-        '/Oil/Tschernikov Anatoly 25 x 30 Öl, baumvolle. Утренняя россыпь.jpeg',
+        '/Oil/Tschernikov Anatoly 25 x 30 Oil, baumvolle. Утренняя россыпь.jpeg',
       width: 30,
       height: 25,
     },
     {
       src:
-        '/Oil/Tschernikov Anatoly . «Белянки»-III.30х25.бязь,масло. 25 x 30 Öl, baumvolle..jpeg',
+        '/Oil/Tschernikov Anatoly . «Белянки»-III.30х25.бязь,масло. 25 x 30 Oil, baumvolle..jpeg',
       width: 30,
       height: 25,
     },
@@ -141,7 +141,7 @@ const CATEGORY_PICTURE_MAP = {
     },
     {
       src:
-        '/Oil/Черников Анатолий Николаевич.«Яблоки на Aarstrasse.26,7x35.масло,аргалит.jpeg',
+        '/Oil/Черников Анатолий Николаевич. "Яблоки на Aarstrasse".26,7x35.масло,аргалит.jpeg',
       width: 35,
       height: 27,
     },
