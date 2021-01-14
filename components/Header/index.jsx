@@ -5,6 +5,7 @@ import HeaderButton from '../HeaderButton'
 import UserPanel from '../UserPanel'
 import { useRouter } from 'next/router'
 import GalleryDropdown from '../GalleryDropdown'
+import CATEGORIES from '../../constants/Categories'
 
 const Header = () => {
   const classes = useStyles()
@@ -25,10 +26,10 @@ const Header = () => {
           </HeaderButton>
           <GalleryDropdown
             buttonLabel="Gallery"
-            menuItems={[
-              { name: 'Airbrush', onClick: () => router.push('/gallery') },
-              { name: 'Acryl', onClick: () => router.push('/gallery') },
-            ]}
+            menuItems={CATEGORIES.map((category) => ({
+              name: category,
+              onClick: () => router.push(`/gallery/${category}`),
+            }))}
           />
           <UserPanel />
         </div>

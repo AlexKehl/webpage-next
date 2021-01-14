@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-const submitFile = async file => {
+const submitFile = async ({ file, fileMeta }) => {
   const URL = `${process.env.SERVER_URL}/fileupload`
 
   const data = new FormData()
 
-  data.append('name', 'image')
+  data.append('fileMeta', 'image')
   data.append('image', file)
 
   const config = {
@@ -22,7 +22,7 @@ const submitFile = async file => {
   }
 }
 
-const submitFiles = async files => {
+const submitFiles = async (files) => {
   return await Promise.all(files.map(submitFile))
 }
 

@@ -1,5 +1,10 @@
 const photos = [
   {
+    src: 'http://185.255.134.65/assets/i-201.jpg',
+    width: 4,
+    height: 3,
+  },
+  {
     src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599',
     width: 4,
     height: 3,

@@ -1,6 +1,7 @@
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 import submitFiles from './FileSubmit'
+import FilePreview from './FilePreview'
 
 const MyUploader = () => {
   const handleSubmit = async (dropZoneFiles) => {
@@ -8,7 +9,13 @@ const MyUploader = () => {
     await submitFiles(files)
   }
 
-  return <Dropzone onSubmit={handleSubmit} accept="image/*" />
+  return (
+    <Dropzone
+      onSubmit={handleSubmit}
+      accept="image/*"
+      PreviewComponent={FilePreview}
+    />
+  )
 }
 
 export default MyUploader

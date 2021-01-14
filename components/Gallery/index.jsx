@@ -2,9 +2,9 @@ import { useState } from 'react'
 import PhotoGallery from 'react-photo-gallery'
 import Carousel, { Modal, ModalGateway } from 'react-images'
 import useStyles from './styles'
-import photos from './photos'
+// import photos from './photos'
 
-const Gallery = () => {
+const Gallery = ({ photos }) => {
   const classes = useStyles()
 
   const [currentImage, setCurrentImage] = useState(0)
@@ -30,7 +30,7 @@ const Gallery = () => {
             <Modal onClose={closeLightbox}>
               <Carousel
                 currentIndex={currentImage}
-                views={photos.map(photo => ({
+                views={photos.map((photo) => ({
                   ...photo,
                   source: photo.src,
                 }))}

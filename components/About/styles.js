@@ -5,9 +5,14 @@ const useStyles = makeStyles(() => ({
     display: 'grid',
     gridTemplateColumns: 'auto minmax(200px, 1000px) auto',
   },
+  imageContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   image: {
     maxWidth: '100%',
     padding: '1em',
+    border: '1px black solid',
   },
   textHeading: {
     textAlign: 'center',
