@@ -11,7 +11,7 @@ const About = () => {
         <div className={classes.imageContainer}>
           <img
             className={classes.image}
-            src="http://185.255.134.65:8000/photo_2021-01-14 02.52.26.jpeg"
+            src="/photo_2021-01-14 02.52.26.jpeg"
           />
         </div>
         <div className={classes.textHeading}>My name is FooBar</div>
