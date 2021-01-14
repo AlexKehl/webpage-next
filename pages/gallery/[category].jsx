@@ -141,7 +141,7 @@ const CATEGORY_PICTURE_MAP = {
     },
     {
       src:
-        '/Oil/Черников Анатолий Николаевич. "Яблоки на Aarstrasse".26,7x35.масло,аргалит.jpeg',
+        '/Oil/Черников Анатолий Николаевич. "Яблоки на Aarstrasse".26,7x35.масло,аргалит.jpeg',
       width: 35,
       height: 27,
     },
