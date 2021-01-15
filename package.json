@@ -24,7 +24,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "markdown-to-jsx": "^6.11.4",
     "material-ui-icons": "^1.0.0-beta.36",
