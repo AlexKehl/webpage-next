@@ -29,6 +29,9 @@ const Gallery = ({ photos }) => {
           {viewerIsOpen ? (
             <Modal onClose={closeLightbox}>
               <Carousel
+                styles={{
+                  view: (base) => ({ ...base, maxHeight: '100vh' }),
+                }}
                 currentIndex={currentImage}
                 views={photos.map((photo) => ({
                   ...photo,
