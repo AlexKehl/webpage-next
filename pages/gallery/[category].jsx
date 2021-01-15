@@ -1,7 +1,7 @@
 import Gallery from '../../components/Gallery'
 import WithHeader from '../../components/WithHeader'
 import CATEGORIES from '../../constants/Categories'
-import CATEGORY_PICTURE_MAP from './CategoryPictures'
+import CATEGORY_PICTURE_MAP from '../../constants/CategoryPictures'
 
 import axios from 'axios'
 
