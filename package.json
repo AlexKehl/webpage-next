@@ -37,7 +37,7 @@
     "react-dropzone-uploader": "^2.11.0",
     "react-hook-form": "^6.12.2",
     "react-image-gallery": "^1.0.8",
-    "react-images": "^1.1.7",
+    "react-image-lightbox": "^5.1.1",
     "react-photo-gallery": "^8.0.0",
     "react-router-dom": "^5.2.0",
     "sass": "^1.30.0"

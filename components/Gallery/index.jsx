@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import PhotoGallery from 'react-photo-gallery'
-import Carousel, { Modal, ModalGateway } from 'react-images'
 import useStyles from './styles'
-// import photos from './photos'
+import Lightbox from 'react-image-lightbox'
 
 const Gallery = ({ photos }) => {
   const classes = useStyles()
@@ -20,27 +19,34 @@ const Gallery = ({ photos }) => {
     setViewerIsOpen(false)
   }
 
+  const photosSrc = photos.map(({ src }) => src)
+
   return (
     <div className={classes.container}>
       <div />
       <div>
         <PhotoGallery photos={photos} onClick={openLightbox} />
-        <ModalGateway>
-          {viewerIsOpen ? (
-            <Modal onClose={closeLightbox}>
-              <Carousel
-                styles={{
-                  view: (base) => ({ ...base, maxHeight: '100vh' }),
-                }}
-                currentIndex={currentImage}
-                views={photos.map((photo) => ({
-                  ...photo,
-                  source: photo.src,
-                }))}
-              />
-            </Modal>
-          ) : null}
-        </ModalGateway>
+        {viewerIsOpen && (
+          <Lightbox
+            imagePadding={0}
+            mainSrc={photosSrc[currentImage]}
+            nextSrc={photosSrc[(currentImage + 1) % photosSrc.length]}
+            prevSrc={
+              photosSrc[
+                (currentImage + photosSrc.length - 1) % photosSrc.length
+              ]
+            }
+            onCloseRequest={closeLightbox}
+            onMovePrevRequest={() =>
+              setCurrentImage(
+                (currentImage + photosSrc.length - 1) % photosSrc.length
+              )
+            }
+            onMoveNextRequest={() =>
+              setCurrentImage((currentImage + 1) % photosSrc.length)
+            }
+          />
+        )}
       </div>
       <div />
     </div>
