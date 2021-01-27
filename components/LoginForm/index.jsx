@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import useStyles from './styles'
 import { Alert } from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
-import { useForm as useFormDI } from './useForm'
+import { useForm as useFormDI } from '../../lib/hooks/useForm'
 
 export default function SignIn({ useForm = useFormDI }) {
   const classes = useStyles()

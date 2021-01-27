@@ -2,16 +2,16 @@ import { Fragment } from 'react'
 import useLogout from './UseLogout'
 import HeaderButton from '../HeaderButton'
 import { useRouter } from 'next/router'
-import { useCookies } from 'react-cookie'
+import useUser from '../../lib/hooks/useUser.js'
 
 const UserPanel = () => {
   const { performLogout } = useLogout()
-  const [cookies] = useCookies(['cookie-name'])
+  const { user } = useUser()
   const router = useRouter()
 
   return (
     <Fragment>
-      {!cookies.hasActiveToken ? (
+      {!user?.isLoggedIn ? (
         <HeaderButton
           variant="outlined"
           size="small"

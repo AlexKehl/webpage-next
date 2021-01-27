@@ -17,7 +17,7 @@ const Header = () => {
       <Toolbar className={classes.toolbar}>
         <div className={classes.leftHalf}>
           <HeaderButton onClick={() => router.push('/')} size="small">
-            Home
+            Anatoly Kehl
           </HeaderButton>
         </div>
         <div className={`${classes.rightHalf}`}>

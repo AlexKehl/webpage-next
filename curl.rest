@@ -1,0 +1,9 @@
+http://localhost:3000
+
+Content-Type: application/json
+
+POST api/sessions
+{
+  "email": "test@test.com",
+  "password": "123"
+}

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const hasValidCredentials = async credentials => {
+const hasValidCredentials = async (credentials) => {
   try {
-    await axios.post(`${process.env.SERVER_URL}/login`, credentials, {
+    await axios.post(`/api/sessions`, credentials, {
       withCredentials: true,
     })
     return true
