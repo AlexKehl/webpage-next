@@ -1,12 +1,11 @@
 import { Fragment } from 'react'
-import useLogout from './UseLogout'
 import HeaderButton from '../HeaderButton'
 import { useRouter } from 'next/router'
 import useUser from '../../lib/hooks/useUser.js'
+import fetchJson from '../../lib/fetchJson'
 
 const UserPanel = () => {
-  const { performLogout } = useLogout()
-  const { user } = useUser()
+  const { user, mutateUser } = useUser()
   const router = useRouter()
 
   return (
@@ -28,7 +27,11 @@ const UserPanel = () => {
           >
             Admin panel
           </HeaderButton>
-          <HeaderButton variant="outlined" size="small" onClick={performLogout}>
+          <HeaderButton
+            variant="outlined"
+            size="small"
+            onClick={() => mutateUser(fetchJson('/api/logout'))}
+          >
             Log out
           </HeaderButton>
         </Fragment>

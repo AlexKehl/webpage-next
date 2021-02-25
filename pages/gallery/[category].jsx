@@ -2,8 +2,7 @@ import Gallery from '../../components/Gallery'
 import WithHeader from '../../components/WithHeader'
 import CATEGORIES from '../../constants/Categories'
 import CATEGORY_PICTURE_MAP from '../../constants/CategoryPictures'
-
-import axios from 'axios'
+import { generateCategoryPaths } from '../../utils/PathsGenerator.js'
 
 export const GalleryPage = ({ photos }) => (
   <div className="container">
@@ -11,22 +10,14 @@ export const GalleryPage = ({ photos }) => (
   </div>
 )
 
-export function getAllPicturesForCategory(category) {
-  return
-  // return axios.get(
-  //   `${process.env.SERVER_URL}/picturelist/?category=${category}`
-  // )
-}
-
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   return {
-    paths: CATEGORIES.map((category) => ({ params: { category } })),
+    paths: generateCategoryPaths({ locales, CATEGORIES }),
     fallback: false,
   }
 }
 
 export async function getStaticProps({ params }) {
-  // const picturesForCategory = await getAllPicturesForCategory(params.category)
   return {
     props: {
       photos: CATEGORY_PICTURE_MAP[params.category],

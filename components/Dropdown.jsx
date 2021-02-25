@@ -3,10 +3,10 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import HeaderButton from './HeaderButton'
 
-const GalleryDropdown = ({ buttonLabel, menuItems }) => {
+const Dropdown = ({ buttonLabel, menuItems }) => {
   const [anchorEl, setAnchorEl] = useState(null)
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -45,4 +45,4 @@ const GalleryDropdown = ({ buttonLabel, menuItems }) => {
   )
 }
 
-export default GalleryDropdown
+export default Dropdown
