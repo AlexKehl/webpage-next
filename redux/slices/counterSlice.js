@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const reducers = {
-  increment: ({ counterValue, ...rest }) => ({
+  increment: ({ counterValue, ...rest }, { payload }) => ({
     ...rest,
-    counterValue: counterValue + 1,
+    counterValue: counterValue + payload,
   }),
   decrement: ({ counterValue, ...rest }) => ({
     ...rest,

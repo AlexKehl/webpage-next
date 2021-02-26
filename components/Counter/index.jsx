@@ -13,7 +13,7 @@ const CounterContainer = () => {
   return (
     <Counter
       count={count}
-      increment={() => dispatch(increment())}
+      increment={() => dispatch(increment(5))}
       decrement={() => dispatch(decrement())}
     />
   )

@@ -1,55 +1,33 @@
-import { useState } from 'react'
-import PhotoGallery from 'react-photo-gallery'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  openLightbox,
+  closeLightbox,
+  setCurrentImage,
+  selectIsViewerOpen,
+  selectCurrentImage,
+} from '../../redux/slices/gallerySlice'
 import useStyles from './styles'
-import Lightbox from 'react-image-lightbox'
+import Gallery from './Gallery'
 
-const Gallery = ({ photos }) => {
+const GalleryContainer = ({ photos }) => {
   const classes = useStyles()
-
-  const [currentImage, setCurrentImage] = useState(0)
-  const [viewerIsOpen, setViewerIsOpen] = useState(false)
-
-  const openLightbox = (event, { index }) => {
-    setCurrentImage(index)
-    setViewerIsOpen(true)
-  }
-
-  const closeLightbox = () => {
-    setCurrentImage(0)
-    setViewerIsOpen(false)
-  }
+  const dispatch = useDispatch()
+  const isViewerOpen = useSelector(selectIsViewerOpen)
+  const currentImage = useSelector(selectCurrentImage)
 
   const photosSrc = photos.map(({ src }) => src)
 
   return (
-    <div className={classes.container}>
-      <div />
-      <div>
-        <PhotoGallery photos={photos} onClick={openLightbox} />
-        {viewerIsOpen && (
-          <Lightbox
-            imagePadding={0}
-            mainSrc={photosSrc[currentImage]}
-            nextSrc={photosSrc[(currentImage + 1) % photosSrc.length]}
-            prevSrc={
-              photosSrc[
-                (currentImage + photosSrc.length - 1) % photosSrc.length
-              ]
-            }
-            onCloseRequest={closeLightbox}
-            onMovePrevRequest={() =>
-              setCurrentImage(
-                (currentImage + photosSrc.length - 1) % photosSrc.length
-              )
-            }
-            onMoveNextRequest={() =>
-              setCurrentImage((currentImage + 1) % photosSrc.length)
-            }
-          />
-        )}
-      </div>
-      <div />
-    </div>
+    <Gallery
+      photos={photos}
+      classes={classes}
+      openLightbox={(event, idx) => dispatch(openLightbox(idx))}
+      closeLightbox={() => dispatch(closeLightbox())}
+      isViewerOpen={isViewerOpen}
+      photosSrc={photosSrc}
+      currentImage={currentImage}
+      setCurrentImage={(idx) => dispatch(setCurrentImage(idx))}
+    />
   )
 }
-export default Gallery
+export default GalleryContainer
