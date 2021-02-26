@@ -12,7 +12,7 @@ export const GalleryPage = ({ photos }) => (
 
 export async function getStaticPaths({ locales }) {
   return {
-    paths: generateCategoryPaths({ locales, CATEGORIES }),
+    paths: generateCategoryPaths({ locales, categories: CATEGORIES }),
     fallback: false,
   }
 }
