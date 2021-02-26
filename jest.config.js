@@ -1,4 +1,8 @@
 module.exports = {
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname',
+  ],
   collectCoverageFrom: [
     '**/*.{js,jsx}',
     '!**/node_modules/**',
@@ -26,7 +30,7 @@ module.exports = {
     '/tests/',
     '/coverage/',
   ],
-  transform: {
-    '^.+\\.jsx?$': 'babel-jest',
-  },
+  // transform: {
+  //   '^.+\\.jsx?$': 'babel-jest',
+  // },
 }
