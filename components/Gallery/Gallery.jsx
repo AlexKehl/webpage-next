@@ -12,6 +12,7 @@ const Gallery = ({
   setCurrentImage,
 }) => (
   <div className={classes.container}>
+    <div />
     <div>
       <PhotoGallery photos={photos} onClick={openLightbox} />
       {isViewerOpen && (

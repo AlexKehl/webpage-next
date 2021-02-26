@@ -4,11 +4,7 @@ import CATEGORIES from '../../constants/Categories'
 import CATEGORY_PICTURE_MAP from '../../constants/CategoryPictures'
 import { generateCategoryPaths } from '../../utils/PathsGenerator.js'
 
-export const GalleryPage = ({ photos }) => (
-  <div className="container">
-    <Gallery photos={photos} />
-  </div>
-)
+export const GalleryPage = ({ photos }) => <Gallery photos={photos} />
 
 export async function getStaticPaths({ locales }) {
   return {
