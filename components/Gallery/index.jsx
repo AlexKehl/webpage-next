@@ -7,7 +7,7 @@ const galleryReducer = (state, action) => {
     case 'OPEN_LIGHTBOX':
       return {
         ...state,
-        currentImage: action.payload.index,
+        currentImage: action.payload,
         isViewerOpen: true,
       }
     case 'CLOSE_LIGHTBOX':
@@ -33,8 +33,8 @@ const GalleryContainer = ({ photos }) => {
     <Gallery
       photos={photos}
       classes={classes}
-      openLightbox={(event, idx) =>
-        dispatch({ type: 'OPEN_LIGHTBOX', payload: idx })
+      openLightbox={(event, { index }) =>
+        dispatch({ type: 'OPEN_LIGHTBOX', payload: index })
       }
       closeLightbox={() => dispatch({ type: 'CLOSE_LIGHTBOX' })}
       isViewerOpen={state.isViewerOpen}
