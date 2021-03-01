@@ -1,8 +1,8 @@
-import Gallery from '../../components/Gallery'
-import WithHeader from '../../components/WithHeader'
-import CATEGORIES from '../../constants/Categories'
-import CATEGORY_PICTURE_MAP from '../../constants/CategoryPictures'
-import { generateCategoryPaths } from '../../utils/PathsGenerator.js'
+import Gallery from '@/components/Gallery'
+import WithHeader from '@/components/WithHeader'
+import CATEGORIES from '@/constants/Categories'
+import CATEGORY_PICTURE_MAP from '@/constants/CategoryPictures'
+import { generateCategoryPaths } from '@/utils/PathsGenerator.js'
 
 export const GalleryPage = ({ photos }) => <Gallery photos={photos} />
 

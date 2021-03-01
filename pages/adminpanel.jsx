@@ -1,5 +1,5 @@
-import AdminPanel from '../components/AdminPanel'
-import WithHeader from '../components/WithHeader'
+import AdminPanel from '@/components/AdminPanel'
+import WithHeader from '@/components/WithHeader'
 
 export const AdminPanelPage = () => (
   <div className="container">

@@ -1,4 +1,4 @@
-import withSession from '../../lib/session'
+import withSession from '@/lib/session'
 
 const VALID_EMAIL = 'test@test.com'
 const VALID_PASSWORD = '123'

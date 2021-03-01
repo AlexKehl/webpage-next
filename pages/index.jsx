@@ -1,4 +1,4 @@
-import Home from '../components/Home'
+import Home from '@/components/Home'
 
 export const EntryPoint = () => (
   <div className="container">

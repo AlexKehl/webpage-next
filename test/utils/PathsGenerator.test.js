@@ -1,7 +1,7 @@
 import {
   generateCategoryPaths,
   generateCategoryForLocale,
-} from '../../utils/PathsGenerator'
+} from '@/utils/PathsGenerator'
 
 describe('generateCategoryForLocale', () => {
   it('generates category permutations for one locale', () => {
