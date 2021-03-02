@@ -4,7 +4,6 @@ const VALID_EMAIL = 'test@test.com'
 const VALID_PASSWORD = '123'
 
 export default withSession(async (req, res) => {
-  console.log(req.method)
   if (req.method === 'GET') {
     const user = req.session.get('user')
 

@@ -8,7 +8,7 @@ import fetchJson from '../../lib/fetchJson'
 const UserPanel = () => {
   const { user, mutateUser } = useUser()
   const router = useRouter()
-  const { translated } = useI18n()
+  const { i18n } = useI18n()
 
   return (
     <Fragment>
@@ -16,14 +16,14 @@ const UserPanel = () => {
         <HeaderButton
           variant="outlined"
           size="small"
-          onClick={() => router.push('login')}
+          onClick={() => router.push('/login')}
         >
-          {translated.signUp}
+          {i18n.signUp}
         </HeaderButton>
       ) : (
         <Fragment>
           <HeaderButton
-            onClick={() => router.push('adminpanel')}
+            onClick={() => router.push('/adminpanel')}
             variant="text"
             size="small"
           >

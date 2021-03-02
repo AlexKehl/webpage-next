@@ -1,9 +1,9 @@
 import PhotoGallery from 'react-photo-gallery'
 import Lightbox from 'react-image-lightbox'
+import styles from './index.module.css'
 
 const Gallery = ({
   photos,
-  classes,
   openLightbox,
   closeLightbox,
   isViewerOpen,
@@ -11,7 +11,7 @@ const Gallery = ({
   currentImage,
   setCurrentImage,
 }) => (
-  <div className={classes.container}>
+  <div className={styles.container}>
     <div />
     <div>
       <PhotoGallery photos={photos} onClick={openLightbox} />
