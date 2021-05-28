@@ -1,4 +1,6 @@
-http://localhost:3000
+http://localhost:3000/
+
+GET api/sessions
 
 Content-Type: application/json
 

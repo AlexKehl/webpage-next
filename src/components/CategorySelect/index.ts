@@ -1,10 +1,7 @@
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Select from '@material-ui/core/Select'
 import CATEGORIES from '@/constants/Categories'
 import { useState } from 'react'
-import FormControl from '@material-ui/core/FormControl'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
