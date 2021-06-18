@@ -10,9 +10,10 @@ import Typography from '@material-ui/core/Typography'
 import useStyles from './styles'
 import { Alert } from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
-import { useForm as useFormDI } from '../../lib/hooks/useForm'
+import { useForm } from '../../lib/hooks/useForm'
+import { FC } from 'react'
 
-export default function SignIn({ useForm = useFormDI }) {
+const SignIn: FC = () => {
   const classes = useStyles()
   const { register, errors, handleSubmit, hasFalseCredentials } = useForm()
 
@@ -88,3 +89,5 @@ export default function SignIn({ useForm = useFormDI }) {
     </Container>
   )
 }
+
+export default SignIn

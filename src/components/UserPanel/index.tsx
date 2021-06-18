@@ -1,11 +1,11 @@
-import { Fragment } from 'react'
+import { FC, Fragment } from 'react'
 import HeaderButton from '../HeaderButton'
 import { useRouter } from 'next/router'
-import useUser from '../../lib/hooks/useUser.js'
+import useUser from '../../lib/hooks/useUser'
 import useI18n from '../../lib/hooks/useI18n'
 import fetchJson from '../../lib/fetchJson'
 
-const UserPanel = () => {
+const UserPanel: FC = () => {
   const { user, mutateUser } = useUser()
   const router = useRouter()
   const { i18n } = useI18n()
@@ -43,3 +43,4 @@ const UserPanel = () => {
 }
 
 export default UserPanel
+

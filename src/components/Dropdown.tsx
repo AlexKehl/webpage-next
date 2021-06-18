@@ -1,12 +1,20 @@
-import { Fragment, useState } from 'react'
+import { Fragment, MouseEventHandler, useState } from 'react'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import HeaderButton from './HeaderButton'
 
-const Dropdown = ({ buttonLabel, menuItems }) => {
+interface Props {
+  buttonLabel: string
+  menuItems: {
+    onClick: MouseEventHandler<HTMLLIElement>
+    name: string
+  }[]
+}
+
+const Dropdown = ({ buttonLabel, menuItems }: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget)
   }
 

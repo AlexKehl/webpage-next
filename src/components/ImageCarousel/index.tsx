@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
@@ -18,7 +19,7 @@ const images = [
   },
 ]
 
-const ImageCarousel = () => {
+const ImageCarousel: FC = () => {
   return (
     <div>
       <ImageGallery

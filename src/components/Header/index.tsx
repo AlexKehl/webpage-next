@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
-import useI18n from '@/lib/hooks/useI18n'
-import PComponent from '@/components/Header/PComponent'
+import React, { FC } from 'react'
+import useI18n from '../../lib/hooks/useI18n'
+import PComponent from './PComponent'
 
-const CComponent = () => {
+const CComponent: FC = () => {
   const router = useRouter()
   const { changeLanguage, i18n, locale } = useI18n()
 

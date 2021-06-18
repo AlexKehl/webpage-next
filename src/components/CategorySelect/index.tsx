@@ -1,10 +1,12 @@
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Select from '@material-ui/core/Select'
-import CATEGORIES from '../constants/Categories'
-import { useState } from 'react'
-import FormControl from '@material-ui/core/FormControl'
+import CATEGORIES from '../../constants/Categories'
+import React, { FC, useState } from 'react'
+import { FormControl, InputLabel, MenuItem } from '@material-ui/core'
+
+interface Props {
+  onCategoryChange: (event: any) => void
+}
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -18,11 +20,11 @@ const useStyles = makeStyles((theme) =>
   })
 )
 
-const CategorySelect = ({ onCategoryChange }) => {
+const CategorySelect: FC<Props> = ({ onCategoryChange }) => {
   const classes = useStyles()
   const [selectedCategory, setCategory] = useState(CATEGORIES[0])
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setCategory(event.target.value)
     onCategoryChange(event.target.value)
   }

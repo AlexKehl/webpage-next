@@ -1,7 +1,8 @@
+import { FC } from 'react'
 import ImageCarousel from '../ImageCarousel'
 import WithHeader from '../WithHeader'
 
-const Home = () => {
+const Home: FC = () => {
   return <ImageCarousel />
 }
 

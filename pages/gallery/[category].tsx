@@ -1,11 +1,27 @@
-import { useReducer } from 'react'
-import Gallery from '@/components/Gallery'
-import WithHeader from '@/components/WithHeader'
-import CATEGORIES from '@/constants/Categories'
-import CATEGORY_PICTURE_MAP from '@/constants/CategoryPictures'
-import { generateCategoryPaths } from '@/utils/PathsGenerator.js'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { FC, Reducer, useReducer } from 'react'
+import Gallery from '../../src/components/Gallery'
+import WithHeader from '../../src/components/WithHeader'
+import CATEGORIES from '../../src/constants/Categories'
+import CATEGORY_PICTURE_MAP from '../../src/constants/CategoryPictures'
+import { Photo } from '../../src/types'
+import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 
-const galleryReducer = (state, action) => {
+interface State {
+  currentImage: number
+  isViewerOpen: boolean
+}
+
+interface Props {
+  photos: Photo[]
+}
+
+interface Action {
+  payload?: number
+  type: 'OPEN_LIGHTBOX' | 'CLOSE_LIGHTBOX' | 'SET_CURRENT_IMAGE'
+}
+
+const galleryReducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case 'OPEN_LIGHTBOX':
       return {
@@ -22,7 +38,7 @@ const galleryReducer = (state, action) => {
   }
 }
 
-const GalleryPage = ({ photos }) => {
+const GalleryPage: FC<Props> = ({ photos }) => {
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImage: 0,
     isViewerOpen: false,
@@ -47,12 +63,12 @@ const GalleryPage = ({ photos }) => {
   )
 }
 
-export const getStaticPaths = async ({ locales }) => ({
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => ({
   paths: generateCategoryPaths({ locales, categories: CATEGORIES }),
   fallback: false,
 })
 
-export const getStaticProps = async ({ params }) => ({
+export const getStaticProps: GetStaticProps = async ({ params }) => ({
   props: {
     photos: CATEGORY_PICTURE_MAP[params.category],
   },

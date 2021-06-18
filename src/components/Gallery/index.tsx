@@ -1,8 +1,24 @@
+import React, { FC } from 'react'
 import PhotoGallery from 'react-photo-gallery'
 import Lightbox from 'react-image-lightbox'
 import styles from './index.module.css'
+import { Photo } from '../../types'
 
-const Gallery = ({
+interface GalleryProps {
+  photos: Photo[]
+  openLightbox: (event: any, obj: { index: number }) => void
+  closeLightbox: () => void
+  isViewerOpen: boolean
+  photosSrc: string[]
+  currentImage: number
+  setCurrentImage: (idx: number) => void
+}
+
+const defaultProps = {
+  currentImage: 0,
+}
+
+const Gallery: FC<GalleryProps & typeof defaultProps> = ({
   photos,
   openLightbox,
   closeLightbox,

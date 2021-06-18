@@ -1,7 +1,8 @@
 import Text from './text'
 import styles from './index.module.css'
+import { FC } from 'react'
 
-const About = () => (
+const About: FC = () => (
   <div className={styles.container}>
     <div />
     <div>
