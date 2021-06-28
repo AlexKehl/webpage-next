@@ -1,18 +1,16 @@
 import Text from './text'
-import styles from './index.module.css'
 import { FC } from 'react'
 
 const About: FC = () => (
-  <div className={styles.container}>
-    <div />
-    <div>
-      <div className={styles.imageContainer}>
-        <img className={styles.image} src="/photo_2021-01-14 02.52.26.jpeg" />
-      </div>
-      <div className={styles.textHeading}>My name is FooBar</div>
-      <div className={styles.text}>{Text}</div>
+  <div className="max-w-4xl mx-auto">
+    <div className="flex justify-center">
+      <img
+        className="max-w-full p-4 border-2"
+        src="/photo_2021-01-14 02.52.26.jpeg"
+      />
     </div>
-    <div />
+    <div className="text-center font-bold p-4">My name is FooBar</div>
+    <div className="p-4">{Text}</div>
   </div>
 )
 

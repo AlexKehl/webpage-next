@@ -1,7 +1,6 @@
 import Dropdown from '../Dropdown'
 import CATEGORIES from '../../constants/Categories'
 import PropTypes from 'prop-types'
-import styles from './PComponent.module.css'
 import React, { Fragment } from 'react'
 import { Toolbar } from '@material-ui/core'
 import HeaderButton from '../HeaderButton'
@@ -9,13 +8,13 @@ import UserPanel from '../UserPanel'
 
 const Header = ({ router, i18n, locale, changeLanguage }) => (
   <Fragment>
-    <Toolbar className={styles.toolbar}>
-      <div className={styles.leftHalf}>
+    <Toolbar className="flex justify-between my-2 mx-1">
+      <div>
         <HeaderButton onClick={() => router.push('/')} size="small">
           Anatoly Kehl
         </HeaderButton>
       </div>
-      <div className={`${styles.rightHalf}`}>
+      <div className="flex justify-between">
         <HeaderButton size="small" onClick={() => router.push('/about')}>
           {i18n.about}
         </HeaderButton>
