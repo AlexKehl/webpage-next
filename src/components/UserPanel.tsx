@@ -43,4 +43,3 @@ const UserPanel: FC = () => {
 }
 
 export default UserPanel
-

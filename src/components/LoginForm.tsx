@@ -7,11 +7,31 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import useStyles from './styles'
 import { Alert } from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
 import { useForm } from '../../lib/hooks/useForm'
 import { FC } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}))
 
 const SignIn: FC = () => {
   const classes = useStyles()

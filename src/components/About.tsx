@@ -1,5 +1,5 @@
-import Text from './text'
 import { FC } from 'react'
+import AboutText from '../constants/AboutText'
 
 const About: FC = () => (
   <div className="max-w-4xl mx-auto">
@@ -10,7 +10,7 @@ const About: FC = () => (
       />
     </div>
     <div className="text-center font-bold p-4">My name is FooBar</div>
-    <div className="p-4">{Text}</div>
+    <div className="p-4">{AboutText}</div>
   </div>
 )
 

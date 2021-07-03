@@ -1,3 +1,4 @@
+import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
@@ -10,4 +11,9 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default useStyles
+const HeaderButton = (props: React.ComponentProps<typeof Button>) => {
+  const styles = useStyles()
+  return <Button className={styles.headerButton} {...props} />
+}
+
+export default HeaderButton

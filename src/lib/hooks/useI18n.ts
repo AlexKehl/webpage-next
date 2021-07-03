@@ -3,7 +3,7 @@ import en from '../../locales/en'
 import de from '../../locales/de'
 import ru from '../../locales/ru'
 
-const getTranslated = (locale) => {
+const getTranslated = (locale?: string) => {
   switch (locale) {
     case 'en':
       return en
@@ -21,7 +21,7 @@ const useI18n = () => {
 
   const { locale, pathname, asPath } = router
 
-  const changeLanguage = (locale) => {
+  const changeLanguage = (locale: string) => {
     router.push(pathname, asPath, { locale })
   }
 
