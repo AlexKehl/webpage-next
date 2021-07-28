@@ -70,7 +70,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => ({
 
 export const getStaticProps: GetStaticProps = async ({ params }) => ({
   props: {
-    photos: CATEGORY_PICTURE_MAP[params.category],
+    photos: CATEGORY_PICTURE_MAP[params.category as string],
   },
 })
 

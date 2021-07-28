@@ -1,4 +1,5 @@
-import LoginForm from '@/components/LoginForm'
+import React from 'react'
+import LoginForm from '../src/components/LoginForm'
 
 export const Login = () => (
   <div className="container">

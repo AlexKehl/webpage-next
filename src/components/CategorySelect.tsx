@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Select from '@material-ui/core/Select'
-import CATEGORIES from '../../constants/Categories'
+import CATEGORIES from '../constants/Categories'
 import React, { FC, useState } from 'react'
 import { FormControl, InputLabel, MenuItem } from '@material-ui/core'
 

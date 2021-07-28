@@ -1,4 +1,4 @@
-import CategorySelect from '../../CategorySelect'
+import CategorySelect from './CategorySelect'
 import TextField from '@material-ui/core/TextField'
 
 const FilePreview = ({ meta, onPreviewDataChange }) => {
@@ -18,7 +18,7 @@ const FilePreview = ({ meta, onPreviewDataChange }) => {
       <TextField value={meta.name} id="name" label="Name" />
       <TextField id="description" label="Description" />
 
-      <CategorySelect />
+      <CategorySelect onCategoryChange={() => true} />
     </div>
   )
 }

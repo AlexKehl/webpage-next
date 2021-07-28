@@ -1,9 +1,8 @@
-import { FC, Fragment } from 'react'
-import HeaderButton from '../HeaderButton'
+import React, { FC, Fragment } from 'react'
 import { useRouter } from 'next/router'
-import useUser from '../../lib/hooks/useUser'
-import useI18n from '../../lib/hooks/useI18n'
-import fetchJson from '../../lib/fetchJson'
+import useI18n from '../lib/hooks/useI18n'
+import useUser from '../lib/hooks/useUser'
+import HeaderButton from './HeaderButton'
 
 const UserPanel: FC = () => {
   const { user, mutateUser } = useUser()
@@ -32,7 +31,7 @@ const UserPanel: FC = () => {
           <HeaderButton
             variant="outlined"
             size="small"
-            onClick={() => mutateUser(fetchJson('/api/logout'))}
+            onClick={() => mutateUser(/* '/api/logout' */)}
           >
             Log out
           </HeaderButton>

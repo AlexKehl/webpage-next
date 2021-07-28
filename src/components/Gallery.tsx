@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
-import PhotoGallery from 'react-photo-gallery'
 import Lightbox from 'react-image-lightbox'
-import { Photo } from '../../types'
+import { Photo } from '../types'
 
 interface GalleryProps {
   photos: Photo[]
@@ -27,7 +26,6 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
   setCurrentImage,
 }) => (
   <div className="max-w-6xl mx-auto">
-    <PhotoGallery photos={photos} onClick={openLightbox} />
     {isViewerOpen && (
       <Lightbox
         imagePadding={0}

@@ -13,7 +13,7 @@ const MyUploader = () => {
     <Dropzone
       onSubmit={handleSubmit}
       accept="image/*"
-      PreviewComponent={FilePreview}
+      // PreviewComponent={FilePreview}
     />
   )
 }

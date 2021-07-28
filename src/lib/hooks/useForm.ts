@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import useUser from '../../lib/hooks/useUser.js'
+import useUser from '../../lib/hooks/useUser'
 import fetchJson from '../../lib/fetchJson'
 
 const customUseForm = () => {
@@ -14,14 +14,13 @@ const customUseForm = () => {
 
   const performLogin = async (credentials) => {
     try {
-      await mutateUser(
-        fetchJson({
-          url: '/api/sessions',
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          data: credentials,
-        })
-      )
+      mutateUser()
+      // fetchJson({
+      //   url: '/api/sessions',
+      //   method: 'post',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   data: credentials,
+      // })
     } catch (error) {
       console.error('An unexpected error happened:', error)
       setHasFalseCredentials(true)

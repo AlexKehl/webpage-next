@@ -1,9 +1,8 @@
-import { FC } from 'react'
-import ImageCarousel from '../ImageCarousel'
-import WithHeader from '../WithHeader'
+import React, { FC } from 'react'
+import WithHeader from './WithHeader'
 
 const Home: FC = () => {
-  return <ImageCarousel />
+  return <div />
 }
 
 export default WithHeader(Home)

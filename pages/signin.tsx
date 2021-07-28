@@ -9,7 +9,9 @@ const SignInPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    //@ts-ignore
     const email = emailInput.current.value
+    //@ts-ignore
     const password = passwordInput.current.value
 
     const response = await fetch('/api/sessions', {

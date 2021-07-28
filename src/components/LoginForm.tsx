@@ -9,9 +9,9 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { Alert } from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
-import { useForm } from '../../lib/hooks/useForm'
 import { FC } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { useForm } from '../lib/hooks/useForm'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,8 +35,13 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn: FC = () => {
   const classes = useStyles()
-  const { register, errors, handleSubmit, hasFalseCredentials } = useForm()
+  const {
+    register,
+    /* errors, */ handleSubmit,
+    hasFalseCredentials,
+  } = useForm()
 
+  const errors: any = {}
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,20 +64,20 @@ const SignIn: FC = () => {
             autoComplete="email"
             autoFocus
             name="email"
-            inputRef={register({
-              required: true,
-              pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            })}
+            // inputRef={register({
+            //   required: true,
+            //   pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+            // })}
           />
           <TextField
             inputProps={{ 'data-testid': 'passwordInput' }}
             variant="outlined"
             margin="normal"
             fullWidth
-            inputRef={register({
-              minLength: 3,
-              required: true,
-            })}
+            // inputRef={register({
+            //   minLength: 3,
+            //   required: true,
+            // })}
             name="password"
             label="Password"
             error={Boolean(errors.password)}
