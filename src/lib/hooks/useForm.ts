@@ -8,7 +8,7 @@ import { Credentials } from '../../types'
 const customUseForm = () => {
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
   const useFormProps = useForm()
-  const { push } = useRouter()
+  const router = useRouter()
 
   const performLogin = async (credentials: Credentials) => {
     try {
@@ -18,9 +18,8 @@ const customUseForm = () => {
         data: credentials,
         withCredentials: true,
       })
-      push('/')
+      router.push('/')
     } catch (error) {
-      console.error('An unexpected error happened:', error)
       setHasFalseCredentials(true)
     }
   }

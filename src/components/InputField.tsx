@@ -1,8 +1,9 @@
 import { FC } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
+import { joinClasses } from '../utils/TailWind'
 
 interface Props {
-  label: string
+  label?: string
   error: boolean
   errorText: string
   id: string
@@ -19,19 +20,34 @@ const InputField: FC<Props> = ({
   error,
   label,
 }) => {
-  const normalFieldStateCss =
-    'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+  const normalFieldStateCss = joinClasses([
+    'my-2',
+    'shadow',
+    'appearance-none',
+    'border',
+    'rounded',
+    'w-full',
+    'py-3',
+    'px-3',
+    'text-gray-700',
+    'mb-3',
+    'leading-tight',
+    'focus:outline-none',
+    'focus:shadow-outline',
+  ])
   const errorFieldStateCss = error
     ? `${normalFieldStateCss} border-red-500`
     : normalFieldStateCss
   return (
     <div>
-      <label
-        className="block text-gray-700 text-sm font-bold mb-2"
-        htmlFor="username"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="username"
+        >
+          {label}
+        </label>
+      )}
       <input
         className={errorFieldStateCss}
         id={id}
