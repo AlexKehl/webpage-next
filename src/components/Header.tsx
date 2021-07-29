@@ -11,7 +11,11 @@ const Header: FC = () => {
   const { changeLanguage, i18n, locale } = useI18n()
 
   return (
-    <div></div>
+    <div className="flex justify-between">
+      <HeaderButton value="button" />
+      <HeaderButton value="button" />
+      <HeaderButton value="button" />
+    </div>
     // <Fragment>
     //   <Toolbar className="flex justify-between my-2 mx-1">
     //     <div>
