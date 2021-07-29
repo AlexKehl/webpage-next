@@ -1,13 +1,28 @@
-import React, { FC } from 'react'
+import React, { ButtonHTMLAttributes, FC, HTMLProps } from 'react'
 import { joinClasses } from '../utils/TailWind'
 
-const HeaderButton: FC = (props) => {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  title: string
+}
+
+const HeaderButton: FC<ButtonProps> = ({ title, ...props }) => {
   return (
-    <input
-      type="button"
-      className={joinClasses(['bg-gray-200', 'rounded', 'text-white'])}
+    <button
+      className={joinClasses([
+        'bg-gray-500',
+        'rounded',
+        'text-white',
+        'cursor-pointer',
+        'hover:bg-gray-700',
+        'py-1',
+        'px-4',
+        'focus:outline-none',
+        'focus:shadow-outline',
+      ])}
       {...props}
-    />
+    >
+      {title}
+    </button>
   )
 }
 

@@ -1,3 +1,3 @@
 export const joinClasses = (classes: string[]): string => {
-  return classes.join(' ')
+  return classes.filter(Boolean).join(' ')
 }

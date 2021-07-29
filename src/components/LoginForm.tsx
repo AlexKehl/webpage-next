@@ -8,6 +8,7 @@ import {
 import { joinClasses } from '../utils/TailWind'
 import Alert from './Alert'
 import InputField from './InputField'
+import WithHeader from './WithHeader'
 
 interface Props {
   onSubmit: FormEventHandler<HTMLFormElement>
@@ -97,4 +98,4 @@ const LoginForm: FC<Props> = ({
   )
 }
 
-export default LoginForm
+export default WithHeader(LoginForm)
