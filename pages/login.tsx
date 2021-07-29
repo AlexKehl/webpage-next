@@ -12,17 +12,14 @@ export const Login = () => {
     minLength: 3,
     required: true,
   })
-  console.log(formState)
   return (
-    <div className="container">
-      <LoginForm
-        onSubmit={handleSubmit}
-        hasFalseCredentials={hasFalseCredentials}
-        errors={formState.errors}
-        email={email}
-        password={password}
-      />
-    </div>
+    <LoginForm
+      onSubmit={handleSubmit}
+      hasFalseCredentials={hasFalseCredentials}
+      errors={formState.errors}
+      email={email}
+      password={password}
+    />
   )
 }
 

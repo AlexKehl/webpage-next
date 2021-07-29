@@ -3,3 +3,8 @@ export interface Photo {
   width: number
   height: number
 }
+
+export interface Credentials {
+  email: string
+  password: string
+}

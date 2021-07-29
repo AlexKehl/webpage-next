@@ -1,20 +1,24 @@
+import axios from 'axios'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { API } from '../../../config'
+import { Credentials } from '../../types'
 
 const customUseForm = () => {
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
-  const useFormStuff = useForm()
-  const { handleSubmit } = useFormStuff
+  const useFormProps = useForm()
+  const { push } = useRouter()
 
-  const performLogin = async (credentials) => {
+  const performLogin = async (credentials: Credentials) => {
     try {
-      console.log(credentials)
-      // fetchJson({
-      //   url: '/api/sessions',
-      //   method: 'post',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   data: credentials,
-      // })
+      await axios({
+        url: `${API}/login`,
+        method: 'post',
+        data: credentials,
+        withCredentials: true,
+      })
+      push('/')
     } catch (error) {
       console.error('An unexpected error happened:', error)
       setHasFalseCredentials(true)
@@ -25,8 +29,8 @@ const customUseForm = () => {
     performLogin,
     setHasFalseCredentials,
     hasFalseCredentials,
-    ...useFormStuff,
-    handleSubmit: handleSubmit(performLogin),
+    ...useFormProps,
+    handleSubmit: useFormProps.handleSubmit(performLogin),
   }
 }
 
