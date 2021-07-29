@@ -1,20 +1,14 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import useUser from '../../lib/hooks/useUser'
-import fetchJson from '../../lib/fetchJson'
 
 const customUseForm = () => {
-  const { mutateUser } = useUser({
-    redirectTo: '/',
-    redirectIfFound: true,
-  })
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
   const useFormStuff = useForm()
   const { handleSubmit } = useFormStuff
 
   const performLogin = async (credentials) => {
     try {
-      mutateUser()
+      console.log(credentials)
       // fetchJson({
       //   url: '/api/sessions',
       //   method: 'post',

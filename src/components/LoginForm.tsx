@@ -9,52 +9,43 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { Alert } from '@material-ui/lab'
 import { Snackbar } from '@material-ui/core'
-import { FC } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { useForm } from '../lib/hooks/useForm'
+import { FC, FormEventHandler } from 'react'
+import {
+  DeepMap,
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+  UseFormRegisterReturn,
+} from 'react-hook-form'
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}))
+interface Props {
+  onSubmit: FormEventHandler<HTMLFormElement>
+  hasFalseCredentials: boolean
+  errors: DeepMap<FieldValues, FieldErrors>
+  email: UseFormRegisterReturn
+  password: UseFormRegisterReturn
+}
 
-const SignIn: FC = () => {
-  const classes = useStyles()
-  const {
-    register,
-    /* errors, */ handleSubmit,
-    hasFalseCredentials,
-  } = useForm()
-
-  const errors: any = {}
+const SignIn: FC<Props> = ({
+  onSubmit,
+  hasFalseCredentials,
+  errors,
+  email,
+  password,
+}) => {
+  console.log(errors)
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <div className={''}>
+        <Avatar className="m-2">
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className="w-full mt-2" onSubmit={onSubmit}>
           <TextField
-            inputProps={{ 'data-testid': 'emailInput' }}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -64,20 +55,13 @@ const SignIn: FC = () => {
             autoComplete="email"
             autoFocus
             name="email"
-            // inputRef={register({
-            //   required: true,
-            //   pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            // })}
+            inputRef={email.ref}
           />
           <TextField
-            inputProps={{ 'data-testid': 'passwordInput' }}
             variant="outlined"
             margin="normal"
             fullWidth
-            // inputRef={register({
-            //   minLength: 3,
-            //   required: true,
-            // })}
+            inputRef={password.ref}
             name="password"
             label="Password"
             error={Boolean(errors.password)}
@@ -105,7 +89,7 @@ const SignIn: FC = () => {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className="m-5"
           >
             Sign In
           </Button>
