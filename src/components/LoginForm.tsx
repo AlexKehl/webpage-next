@@ -98,4 +98,4 @@ const LoginForm: FC<Props> = ({
   )
 }
 
-export default WithHeader(LoginForm)
+export default LoginForm

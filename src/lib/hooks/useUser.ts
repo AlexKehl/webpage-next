@@ -1,25 +1,37 @@
-import { useEffect } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useCookies } from 'react-cookie'
+import { Credentials, User } from '../../types'
+import { getObj, setObj } from '../../utils/LocalStorage'
+import { login, logout } from '../api/Auth'
 
-export default function useUser({
-  redirectTo = '',
-  redirectIfFound = false,
-} = {}) {
-  // const { data: user, mutate: mutateUser } = useSWR('/api/sessions', fetchJson)
-  const user = { isLoggedIn: false }
-  const mutateUser = () => true
+const useUser = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
+  const router = useRouter()
+  const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
 
-  useEffect(() => {
-    if (!redirectTo || !user) {
-      return
+  const isLoggedIn = Boolean(cookies.accessToken)
+
+  const setUser = (user: User) => setObj('user', user)
+
+  const getUser = () => getObj<User>('user')
+
+  const performLogin = async (credentials: Credentials) => {
+    try {
+      const user = await login(credentials)
+      setUser(user)
+      router.push('/')
+    } catch (error) {
+      setHasFalseCredentials(true)
     }
-    if (
-      (redirectTo && !redirectIfFound && !user?.isLoggedIn) ||
-      (redirectIfFound && user?.isLoggedIn)
-    ) {
-      Router.push(redirectTo)
-    }
-  }, [user, redirectIfFound, redirectTo])
+  }
 
-  return { user, mutateUser }
+  const performLogout = async () => {
+    removeCookie('accessToken')
+    await logout(getUser().email)
+  }
+
+  return { isLoggedIn, performLogin, performLogout, hasFalseCredentials }
 }
+
+export default useUser

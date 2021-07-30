@@ -1,9 +1,11 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 import LoginForm from '../src/components/LoginForm'
-import { useForm } from '../src/lib/hooks/useForm'
+import useUser from '../src/lib/hooks/useUser'
 
 export const Login = () => {
-  const { handleSubmit, hasFalseCredentials, register, formState } = useForm()
+  const { register, handleSubmit, formState } = useForm()
+  const { hasFalseCredentials, performLogin } = useUser()
   const email = register('email', {
     required: true,
     pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
@@ -14,7 +16,7 @@ export const Login = () => {
   })
   return (
     <LoginForm
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(performLogin)}
       hasFalseCredentials={hasFalseCredentials}
       errors={formState.errors}
       email={email}
