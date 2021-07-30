@@ -1,4 +1,7 @@
 export const getObj = <T = any>(key: string): T => {
+  if (typeof window === 'undefined') {
+    return
+  }
   return JSON.parse(localStorage.getItem(key))
 }
 
