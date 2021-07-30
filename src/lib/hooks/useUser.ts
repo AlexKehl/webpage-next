@@ -31,7 +31,13 @@ const useUser = () => {
     await logout(getUser().email)
   }
 
-  return { isLoggedIn, performLogin, performLogout, hasFalseCredentials }
+  return {
+    isLoggedIn,
+    performLogin,
+    performLogout,
+    hasFalseCredentials,
+    getUser,
+  }
 }
 
 export default useUser
