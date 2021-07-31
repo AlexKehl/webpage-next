@@ -35,8 +35,8 @@ const syncGalleryFiles = async (files: IFileWithMeta[]) => {
   })
 
   formData.append('category', 'acryl')
-  const res = await axios.post(`${API}/file/sync/gallery`, formData)
-  return res
+
+  return axios.post(`${API}/file/sync/gallery`, formData)
 }
 
 export { syncGalleryFiles, getInitialGalleryFiles }
