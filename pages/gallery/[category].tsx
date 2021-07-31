@@ -74,4 +74,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => ({
   },
 })
 
-export default WithHeader(GalleryPage)
+export default GalleryPage

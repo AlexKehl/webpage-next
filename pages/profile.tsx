@@ -10,7 +10,7 @@ const ProfilePage: FC = () => {
   return (
     <div>
       <Profile {...getUser()} />
-      <FileUpload onSubmit={syncGalleryFiles} />
+      <FileUpload onSubmit={syncGalleryFiles} category={'acryl'} />
     </div>
   )
 }
