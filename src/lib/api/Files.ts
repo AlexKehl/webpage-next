@@ -3,6 +3,7 @@ import { IFileWithMeta } from 'react-dropzone-uploader'
 import { API } from '../../../config'
 import { BlobWithMeta } from '../../types'
 import { GalleryCategoryResponse } from '../../types/ApiResponses'
+import { attemptProtectedRequest } from './Auth'
 
 async function getBlobFromUrl(url: string): Promise<Blob> {
   const { data } = await axios({
@@ -36,7 +37,11 @@ const syncGalleryFiles = async (files: IFileWithMeta[]) => {
 
   formData.append('category', 'acryl')
 
-  return axios.post(`${API}/file/sync/gallery`, formData)
+  return attemptProtectedRequest({
+    url: `${API}/file/sync/gallery`,
+    method: 'post',
+    data: formData,
+  })
 }
 
 export { syncGalleryFiles, getInitialGalleryFiles }
