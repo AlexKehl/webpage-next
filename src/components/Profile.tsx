@@ -1,7 +1,6 @@
 import { PaperClipIcon } from '@heroicons/react/solid'
 import React, { FC } from 'react'
 import { User } from '../types'
-import FileUpload from './FileUpload'
 
 const Profile: FC<User> = ({ email }) => {
   return (
@@ -102,10 +101,6 @@ const Profile: FC<User> = ({ email }) => {
             </div>
           </dl>
         </div>
-      </div>
-
-      <div>
-        <FileUpload />
       </div>
     </div>
   )

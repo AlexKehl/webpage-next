@@ -1,35 +1,26 @@
-import React, { FC } from 'react'
-import Dropzone from 'react-dropzone-uploader'
+import React, { FC, useEffect, useState } from 'react'
+import Dropzone, { IFileWithMeta } from 'react-dropzone-uploader'
+import { getInitialGalleryFiles } from '../lib/api/Files'
 
 interface Props {
-  // onSubmit: ()
+  onSubmit: (files: IFileWithMeta[]) => void
+  initialFiles?: File[]
 }
 
-const FileUpload: FC<Props> = ({}) => {
-  // specify upload params and url for your files
-  const getUploadParams = ({ meta }) => {
-    return { url: 'https://httpbin.org/post' }
-  }
+const FileUpload: FC<Props> = ({ onSubmit }) => {
+  const [initialFiles, setInitialFiles] = useState<File[]>([])
 
-  // called every time a file's `status` changes
-  const handleChangeStatus = ({ meta, file }, status) => {
-    console.log(status, meta, file)
-  }
-
-  // receives array of files that are done uploading when submit button is clicked
-  const handleSubmit = (files, allFiles) => {
-    console.log(files)
-    console.log(allFiles)
-    // console.log(files.map((f) => f.meta))
-    // allFiles.forEach((f) => f.remove())
-  }
-
+  useEffect(() => {
+    getInitialGalleryFiles('acryl').then((files) => {
+      console.log(files)
+      setInitialFiles(files)
+    })
+  }, [])
   return (
     <Dropzone
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       accept="image/*"
+      initialFiles={initialFiles}
     />
   )
 }

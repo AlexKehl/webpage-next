@@ -7,7 +7,6 @@ import useUser from '../lib/hooks/useUser'
 const Header: FC = () => {
   const router = useRouter()
   const { isLoggedIn, performLogout } = useUser()
-  console.log(isLoggedIn)
 
   return (
     <div className="flex justify-between bg-gray-100 px-12 py-2">
