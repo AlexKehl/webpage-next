@@ -10,15 +10,14 @@ const useUser = () => {
   const router = useRouter()
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
 
-  const isLoggedIn = Boolean(cookies.accessToken)
-
   const setUser = (user: User) => setObj('user', user)
-
   const getUser = () => getObj<User>('user')
+
+  const isLoggedIn = Boolean(cookies.accessToken)
 
   const performLogin = async (credentials: Credentials) => {
     try {
-      const user = await login(credentials)
+      const { user } = await login(credentials)
       setUser(user)
       router.push('/')
     } catch (error) {
