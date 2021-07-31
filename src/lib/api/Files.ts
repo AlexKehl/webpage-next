@@ -1,49 +1,31 @@
 import axios from 'axios'
 import { IFileWithMeta } from 'react-dropzone-uploader'
 import { API } from '../../../config'
+import { BlobWithMeta } from '../../types'
 import { GalleryCategoryResponse } from '../../types/ApiResponses'
 
-async function getFileFromUrl(url: string, name: string): Promise<File> {
+async function getBlobFromUrl(url: string): Promise<Blob> {
   const { data } = await axios({
     url,
     method: 'get',
     responseType: 'blob',
   })
-  let res: any = data
-  res.lastModifiedDate = new Date()
-  res.name = name
-
-  return res
-  // return {
-  //   ...res,
-  //   lastModifiedDate: new Date(),
-  //   name,
-  // }
-  // res.lastModifiedDate = new Date()
-  // res.name = name
-  // return res
-  // return fetch(url)
-  //   .then((e) => {
-  //     return e.blob()
-  //   })
-  //   .then((blob) => {
-  //     let b: any = blob
-  //     b.lastModifiedDate = new Date()
-  //     b.name = name
-  //
-  //     return b as File
-  //   })
+  return data
 }
 
-const getInitialGalleryFiles = async (category: string): Promise<File[]> => {
+const getInitialGalleryFiles = async (
+  category: string
+): Promise<BlobWithMeta[]> => {
   const { data } = await axios.get<GalleryCategoryResponse>(
     `${API}/files/${category}`
   )
-  const filePromises = data.images.map((image) =>
-    getFileFromUrl(image.url, image.name)
-  )
-  const res = await Promise.all(filePromises)
-  return res
+  const blobPromises = data.images.map((image) => getBlobFromUrl(image.url))
+  const blobs = await Promise.all(blobPromises)
+  const blobsWithMeta: BlobWithMeta[] = blobs.map((blob, idx) => ({
+    blob,
+    name: data.images[idx].name,
+  }))
+  return blobsWithMeta
 }
 
 const syncGalleryFiles = async (files: IFileWithMeta[]) => {

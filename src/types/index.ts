@@ -12,3 +12,8 @@ export interface Credentials {
 export interface User {
   email: string
 }
+
+export interface BlobWithMeta {
+  blob: Blob
+  name: string
+}
