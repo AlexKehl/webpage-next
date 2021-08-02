@@ -1,6 +1,7 @@
 import { PaperClipIcon } from '@heroicons/react/solid'
 import React, { FC } from 'react'
 import { User } from '../types'
+import WithHeader from './WithHeader'
 
 const Profile: FC<User> = ({ email }) => {
   return (
@@ -106,4 +107,4 @@ const Profile: FC<User> = ({ email }) => {
   )
 }
 
-export default Profile
+export default WithHeader(Profile)

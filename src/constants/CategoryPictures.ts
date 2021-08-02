@@ -1,5 +1,5 @@
 export default {
-  Acryl: [
+  acryl: [
     {
       src: '/Acryl/Tchernikov Anatoly 50x40 acrylic, baumvolle..jpeg',
       width: 40,

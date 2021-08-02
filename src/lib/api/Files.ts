@@ -2,7 +2,10 @@ import axios from 'axios'
 import { IFileWithMeta } from 'react-dropzone-uploader'
 import { API } from '../../../config'
 import { BlobWithMeta } from '../../types'
-import { GalleryCategoryResponse } from '../../types/ApiResponses'
+import {
+  GalleryCategoryResponse,
+  ImageForConsumer,
+} from '../../types/ApiResponses'
 import { attemptProtectedRequest } from './Auth'
 
 async function getBlobFromUrl(url: string): Promise<Blob> {
@@ -12,6 +15,15 @@ async function getBlobFromUrl(url: string): Promise<Blob> {
     responseType: 'blob',
   })
   return data
+}
+
+const getGalleryFiles = async (
+  category: string
+): Promise<ImageForConsumer[]> => {
+  const { data } = await axios.get<GalleryCategoryResponse>(
+    `${API}/files/${category}`
+  )
+  return data.images
 }
 
 const getInitialGalleryFiles = async (
@@ -44,4 +56,4 @@ const syncGalleryFiles = async (files: IFileWithMeta[]) => {
   })
 }
 
-export { syncGalleryFiles, getInitialGalleryFiles }
+export { syncGalleryFiles, getInitialGalleryFiles, getGalleryFiles }

@@ -1,7 +1,9 @@
+import { FC } from 'react'
+
 export interface Photo {
-  src: string
-  width: number
-  height: number
+  url: string
+  width?: number
+  height?: number
 }
 
 export interface Credentials {
@@ -17,3 +19,5 @@ export interface BlobWithMeta {
   blob: Blob
   name: string
 }
+
+export type HOC = <T>(component: FC<T>) => FC<T>

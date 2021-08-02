@@ -1,9 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { FC, Reducer, useReducer } from 'react'
 import Gallery from '../../src/components/Gallery'
-import WithHeader from '../../src/components/WithHeader'
 import CATEGORIES from '../../src/constants/Categories'
-import CATEGORY_PICTURE_MAP from '../../src/constants/CategoryPictures'
+import { getGalleryFiles } from '../../src/lib/api/Files'
 import { Photo } from '../../src/types'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 
@@ -44,8 +43,9 @@ const GalleryPage: FC<Props> = ({ photos }) => {
     isViewerOpen: false,
   })
 
-  const photosSrc = photos.map(({ src }) => src)
+  const photosUrl = photos.map(({ url }) => url)
 
+  console.log(photos)
   return (
     <Gallery
       photos={photos}
@@ -54,7 +54,7 @@ const GalleryPage: FC<Props> = ({ photos }) => {
       }
       closeLightbox={() => dispatch({ type: 'CLOSE_LIGHTBOX' })}
       isViewerOpen={state.isViewerOpen}
-      photosSrc={photosSrc}
+      photosUrl={photosUrl}
       currentImage={state.currentImage}
       setCurrentImage={(idx) =>
         dispatch({ type: 'SET_CURRENT_IMAGE', payload: idx })
@@ -65,13 +65,16 @@ const GalleryPage: FC<Props> = ({ photos }) => {
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => ({
   paths: generateCategoryPaths({ locales, categories: CATEGORIES }),
-  fallback: false,
+  fallback: true,
 })
 
-export const getStaticProps: GetStaticProps = async ({ params }) => ({
-  props: {
-    photos: CATEGORY_PICTURE_MAP[params.category as string],
-  },
-})
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+  const photos = await getGalleryFiles(params.category as string)
+  return {
+    props: {
+      photos,
+    },
+  }
+}
 
 export default GalleryPage

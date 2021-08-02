@@ -15,7 +15,10 @@ const Header: FC = () => {
       </div>
       <div className="flex justify-between space-x-3">
         <HeaderButton title="About" onClick={() => router.push('/about')} />
-        <HeaderButton title="Gallery" onClick={() => router.push('/gallery')} />
+        <HeaderButton
+          title="Gallery"
+          onClick={() => router.push('/gallery/acryl')}
+        />
         {!isLoggedIn && (
           <Dropdown
             menuItems={[

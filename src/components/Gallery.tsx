@@ -1,13 +1,14 @@
 import React, { FC } from 'react'
 import Lightbox from 'react-image-lightbox'
 import { Photo } from '../types'
+import WithHeader from './WithHeader'
 
 interface GalleryProps {
   photos: Photo[]
   openLightbox: (event: any, obj: { index: number }) => void
   closeLightbox: () => void
   isViewerOpen: boolean
-  photosSrc: string[]
+  photosUrl: string[]
   currentImage: number
   setCurrentImage: (idx: number) => void
 }
@@ -21,31 +22,39 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
   openLightbox,
   closeLightbox,
   isViewerOpen,
-  photosSrc,
+  photosUrl,
   currentImage,
   setCurrentImage,
 }) => (
-  <div className="max-w-6xl mx-auto">
+  <div className="max-w-6xl">
+    {photos.map((photo, index) => (
+      <img
+        width={'200px'}
+        height={'100px'}
+        src={photo.url}
+        onClick={(event) => openLightbox(event, { index })}
+      />
+    ))}
     {isViewerOpen && (
       <Lightbox
         imagePadding={0}
-        mainSrc={photosSrc[currentImage]}
-        nextSrc={photosSrc[(currentImage + 1) % photosSrc.length]}
+        mainSrc={photosUrl[currentImage]}
+        nextSrc={photosUrl[(currentImage + 1) % photosUrl.length]}
         prevSrc={
-          photosSrc[(currentImage + photosSrc.length - 1) % photosSrc.length]
+          photosUrl[(currentImage + photosUrl.length - 1) % photosUrl.length]
         }
         onCloseRequest={closeLightbox}
         onMovePrevRequest={() =>
           setCurrentImage(
-            (currentImage + photosSrc.length - 1) % photosSrc.length
+            (currentImage + photosUrl.length - 1) % photosUrl.length
           )
         }
         onMoveNextRequest={() =>
-          setCurrentImage((currentImage + 1) % photosSrc.length)
+          setCurrentImage((currentImage + 1) % photosUrl.length)
         }
       />
     )}
   </div>
 )
 
-export default Gallery
+export default WithHeader(Gallery)
