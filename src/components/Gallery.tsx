@@ -26,14 +26,15 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
   currentImage,
   setCurrentImage,
 }) => (
-  <div className="max-w-6xl">
+  <div className="max-w-5xl m-auto mt-3">
     {photos.map((photo, index) => (
-      <img
-        width={'200px'}
-        height={'100px'}
-        src={photo.url}
-        onClick={(event) => openLightbox(event, { index })}
-      />
+      <span className="inline-block mx-3 mb-3 p-0 w-48 h-48 bg-gray-100 rounded-lg">
+        <img
+          className="object-cover h-full m-auto p-1 border"
+          src={photo.url}
+          onClick={(event) => openLightbox(event, { index })}
+        />
+      </span>
     ))}
     {isViewerOpen && (
       <Lightbox
