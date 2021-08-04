@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
 import Lightbox from 'react-image-lightbox'
-import { Photo } from '../types'
-import WithHeader from './WithHeader'
+import { Photo } from '../../types'
+import ImagePresenter from '../ImagePresenter'
+import WithHeader from '../WithHeader'
 
 interface GalleryProps {
   photos: Photo[]
@@ -28,13 +29,10 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
 }) => (
   <div className="max-w-5xl m-auto mt-3">
     {photos.map((photo, index) => (
-      <span className="inline-block mx-3 mb-3 p-0 w-48 h-48 bg-gray-100 rounded-lg">
-        <img
-          className="object-cover h-full m-auto p-1 border"
-          src={photo.url}
-          onClick={(event) => openLightbox(event, { index })}
-        />
-      </span>
+      <ImagePresenter
+        url={photo.url}
+        onClick={(event) => openLightbox(event, { index })}
+      />
     ))}
     {isViewerOpen && (
       <Lightbox

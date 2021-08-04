@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { IFileWithMeta } from 'react-dropzone-uploader'
 import { API } from '../../../config'
-import { BlobWithMeta } from '../../types'
+import { BlobWithMeta, Category } from '../../types'
 import {
   GalleryCategoryResponse,
   ImageForConsumer,
 } from '../../types/ApiResponses'
+import { GalleryImageDto } from '../../types/Dto'
 import { attemptProtectedRequest } from './Auth'
 
 async function getBlobFromUrl(url: string): Promise<Blob> {
@@ -41,18 +42,38 @@ const getInitialGalleryFiles = async (
   return blobsWithMeta
 }
 
-const syncGalleryFiles = async (files: IFileWithMeta[]) => {
-  const formData = new FormData()
-  files.forEach((file) => {
-    formData.append('files', file.file)
-  })
+function arrayBufferToBase64(buffer: ArrayBuffer) {
+  let binary = ''
+  let bytes = new Uint8Array(buffer)
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i])
+  }
+  return window.btoa(binary)
+}
 
-  formData.append('category', 'acryl')
+const syncGalleryFiles = (category: Category) => async (
+  files: IFileWithMeta[]
+) => {
+  const buffers = await Promise.all(
+    files.map((file) => file.file.arrayBuffer())
+  )
 
+  const data: GalleryImageDto = {
+    category,
+    images: files.map((file, idx) => {
+      const buffer = buffers[idx]
+      const encoded = arrayBufferToBase64(buffer)
+      return {
+        image: encoded,
+        name: file.file.name,
+        isForSell: false,
+      }
+    }),
+  }
   return attemptProtectedRequest({
     url: `${API}/file/sync/gallery`,
     method: 'post',
-    data: formData,
+    data: data,
   })
 }
 

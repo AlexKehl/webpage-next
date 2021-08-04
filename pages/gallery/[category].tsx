@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { FC, Reducer, useReducer } from 'react'
-import Gallery from '../../src/components/Gallery'
+import Gallery from '../../src/components/Gallery/Gallery'
 import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'
 import { Photo } from '../../src/types'
