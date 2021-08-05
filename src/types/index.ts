@@ -20,19 +20,8 @@ export interface User {
   roles: Role[]
 }
 
-export interface FileMeta {
-  name: string
-  url: string
-  category: string
-  id: string
-  description?: TranslatedText
-  isForSell: boolean
-  price?: number
-  size: ImageSize
-}
-
-export type FileWithMeta = { file: File } & FileMeta
-
 export type Category = 'acryl' | 'oil'
 
 export type HOC = <T>(component: FC<T>) => FC<T>
+
+export * from './FileUpload'

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API } from '../../../config'
-import { Category, FileWithMeta } from '../../types'
+import { Category, FileToUpload, FileWithMeta } from '../../types'
 import {
   GalleryCategoryResponse,
   ImageForConsumer,
@@ -58,7 +58,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
 }
 
 const syncGalleryFiles = (category: Category) => async (
-  files: FileWithMeta[]
+  files: FileToUpload[]
 ) => {
   const buffers = await Promise.all(
     files.map((file) => file.file.arrayBuffer())

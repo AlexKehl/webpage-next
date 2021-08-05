@@ -7,16 +7,19 @@ import {
   Textarea,
   Text,
   FormLabel,
+  Flex,
 } from '@chakra-ui/react'
 import React, { FC, FormEventHandler, useState } from 'react'
 import { IPreviewProps } from 'react-dropzone-uploader'
 import { useForm } from 'react-hook-form'
-import { Category } from '../../types'
+import { Category, FileToUpload } from '../../types'
 import ImagePresenter from '../ImagePresenter'
+import { isEmpty } from 'lodash'
+import { joinClasses } from '../../utils/TailWind'
 
 interface Props extends IPreviewProps {
   category: Category
-  onSubmit: FormEventHandler<HTMLFormElement>
+  onSubmit: (file: FileToUpload) => void
 }
 
 const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
@@ -25,27 +28,55 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
   const { errors } = formState
   const url = URL.createObjectURL(fileWithMeta.file)
 
+  const isValidated = isEmpty(formState.errors)
+
+  const onSubmitHandler: FormEventHandler<HTMLFormElement> = (val: any) => {
+    const generatedFile: FileToUpload = {
+      file: fileWithMeta.file,
+      name: val.name,
+      isForSell: val.isForSell,
+      size: {
+        width: val.width,
+        height: val.height,
+      },
+      price: val.price,
+      description: val.description,
+    }
+    onSubmit(generatedFile)
+  }
+
   return (
-    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={joinClasses([
+        'w-full',
+        isValidated ? 'bg-green-50' : 'bg-red-50',
+      ])}
+      onSubmit={handleSubmit(onSubmitHandler)}
+    >
       <FormControl className="flex">
         <ImagePresenter url={url} />
         <div id="imageinfo" className="w-1/2">
           <Input
             id="name"
             className="my-1"
-            placeholder="name"
+            placeholder="Name"
             defaultValue={fileWithMeta.meta.name}
             isInvalid={errors.name}
             {...register('name', {
-              required: 'This is required',
+              required: true,
+              pattern: /.+\.(jpg|png|jpeg)$/,
             })}
           />
-          <Textarea className="my-1" placeholder="Description" />
+          <Textarea
+            className="my-1"
+            placeholder="Description"
+            {...register('description')}
+          />
 
           <div className="flex w-full">
             <div id="width-block" className="mx-4">
               <FormLabel>Width</FormLabel>
-              <span className="flex">
+              <Flex>
                 <Input
                   id="width"
                   width={16}
@@ -56,7 +87,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
                 <Text className="self-end" fontSize="md">
                   cm
                 </Text>
-              </span>
+              </Flex>
             </div>
             <div id="height-block" className="mx-4">
               <FormLabel>Height</FormLabel>
@@ -74,7 +105,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
               </span>
             </div>
 
-            <div id="marketing" className="flex mx-4">
+            <Flex id="marketing" className="mx-4">
               <Checkbox
                 className="my-2 mr-2"
                 size="lg"
@@ -100,10 +131,10 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
                   </div>
                 </div>
               )}
-            </div>
+            </Flex>
           </div>
 
-          <div id="controlbuttons" className="flex">
+          <Flex id="controlbuttons">
             <IconButton
               className="mx-1"
               color="green.500"
@@ -118,7 +149,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
               icon={<CloseIcon />}
               onClick={() => fileWithMeta.remove()}
             />
-          </div>
+          </Flex>
         </div>
       </FormControl>
     </form>
