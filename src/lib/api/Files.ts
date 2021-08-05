@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { IFileWithMeta } from 'react-dropzone-uploader'
 import { API } from '../../../config'
-import { BlobWithMeta, Category } from '../../types'
+import { Category, FileWithMeta } from '../../types'
 import {
   GalleryCategoryResponse,
   ImageForConsumer,
@@ -29,17 +28,24 @@ const getGalleryFiles = async (
 
 const getInitialGalleryFiles = async (
   category: string
-): Promise<BlobWithMeta[]> => {
+): Promise<FileWithMeta[]> => {
   const { data } = await axios.get<GalleryCategoryResponse>(
     `${API}/files/${category}`
   )
   const blobPromises = data.images.map((image) => getBlobFromUrl(image.url))
   const blobs = await Promise.all(blobPromises)
-  const blobsWithMeta: BlobWithMeta[] = blobs.map((blob, idx) => ({
-    blob,
+  const filesWithMeta: FileWithMeta[] = blobs.map((blob, idx) => ({
+    file: new File([blob], data.images[idx].name, { type: 'image/jpeg' }),
     name: data.images[idx].name,
+    url: data.images[idx].url,
+    category,
+    isForSell: data.images[idx].isForSell,
+    id: data.images[idx].id,
+    size: data.images[idx].size,
+    price: data.images[idx].price,
+    description: data.images[idx].description,
   }))
-  return blobsWithMeta
+  return filesWithMeta
 }
 
 function arrayBufferToBase64(buffer: ArrayBuffer) {
@@ -52,7 +58,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
 }
 
 const syncGalleryFiles = (category: Category) => async (
-  files: IFileWithMeta[]
+  files: FileWithMeta[]
 ) => {
   const buffers = await Promise.all(
     files.map((file) => file.file.arrayBuffer())
@@ -66,14 +72,17 @@ const syncGalleryFiles = (category: Category) => async (
       return {
         image: encoded,
         name: file.file.name,
-        isForSell: false,
+        isForSell: file.isForSell,
+        size: file.size,
+        price: file.price,
+        description: file.description,
       }
     }),
   }
   return attemptProtectedRequest({
     url: `${API}/file/sync/gallery`,
     method: 'post',
-    data: data,
+    data,
   })
 }
 

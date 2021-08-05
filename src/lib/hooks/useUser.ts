@@ -11,7 +11,7 @@ const useUser = () => {
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
 
   const setUser = (user: User) => setObj('user', user)
-  const getUser = () => getObj<User>('user')
+  const getUser = (): User => getObj<User>('user')
 
   const isLoggedIn = Boolean(cookies.accessToken)
 

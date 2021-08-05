@@ -1,8 +1,10 @@
+import { Button } from '@chakra-ui/react'
+import { NextRouter } from 'next/router'
 import React, { FC } from 'react'
 import Lightbox from 'react-image-lightbox'
-import { Photo } from '../../types'
+import { Photo, User } from '../../types'
+import { hasRole } from '../../utils/UserUtils'
 import ImagePresenter from '../ImagePresenter'
-import WithHeader from '../WithHeader'
 
 interface GalleryProps {
   photos: Photo[]
@@ -12,6 +14,8 @@ interface GalleryProps {
   photosUrl: string[]
   currentImage: number
   setCurrentImage: (idx: number) => void
+  onEdit: (event: any) => void
+  user: User
 }
 
 const defaultProps = {
@@ -26,10 +30,18 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
   photosUrl,
   currentImage,
   setCurrentImage,
+  onEdit,
+  user,
 }) => (
   <div className="max-w-5xl m-auto mt-3">
+    {hasRole(user, 'Admin') && (
+      <div className="flex flex-row-reverse">
+        <Button onClick={onEdit}>Edit</Button>
+      </div>
+    )}
     {photos.map((photo, index) => (
       <ImagePresenter
+        key={index}
         url={photo.url}
         onClick={(event) => openLightbox(event, { index })}
       />
@@ -56,4 +68,4 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
   </div>
 )
 
-export default WithHeader(Gallery)
+export default Gallery

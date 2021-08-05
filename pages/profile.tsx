@@ -4,7 +4,6 @@ import useUser from '../src/lib/hooks/useUser'
 
 const ProfilePage: FC = () => {
   const { getUser } = useUser()
-
   return (
     <div>
       <Profile {...getUser()} />
