@@ -7,8 +7,8 @@ import {
 } from 'react-hook-form'
 import { joinClasses } from '../utils/TailWind'
 import Alert from './Alert'
+import WithHeader from './HOC/WithHeader'
 import InputField from './InputField'
-import WithHeader from './WithHeader'
 
 interface Props {
   onSubmit: FormEventHandler<HTMLFormElement>

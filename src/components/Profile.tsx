@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { syncGalleryFiles } from '../lib/api/Files'
 import { User } from '../types'
 import FileUpload from './FileUpload/FileUpload'
-import WithHeader from './WithHeader'
+import WithHeader from './HOC/WithHeader'
 
 const Profile: FC<User> = ({ email }) => {
   return (

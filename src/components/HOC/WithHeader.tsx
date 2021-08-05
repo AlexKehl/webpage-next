@@ -1,6 +1,6 @@
-import Header from './Header'
 import React from 'react'
-import { HOC } from '../types'
+import { HOC } from '../../types'
+import Header from '../Header'
 
 const WithHeader: HOC = (Component) => (props) => (
   <div>

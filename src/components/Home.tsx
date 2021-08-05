@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import WithHeader from './WithHeader'
+import WithHeader from './HOC/WithHeader'
 
 const Home: FC = () => {
   return <div />
