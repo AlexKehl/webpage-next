@@ -1,9 +1,11 @@
 // @refresh reset
 import React, { FC, useEffect, useState } from 'react'
-import Dropzone from 'react-dropzone-uploader'
+import Dropzone from 'react-dropzone'
 import { getInitialGalleryFiles } from '../../lib/api/Files'
 import { Category, FileToUpload } from '../../types'
 import FileUploadPreview from './FileUploadGalleryPreview'
+import { omit } from 'lodash/fp'
+import { Button } from '@chakra-ui/react'
 
 interface Props {
   category: Category
@@ -19,13 +21,13 @@ const FileUpload: FC<Props> = ({ category, onSubmit }) => {
 
   useEffect(() => {
     getInitialGalleryFiles(category).then((files) => {
-      files.forEach((file) => {
-        setFilesToUpload({
-          ...filesToUpload,
+      const initialFiles = files.reduce((acc, file) => {
+        return {
+          ...acc,
           [file.name]: file,
-        })
-      })
-      // setFilesToUpload(files)
+        }
+      }, {})
+      setFilesToUpload(initialFiles)
     })
   }, [])
 
@@ -34,24 +36,49 @@ const FileUpload: FC<Props> = ({ category, onSubmit }) => {
       ...filesToUpload,
       [file.name]: file,
     })
-    // setFilesToUpload([...filesToUpload, file])
+  }
+
+  const deleteFile = (fileName: string) => {
+    setFilesToUpload(omit(fileName, filesToUpload))
   }
 
   return (
-    <Dropzone
-      onSubmit={() => onSubmit(Object.values(filesToUpload))}
-      accept="image/*"
-      initialFiles={Object.values(filesToUpload)?.map(
-        (fileToUpload) => fileToUpload.file
-      )}
-      PreviewComponent={(props) => (
-        <FileUploadPreview
-          {...props}
-          category={category}
-          onSubmit={onFileFormSubmit}
-        />
-      )}
-    />
+    <div>
+      {Object.values(filesToUpload).map((file, idx) => {
+        return (
+          <FileUploadPreview
+            key={idx}
+            onSubmit={onFileFormSubmit}
+            deleteFile={deleteFile}
+            {...file}
+          />
+        )
+      })}
+      <Dropzone
+        accept="image/*"
+        onDrop={(acceptedFiles: any) => {
+          setFilesToUpload({
+            ...filesToUpload,
+            [acceptedFiles[0].name]: { file: acceptedFiles[0] },
+          })
+        }}
+      >
+        {({ getRootProps, getInputProps }) => (
+          <section className="w-12">
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <Button className="m-2">Add File</Button>
+            </div>
+          </section>
+        )}
+      </Dropzone>
+      <Button
+        className="m-2"
+        onClick={() => onSubmit(Object.values(filesToUpload))}
+      >
+        Submit
+      </Button>
+    </div>
   )
 }
 

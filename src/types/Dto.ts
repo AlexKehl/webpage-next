@@ -1,12 +1,10 @@
-import { TranslatedText } from './Texts'
-
 export interface ImageSize {
   width: number
   height: number
 }
 
 export interface ImageWithMeta {
-  description?: TranslatedText
+  description?: string
   isForSell: boolean
   price?: number
   image: string

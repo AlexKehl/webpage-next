@@ -1,9 +1,8 @@
 import { ImageSize } from './Dto'
-import { TranslatedText } from './Texts'
 
 export interface FileToUpload {
   name: string
-  description?: TranslatedText
+  description?: string
   isForSell: boolean
   price?: number
   size: ImageSize
@@ -15,7 +14,7 @@ export interface FileMeta {
   url: string
   category: string
   id: string
-  description?: TranslatedText
+  description?: string
   isForSell: boolean
   price?: number
   size: ImageSize

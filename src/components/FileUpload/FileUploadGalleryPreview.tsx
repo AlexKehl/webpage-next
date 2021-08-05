@@ -10,29 +10,36 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import React, { FC, FormEventHandler, useState } from 'react'
-import { IPreviewProps } from 'react-dropzone-uploader'
 import { useForm } from 'react-hook-form'
-import { Category, FileToUpload } from '../../types'
+import { FileToUpload } from '../../types'
 import ImagePresenter from '../ImagePresenter'
 import { isEmpty } from 'lodash'
 import { joinClasses } from '../../utils/TailWind'
 
-interface Props extends IPreviewProps {
-  category: Category
+interface Props extends Partial<FileToUpload> {
   onSubmit: (file: FileToUpload) => void
+  deleteFile: Function
 }
 
-const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
-  const [isForSell, setIsForSell] = useState(false)
+const FileUploadPreview: FC<Props> = ({
+  onSubmit,
+  file,
+  deleteFile,
+  size,
+  price,
+  isForSell = false,
+  description,
+}) => {
+  const [isForSellChecked, setIsForSellChecked] = useState(isForSell)
   const { register, handleSubmit, formState } = useForm()
   const { errors } = formState
-  const url = URL.createObjectURL(fileWithMeta.file)
+  const url = URL.createObjectURL(file)
 
   const isValidated = isEmpty(formState.errors)
 
   const onSubmitHandler: FormEventHandler<HTMLFormElement> = (val: any) => {
     const generatedFile: FileToUpload = {
-      file: fileWithMeta.file,
+      file: file,
       name: val.name,
       isForSell: val.isForSell,
       size: {
@@ -60,7 +67,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
             id="name"
             className="my-1"
             placeholder="Name"
-            defaultValue={fileWithMeta.meta.name}
+            defaultValue={file.name}
             isInvalid={errors.name}
             {...register('name', {
               required: true,
@@ -70,6 +77,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
           <Textarea
             className="my-1"
             placeholder="Description"
+            defaultValue={description}
             {...register('description')}
           />
 
@@ -80,6 +88,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
                 <Input
                   id="width"
                   width={16}
+                  defaultValue={size?.width}
                   className="m-1"
                   isInvalid={errors.width}
                   {...register('width', { required: true })}
@@ -95,6 +104,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
                 <Input
                   id="height"
                   width={16}
+                  defaultValue={size?.height}
                   className="m-1"
                   isInvalid={errors.height}
                   {...register('height', { required: true })}
@@ -108,22 +118,24 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
             <Flex id="marketing" className="mx-4">
               <Checkbox
                 className="my-2 mr-2"
+                defaultIsChecked={isForSell}
                 size="lg"
                 {...register('isForSell')}
-                onChange={(e) => setIsForSell(e.target.checked)}
+                onChange={(e) => setIsForSellChecked(e.target.checked)}
               >
                 For sale
               </Checkbox>
-              {isForSell && (
+              {isForSellChecked && (
                 <div id="price-block">
                   <FormLabel>Price</FormLabel>
                   <div className="flex">
                     <Input
                       id="price"
                       width={20}
+                      defaultValue={price}
                       className="m-1"
-                      isInvalid={isForSell && errors.price}
-                      {...register('price', { required: isForSell })}
+                      isInvalid={isForSellChecked && errors.price}
+                      {...register('price', { required: isForSellChecked })}
                     />
                     <Text className="self-end" fontSize="md">
                       Euro
@@ -147,7 +159,7 @@ const FileUploadPreview: FC<Props> = ({ onSubmit, fileWithMeta }) => {
               color="red.500"
               aria-label=""
               icon={<CloseIcon />}
-              onClick={() => fileWithMeta.remove()}
+              onClick={() => deleteFile(file.name)}
             />
           </Flex>
         </div>
