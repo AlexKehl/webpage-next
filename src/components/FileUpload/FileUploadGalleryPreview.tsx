@@ -9,7 +9,7 @@ import {
   FormLabel,
   Flex,
 } from '@chakra-ui/react'
-import React, { FC, FormEventHandler, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FileToUpload } from '../../types'
 import ImagePresenter from '../ImagePresenter'
@@ -18,7 +18,16 @@ import { joinClasses } from '../../utils/TailWind'
 
 interface Props extends Partial<FileToUpload> {
   onSubmit: (file: FileToUpload) => void
-  deleteFile: Function
+  deleteFile: (fileName: string) => void
+}
+
+interface HookFormValidationData {
+  name: string
+  description?: string
+  isForSell: boolean
+  price?: number
+  width: number
+  height: number
 }
 
 const FileUploadPreview: FC<Props> = ({
@@ -31,13 +40,17 @@ const FileUploadPreview: FC<Props> = ({
   description,
 }) => {
   const [isForSellChecked, setIsForSellChecked] = useState(isForSell)
-  const { register, handleSubmit, formState } = useForm()
+  const { register, handleSubmit, formState, trigger } = useForm()
   const { errors } = formState
   const url = URL.createObjectURL(file)
 
   const isValidated = isEmpty(formState.errors)
 
-  const onSubmitHandler: FormEventHandler<HTMLFormElement> = (val: any) => {
+  useEffect(() => {
+    trigger()
+  }, [])
+
+  const onSubmitHandler = (val: HookFormValidationData) => {
     const generatedFile: FileToUpload = {
       file: file,
       name: val.name,
@@ -49,6 +62,7 @@ const FileUploadPreview: FC<Props> = ({
       price: val.price,
       description: val.description,
     }
+
     onSubmit(generatedFile)
   }
 

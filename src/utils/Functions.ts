@@ -9,4 +9,10 @@ const tryCatch = async <T extends Error, U>(
   }
 }
 
-export { tryCatch }
+const setArrayValImmutable = <T>(arr: T[], idx: number, val: any): T[] => {
+  const arrCopy = [...arr]
+  arrCopy[idx] = val
+  return arrCopy
+}
+
+export { tryCatch, setArrayValImmutable }

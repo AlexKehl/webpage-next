@@ -28,6 +28,7 @@ const useUser = () => {
   const performLogout = async () => {
     removeCookie('accessToken', { path: '/' })
     await logout(getUser().email)
+    router.push('/login')
   }
 
   return {

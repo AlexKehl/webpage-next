@@ -6,15 +6,22 @@ import Categories from '../../src/constants/Categories'
 import { syncGalleryFiles } from '../../src/lib/api/Files'
 import { Category } from '../../src/types'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
+import useApi from '../../src/lib/hooks/useApi'
 
 interface Props {
   category: Category
 }
 
 const GalleryEdit: FC<Props> = ({ category }) => {
+  const { validatedRequest } = useApi()
   return (
     <div>
-      <FileUpload onSubmit={syncGalleryFiles(category)} category={category} />
+      <FileUpload
+        onSubmit={(files) =>
+          validatedRequest(() => syncGalleryFiles(category)(files))
+        }
+        category={category}
+      />
     </div>
   )
 }
