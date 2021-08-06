@@ -10,7 +10,7 @@ const useUser = () => {
   const router = useRouter()
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
 
-  const setUser = (user: User) => setObj('user', user)
+  const setUser = (user: User | {}) => setObj('user', user)
   const getUser = (): User => getObj<User>('user')
 
   const isLoggedIn = Boolean(cookies.accessToken)
@@ -27,6 +27,7 @@ const useUser = () => {
 
   const performLogout = async () => {
     removeCookie('accessToken', { path: '/' })
+    setUser({})
     await logout(getUser().email)
     router.push('/login')
   }
