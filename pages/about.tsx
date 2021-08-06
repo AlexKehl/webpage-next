@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import WithHeader from '../src/components/WithHeader'
+import WithHeader from '../src/components/HOC/WithHeader'
 import AboutText from '../src/constants/AboutText'
 
 export const AboutPage: FC = () => (

@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React, { FC } from 'react'
 import FileUpload from '../../src/components/FileUpload/FileUpload'
-import WithHeader from '../../src/components/WithHeader'
+import WithHeader from '../../src/components/HOC/WithHeader'
 import Categories from '../../src/constants/Categories'
 import { syncGalleryFiles } from '../../src/lib/api/Files'
 import { Category } from '../../src/types'

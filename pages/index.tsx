@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import WithHeader from '../src/components/WithHeader'
+import WithHeader from '../src/components/HOC/WithHeader'
 import useI18n from '../src/lib/hooks/useI18n'
 
 export const Home = () => {
