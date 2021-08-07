@@ -15,10 +15,10 @@ import {
 } from '@chakra-ui/react'
 import React, { FC, useState } from 'react'
 import Lightbox from 'react-image-lightbox'
-import { User } from '../../types'
-import { ImageForConsumer } from '../../types/ApiResponses'
-import { hasRole } from '../../utils/UserUtils'
-import ImagePresenter from '../ImagePresenter'
+import { User } from '../../src/types'
+import { ImageForConsumer } from '../../src/types/ApiResponses'
+import { hasRole } from '../../src/utils/UserUtils'
+import ImagePresenter from '../../src/components/ImagePresenter'
 
 interface GalleryProps {
   images: ImageForConsumer[]

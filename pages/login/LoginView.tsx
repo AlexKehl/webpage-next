@@ -5,10 +5,10 @@ import {
   FieldValues,
   UseFormRegisterReturn,
 } from 'react-hook-form'
-import { joinClasses } from '../utils/TailWind'
-import Alert from './Alert'
-import WithHeader from './HOC/WithHeader'
-import InputField from './InputField'
+import { joinClasses } from '../../src/utils/TailWind'
+import Alert from '../../src/components/Alert'
+import WithHeader from '../../src/components/HOC/WithHeader'
+import InputField from '../../src/components/InputField'
 
 interface Props {
   onSubmit: FormEventHandler<HTMLFormElement>

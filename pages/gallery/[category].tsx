@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { FC, Reducer, useReducer } from 'react'
-import Gallery from '../../src/components/Gallery/Gallery'
+import Gallery from './Gallery'
 import WithHeader from '../../src/components/HOC/WithHeader'
 import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'

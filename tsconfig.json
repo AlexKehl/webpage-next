@@ -60,16 +60,11 @@
     /* Advanced Options */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     /* "noEmit": true, */
-    "moduleResolution": "node"
+    "moduleResolution": "node",
     /* "resolveJsonModule": true, */
-    /* "isolatedModules": true */,
-    "allowJs": true,
+    /* "isolatedModules": true */ "allowJs": true,
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true
@@ -78,9 +73,8 @@
     "server.ts",
     "src/**/*.tsx",
     "src/**/*.ts",
-    "knexfile.ts"
+    "knexfile.ts",
+    "pages/gallery/Gallery.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
