@@ -6,7 +6,8 @@ import WithHeader from '../../src/components/HOC/WithHeader'
 import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'
 import useUser from '../../src/lib/hooks/useUser'
-import { Category, Photo } from '../../src/types'
+import { Category } from '../../src/types'
+import { ImageForConsumer } from '../../src/types/ApiResponses'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 
 interface State {
@@ -15,7 +16,7 @@ interface State {
 }
 
 interface Props {
-  photos: Photo[]
+  images: ImageForConsumer[]
   category: Category
 }
 
@@ -33,7 +34,7 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
         isViewerOpen: true,
       }
     case 'CLOSE_LIGHTBOX':
-      return { ...state, currentImage: 0, isViewerOpen: false }
+      return { ...state, isViewerOpen: false }
     case 'SET_CURRENT_IMAGE':
       return { ...state, currentImage: action.payload }
     default:
@@ -41,7 +42,7 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
   }
 }
 
-const GalleryPage: FC<Props> = ({ photos, category }) => {
+const GalleryPage: FC<Props> = ({ images, category }) => {
   const router = useRouter()
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImage: 0,
@@ -49,20 +50,17 @@ const GalleryPage: FC<Props> = ({ photos, category }) => {
   })
   const { getUser } = useUser()
 
-  const photosUrl = photos.map(({ url }) => url)
-
   return (
     <div>
       <Gallery
         user={getUser()}
         onEdit={() => router.push(`/galleryedit/${category}`)}
-        photos={photos}
+        images={images}
         openLightbox={(event, { index }) =>
           dispatch({ type: 'OPEN_LIGHTBOX', payload: index })
         }
         closeLightbox={() => dispatch({ type: 'CLOSE_LIGHTBOX' })}
         isViewerOpen={state.isViewerOpen}
-        photosUrl={photosUrl}
         currentImage={state.currentImage}
         setCurrentImage={(idx) =>
           dispatch({ type: 'SET_CURRENT_IMAGE', payload: idx })
@@ -78,10 +76,10 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => ({
 })
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const photos = await getGalleryFiles(params.category as string)
+  const images = await getGalleryFiles(params.category as string)
   return {
     props: {
-      photos,
+      images,
       category: params.category as Category,
     },
   }

@@ -75,7 +75,7 @@ const FileUploadPreview: FC<Props> = ({
       onSubmit={handleSubmit(onSubmitHandler)}
     >
       <FormControl className="flex">
-        <ImagePresenter url={url} />
+        <ImagePresenter image={{ url }} />
         <div id="imageinfo" className="w-1/2">
           <Input
             id="name"

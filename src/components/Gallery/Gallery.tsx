@@ -1,17 +1,30 @@
-import { Button } from '@chakra-ui/react'
-import { NextRouter } from 'next/router'
-import React, { FC } from 'react'
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Table,
+  Tbody,
+  Td,
+  Tr,
+  useDisclosure,
+} from '@chakra-ui/react'
+import React, { FC, useState } from 'react'
 import Lightbox from 'react-image-lightbox'
-import { Photo, User } from '../../types'
+import { User } from '../../types'
+import { ImageForConsumer } from '../../types/ApiResponses'
 import { hasRole } from '../../utils/UserUtils'
 import ImagePresenter from '../ImagePresenter'
 
 interface GalleryProps {
-  photos: Photo[]
+  images: ImageForConsumer[]
   openLightbox: (event: any, obj: { index: number }) => void
   closeLightbox: () => void
   isViewerOpen: boolean
-  photosUrl: string[]
   currentImage: number
   setCurrentImage: (idx: number) => void
   onEdit: (event: any) => void
@@ -23,49 +36,105 @@ const defaultProps = {
 }
 
 const Gallery: FC<GalleryProps & typeof defaultProps> = ({
-  photos,
+  images,
   openLightbox,
   closeLightbox,
   isViewerOpen,
-  photosUrl,
   currentImage,
   setCurrentImage,
   onEdit,
   user,
-}) => (
-  <div className="max-w-5xl m-auto mt-3">
-    {hasRole(user, 'Admin') && (
-      <div className="flex flex-row-reverse">
-        <Button onClick={onEdit}>Edit</Button>
-      </div>
-    )}
-    {photos.map((photo, index) => (
-      <ImagePresenter
-        key={index}
-        url={photo.url}
-        onClick={(event) => openLightbox(event, { index })}
-      />
-    ))}
-    {isViewerOpen && (
-      <Lightbox
-        imagePadding={0}
-        mainSrc={photosUrl[currentImage]}
-        nextSrc={photosUrl[(currentImage + 1) % photosUrl.length]}
-        prevSrc={
-          photosUrl[(currentImage + photosUrl.length - 1) % photosUrl.length]
-        }
-        onCloseRequest={closeLightbox}
-        onMovePrevRequest={() =>
-          setCurrentImage(
-            (currentImage + photosUrl.length - 1) % photosUrl.length
-          )
-        }
-        onMoveNextRequest={() =>
-          setCurrentImage((currentImage + 1) % photosUrl.length)
-        }
-      />
-    )}
-  </div>
-)
+}) => {
+  const [idx, setIdx] = useState<number>(0)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const imageUrls = images.map((image) => image.url)
+  return (
+    <div className="max-w-5xl m-auto mt-3">
+      {hasRole(user, 'Admin') && (
+        <div className="flex flex-row-reverse">
+          <Button onClick={onEdit}>Edit</Button>
+        </div>
+      )}
+      {images.map((image, index) => (
+        <ImagePresenter
+          key={index}
+          image={image}
+          onClick={(event) => openLightbox(event, { index })}
+          onInfoClick={() => {
+            setIdx(index)
+            onOpen()
+          }}
+        />
+      ))}
+      {isViewerOpen && (
+        <Lightbox
+          imagePadding={0}
+          mainSrc={imageUrls[currentImage]}
+          nextSrc={imageUrls[(currentImage + 1) % imageUrls.length]}
+          prevSrc={
+            imageUrls[(currentImage + imageUrls.length - 1) % imageUrls.length]
+          }
+          onCloseRequest={closeLightbox}
+          onMovePrevRequest={() =>
+            setCurrentImage(
+              (currentImage + imageUrls.length - 1) % imageUrls.length
+            )
+          }
+          onMoveNextRequest={() =>
+            setCurrentImage((currentImage + 1) % imageUrls.length)
+          }
+        />
+      )}
+
+      <Modal isOpen={isOpen} onClose={onClose} size="md">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Info</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Table variant="simple" className="mb-4">
+              <Tbody>
+                <Tr>
+                  <Td>Name</Td>
+                  <Td>{images[idx].name}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Width</Td>
+                  <Td>{images[idx].size.width} cm</Td>
+                </Tr>
+                <Tr>
+                  <Td>Height</Td>
+                  <Td>{images[idx].size.height} cm</Td>
+                </Tr>
+                <Tr>
+                  <Td>Is for sell</Td>
+                  <Td>
+                    {images[idx].isForSell ? (
+                      <CheckIcon color="green.500" />
+                    ) : (
+                      <CloseIcon color="red.500" />
+                    )}
+                  </Td>
+                </Tr>
+                {images[idx].isForSell && (
+                  <Tr>
+                    <Td>Price</Td>
+                    <Td>{images[idx].price} Euro</Td>
+                  </Tr>
+                )}
+                {images[idx].description && (
+                  <Tr>
+                    <Td>Description</Td>
+                    <Td>{images[idx].description}</Td>
+                  </Tr>
+                )}
+              </Tbody>
+            </Table>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </div>
+  )
+}
 
 export default Gallery
