@@ -74,8 +74,8 @@
     "src/**/*.tsx",
     "src/**/*.ts",
     "knexfile.ts",
-    "pages/gallery/Gallery.tsx",
-    "pages/gallery/FileUploadGalleryPreview.tsx",
+    "pages/gallery/GalleryView.tsx",
+    "pages/galleryedit/FileUploadGalleryPreview.tsx",
     "pages/login/LoginView.tsx"
   ],
   "exclude": ["node_modules"]

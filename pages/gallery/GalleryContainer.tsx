@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { FC, Reducer, useReducer } from 'react'
-import Gallery from './Gallery'
+import Gallery from './GalleryView'
 import WithHeader from '../../src/components/HOC/WithHeader'
 import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'
@@ -51,22 +51,20 @@ const GalleryPage: FC<Props> = ({ images, category }) => {
   const { getUser } = useUser()
 
   return (
-    <div>
-      <Gallery
-        user={getUser()}
-        onEdit={() => router.push(`/galleryedit/${category}`)}
-        images={images}
-        openLightbox={(event, { index }) =>
-          dispatch({ type: 'OPEN_LIGHTBOX', payload: index })
-        }
-        closeLightbox={() => dispatch({ type: 'CLOSE_LIGHTBOX' })}
-        isViewerOpen={state.isViewerOpen}
-        currentImage={state.currentImage}
-        setCurrentImage={(idx) =>
-          dispatch({ type: 'SET_CURRENT_IMAGE', payload: idx })
-        }
-      />
-    </div>
+    <Gallery
+      user={getUser()}
+      onEdit={() => router.push(`/galleryedit/${category}`)}
+      images={images}
+      openLightbox={(event, { index }) =>
+        dispatch({ type: 'OPEN_LIGHTBOX', payload: index })
+      }
+      closeLightbox={() => dispatch({ type: 'CLOSE_LIGHTBOX' })}
+      isViewerOpen={state.isViewerOpen}
+      currentImage={state.currentImage}
+      setCurrentImage={(idx) =>
+        dispatch({ type: 'SET_CURRENT_IMAGE', payload: idx })
+      }
+    />
   )
 }
 
