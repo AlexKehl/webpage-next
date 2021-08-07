@@ -1,7 +1,7 @@
 import { PaperClipIcon } from '@heroicons/react/solid'
 import React, { FC } from 'react'
-import { User } from '../types'
-import WithHeader from './HOC/WithHeader'
+import { User } from '../../src/types'
+import WithHeader from '../../src/components/HOC/WithHeader'
 
 const Profile: FC<User> = ({ email }) => {
   return (

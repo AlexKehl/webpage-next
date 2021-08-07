@@ -11,10 +11,10 @@ import {
 } from '@chakra-ui/react'
 import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { FileToUpload } from '../../types'
-import ImagePresenter from '../ImagePresenter'
+import { FileToUpload } from '../../src/types'
+import ImagePresenter from '../../src/components/ImagePresenter'
 import { isEmpty } from 'lodash'
-import { joinClasses } from '../../utils/TailWind'
+import { joinClasses } from '../../src/utils/TailWind'
 
 interface Props extends Partial<FileToUpload> {
   onSubmit: (file: FileToUpload) => void

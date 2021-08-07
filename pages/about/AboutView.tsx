@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import WithHeader from '../src/components/HOC/WithHeader'
-import AboutText from '../src/constants/AboutText'
+import WithHeader from '../../src/components/HOC/WithHeader'
+import AboutText from '../../src/constants/AboutText'
 
 export const AboutPage: FC = () => (
   <div className="max-w-4xl mx-auto">

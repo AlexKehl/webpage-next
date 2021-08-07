@@ -1,9 +1,9 @@
 // @refresh reset
 import React, { FC, useEffect, useState } from 'react'
 import Dropzone from 'react-dropzone'
-import { getInitialGalleryFiles } from '../../lib/api/Files'
-import { Category, FileToUpload } from '../../types'
-import FileUploadPreview from './FileUploadGalleryPreview'
+import { getInitialGalleryFiles } from '../lib/api/Files'
+import { Category, FileToUpload } from '../types'
+import FileUploadPreview from '../../pages/gallery/FileUploadGalleryPreview'
 import { omit } from 'lodash/fp'
 import { Button } from '@chakra-ui/react'
 

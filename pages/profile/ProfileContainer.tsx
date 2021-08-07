@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import Profile from '../src/components/Profile'
-import useUser from '../src/lib/hooks/useUser'
+import useUser from '../../src/lib/hooks/useUser'
+import ProfileView from './ProfileView'
 
 const ProfilePage: FC = () => {
   const { getUser } = useUser()
   return (
     <div>
-      <Profile {...getUser()} />
+      <ProfileView {...getUser()} />
     </div>
   )
 }

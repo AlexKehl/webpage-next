@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import LoginForm from '../src/components/LoginForm'
-import useUser from '../src/lib/hooks/useUser'
+import LoginView from './LoginView'
+import useUser from '../../src/lib/hooks/useUser'
 
 export const Login = () => {
   const { register, handleSubmit, formState } = useForm()
@@ -15,7 +15,7 @@ export const Login = () => {
     required: true,
   })
   return (
-    <LoginForm
+    <LoginView
       onSubmit={handleSubmit(performLogin)}
       hasFalseCredentials={hasFalseCredentials}
       errors={formState.errors}
