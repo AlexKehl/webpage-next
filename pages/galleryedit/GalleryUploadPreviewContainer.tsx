@@ -27,7 +27,7 @@ const FileUploadPreviewContainer: FC<Props> = ({
     isForSell,
     width: size?.width,
     height: size?.height,
-    name: name,
+    name: name || file.name,
     price,
     description,
   })
