@@ -85,7 +85,6 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
           }
         />
       )}
-
       <Modal isOpen={isOpen} onClose={onClose} size="md">
         <ModalOverlay />
         <ModalContent>

@@ -1,98 +1,52 @@
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import {
   Checkbox,
+  Flex,
   FormControl,
+  FormLabel,
   IconButton,
   Input,
-  Textarea,
   Text,
-  FormLabel,
-  Flex,
+  Textarea,
 } from '@chakra-ui/react'
-import React, { FC, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { FileToUpload } from '../../src/types'
+import React, { ChangeEventHandler, FC, FormEventHandler } from 'react'
 import ImagePresenter from '../../src/components/ImagePresenter'
-import { isEmpty } from 'lodash'
 import { joinClasses } from '../../src/utils/TailWind'
+import { PreviewFormData } from './types'
 
-interface Props extends Partial<FileToUpload> {
-  onSubmit: (file: FileToUpload) => void
-  deleteFile: (fileName: string) => void
+interface Props {
+  onSubmit: FormEventHandler<HTMLFormElement>
+  onDelete: (fileName: string) => void
+  imageUrl: string
+  onFormFieldChange: ChangeEventHandler<any>
+  formData: PreviewFormData
 }
 
-interface HookFormValidationData {
-  name: string
-  description?: string
-  isForSell: boolean
-  price?: number
-  width: number
-  height: number
-}
-
-const FileUploadPreview: FC<Props> = ({
+const FileUploadPreviewView: FC<Props> = ({
   onSubmit,
-  file,
-  deleteFile,
-  size,
-  price,
-  isForSell = false,
-  description,
+  onDelete,
+  imageUrl,
+  onFormFieldChange,
+  formData,
 }) => {
-  const [isForSellChecked, setIsForSellChecked] = useState(isForSell)
-  const { register, handleSubmit, formState, trigger } = useForm()
-  const { errors } = formState
-  const url = URL.createObjectURL(file)
-
-  const isValidated = isEmpty(formState.errors)
-
-  useEffect(() => {
-    trigger()
-  }, [])
-
-  const onSubmitHandler = (val: HookFormValidationData) => {
-    const generatedFile: FileToUpload = {
-      file: file,
-      name: val.name,
-      isForSell: val.isForSell,
-      size: {
-        width: val.width,
-        height: val.height,
-      },
-      price: val.price,
-      description: val.description,
-    }
-
-    onSubmit(generatedFile)
-  }
-
   return (
-    <form
-      className={joinClasses([
-        'w-full',
-        isValidated ? 'bg-green-50' : 'bg-red-50',
-      ])}
-      onSubmit={handleSubmit(onSubmitHandler)}
-    >
+    <form className={joinClasses(['w-full', 'bg-gray-50'])} onSubmit={onSubmit}>
       <FormControl className="flex">
-        <ImagePresenter image={{ url }} />
+        <ImagePresenter image={{ url: imageUrl }} />
         <div id="imageinfo" className="w-1/2">
           <Input
             id="name"
             className="my-1"
             placeholder="Name"
-            defaultValue={file.name}
-            isInvalid={errors.name}
-            {...register('name', {
-              required: true,
-              pattern: /.+\.(jpg|png|jpeg)$/,
-            })}
+            onChange={onFormFieldChange}
+            defaultValue={formData.name}
           />
           <Textarea
+            id="description"
             className="my-1"
             placeholder="Description"
-            defaultValue={description}
-            {...register('description')}
+            onChange={onFormFieldChange}
+            defaultValue={formData.description}
           />
 
           <div className="flex w-full">
@@ -102,10 +56,9 @@ const FileUploadPreview: FC<Props> = ({
                 <Input
                   id="width"
                   width={16}
-                  defaultValue={size?.width}
+                  defaultValue={formData.width}
+                  onChange={onFormFieldChange}
                   className="m-1"
-                  isInvalid={errors.width}
-                  {...register('width', { required: true })}
                 />
                 <Text className="self-end" fontSize="md">
                   cm
@@ -118,10 +71,9 @@ const FileUploadPreview: FC<Props> = ({
                 <Input
                   id="height"
                   width={16}
-                  defaultValue={size?.height}
+                  onChange={onFormFieldChange}
+                  defaultValue={formData.height}
                   className="m-1"
-                  isInvalid={errors.height}
-                  {...register('height', { required: true })}
                 />
                 <Text className="self-end" fontSize="md">
                   cm
@@ -131,25 +83,24 @@ const FileUploadPreview: FC<Props> = ({
 
             <Flex id="marketing" className="mx-4">
               <Checkbox
+                id="isForSell"
                 className="my-2 mr-2"
-                defaultIsChecked={isForSell}
+                defaultIsChecked={formData.isForSell}
                 size="lg"
-                {...register('isForSell')}
-                onChange={(e) => setIsForSellChecked(e.target.checked)}
+                onChange={onFormFieldChange}
               >
                 For sale
               </Checkbox>
-              {isForSellChecked && (
+              {formData.isForSell && (
                 <div id="price-block">
                   <FormLabel>Price</FormLabel>
                   <div className="flex">
                     <Input
                       id="price"
                       width={20}
-                      defaultValue={price}
+                      onChange={onFormFieldChange}
+                      defaultValue={formData.price}
                       className="m-1"
-                      isInvalid={isForSellChecked && errors.price}
-                      {...register('price', { required: isForSellChecked })}
                     />
                     <Text className="self-end" fontSize="md">
                       Euro
@@ -173,7 +124,7 @@ const FileUploadPreview: FC<Props> = ({
               color="red.500"
               aria-label=""
               icon={<CloseIcon />}
-              onClick={() => deleteFile(file.name)}
+              onClick={() => onDelete(formData.name)}
             />
           </Flex>
         </div>
@@ -182,4 +133,4 @@ const FileUploadPreview: FC<Props> = ({
   )
 }
 
-export default FileUploadPreview
+export default FileUploadPreviewView

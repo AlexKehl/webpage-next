@@ -3,9 +3,9 @@ import React, { FC, useEffect, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { getInitialGalleryFiles } from '../lib/api/Files'
 import { Category, FileToUpload } from '../types'
-import FileUploadPreview from '../../pages/galleryedit/FileUploadGalleryPreview'
 import { omit } from 'lodash/fp'
 import { Button } from '@chakra-ui/react'
+import FileUploadPreviewContainer from '../../pages/galleryedit/FileUploadPreviewContainer'
 
 interface Props {
   category: Category
@@ -38,7 +38,7 @@ const FileUpload: FC<Props> = ({ category, onSubmit }) => {
     })
   }
 
-  const deleteFile = (fileName: string) => {
+  const onDelete = (fileName: string) => {
     setFilesToUpload(omit(fileName, filesToUpload))
   }
 
@@ -46,10 +46,10 @@ const FileUpload: FC<Props> = ({ category, onSubmit }) => {
     <div>
       {Object.values(filesToUpload).map((file, idx) => {
         return (
-          <FileUploadPreview
+          <FileUploadPreviewContainer
             key={idx}
             onSubmit={onFileFormSubmit}
-            deleteFile={deleteFile}
+            onDelete={onDelete}
             {...file}
           />
         )
