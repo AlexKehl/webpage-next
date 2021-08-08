@@ -15,7 +15,7 @@ import { joinClasses } from '../../src/utils/TailWind'
 import { PreviewFormData } from './types'
 
 interface Props {
-  onSubmit: FormEventHandler<HTMLFormElement>
+  onPreviewConfirm: FormEventHandler<HTMLFormElement>
   onDelete: (fileName: string) => void
   imageUrl: string
   onFormFieldChange: ChangeEventHandler<any>
@@ -23,14 +23,17 @@ interface Props {
 }
 
 const FileUploadPreviewView: FC<Props> = ({
-  onSubmit,
+  onPreviewConfirm,
   onDelete,
   imageUrl,
   onFormFieldChange,
   formData,
 }) => {
   return (
-    <form className={joinClasses(['w-full', 'bg-gray-50'])} onSubmit={onSubmit}>
+    <form
+      className={joinClasses(['w-full', 'bg-gray-50'])}
+      onSubmit={onPreviewConfirm}
+    >
       <FormControl className="flex">
         <ImagePresenter image={{ url: imageUrl }} />
         <div id="imageinfo" className="w-1/2">

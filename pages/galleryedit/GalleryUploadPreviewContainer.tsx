@@ -5,16 +5,16 @@ import React, {
   useState,
 } from 'react'
 import { FileToUpload } from '../../src/types'
-import FileUploadGalleryPreviewView from './FileUploadPreviewView'
+import FileUploadGalleryPreviewView from './GalleryUploadPreviewView'
 import { PreviewFormData } from './types'
 
 interface Props extends Partial<FileToUpload> {
-  onSubmit: (file: FileToUpload) => void
+  onPreviewConfirm: (file: FileToUpload) => void
   onDelete: (fileName: string) => void
 }
 
 const FileUploadPreviewContainer: FC<Props> = ({
-  onSubmit,
+  onPreviewConfirm,
   file,
   onDelete,
   size,
@@ -25,14 +25,14 @@ const FileUploadPreviewContainer: FC<Props> = ({
 }) => {
   const [formData, updateFormData] = useState<PreviewFormData>({
     isForSell,
-    width: size.width,
-    height: size.height,
+    width: size?.width,
+    height: size?.height,
     name: name,
     price,
     description,
   })
 
-  const onSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
+  const onPreviewConfirmHandler: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     const generatedFile: FileToUpload = {
       file: file,
@@ -42,7 +42,7 @@ const FileUploadPreviewContainer: FC<Props> = ({
         height: formData.height,
       },
     }
-    onSubmit(generatedFile)
+    onPreviewConfirm(generatedFile)
   }
 
   const onFormFieldChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -57,7 +57,7 @@ const FileUploadPreviewContainer: FC<Props> = ({
     <FileUploadGalleryPreviewView
       formData={formData}
       onFormFieldChange={onFormFieldChange}
-      onSubmit={onSubmitHandler}
+      onPreviewConfirm={onPreviewConfirmHandler}
       imageUrl={URL.createObjectURL(file)}
       onDelete={onDelete}
     />

@@ -1,3 +1,5 @@
+import { FileToUpload } from '../../src/types'
+
 export interface PreviewFormData {
   name: string
   description?: string
@@ -5,4 +7,8 @@ export interface PreviewFormData {
   price?: number
   width: number
   height: number
+}
+
+export interface FilesToUpload {
+  [x: string]: FileToUpload
 }

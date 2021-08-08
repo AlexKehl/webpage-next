@@ -76,7 +76,8 @@
     "knexfile.ts",
     "pages/gallery/GalleryView.tsx",
     "pages/galleryedit/FileUploadGalleryPreview.tsx",
-    "pages/login/LoginView.tsx"
+    "pages/login/LoginView.tsx",
+    "pages/galleryedit/GalleryEditView.tsx"
   ],
   "exclude": ["node_modules"]
 }
