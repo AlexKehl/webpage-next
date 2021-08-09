@@ -4,39 +4,36 @@ import React, {
   FormEventHandler,
   useState,
 } from 'react'
+import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import { deleteImage, uploadImage } from '../../src/lib/api/Files'
 import useApi from '../../src/lib/hooks/useApi'
-import { FileToUpload, FileWithMeta } from '../../src/types'
+import { FileWithMeta } from '../../src/types/GalleryImages'
 import FileUploadGalleryPreviewView from './GalleryUploadPreviewView'
-import { PreviewFormData } from './types'
 
 interface Props {
   onRemoveFile: (fileName: string) => void
-  file: FileWithMeta
+  fileWithMeta: FileWithMeta
 }
 
-const FileUploadPreviewContainer: FC<Props> = ({ onRemoveFile, file }) => {
+const FileUploadPreviewContainer: FC<Props> = ({
+  onRemoveFile,
+  fileWithMeta,
+}) => {
+  const { file, ...fileMeta } = fileWithMeta
+
   const { validatedRequest } = useApi()
-  const [formData, updateFormData] = useState<PreviewFormData>({
-    isForSell: file.isForSell,
-    width: file.size?.width,
-    height: file.size?.height,
-    name: file.name || file.file.name,
-    price: file.price,
-    description: file.description,
+  const [formData, updateFormData] = useState<GalleryImageMeta>({
+    isForSell: fileWithMeta.isForSell,
+    size: fileWithMeta.size,
+    name: fileWithMeta.name || fileWithMeta.file.name,
+    price: fileWithMeta.price,
+    description: fileWithMeta.description,
+    category: fileWithMeta.category,
   })
 
   const onPreviewConfirm: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    const generatedFile: FileToUpload = {
-      file: file.file,
-      ...formData,
-      size: {
-        width: formData.width,
-        height: formData.height,
-      },
-    }
-    validatedRequest(() => uploadImage(file.category)(generatedFile))
+    validatedRequest(() => uploadImage(fileWithMeta))
   }
 
   const onFormFieldChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -47,17 +44,19 @@ const FileUploadPreviewContainer: FC<Props> = ({ onRemoveFile, file }) => {
     })
   }
 
-  const onRemoveFileAndForward = async (name: string) => {
-    await validatedRequest(() => deleteImage(file.category, name))
-    onRemoveFile(name)
+  const onRemoveFileAndForward = async () => {
+    await validatedRequest(() =>
+      deleteImage(fileWithMeta.category, fileWithMeta.name)
+    )
+    onRemoveFile(fileWithMeta.name)
   }
 
   return (
     <FileUploadGalleryPreviewView
-      formData={formData}
+      galleryImageMeta={fileMeta}
       onFormFieldChange={onFormFieldChange}
       onPreviewConfirm={onPreviewConfirm}
-      imageUrl={URL.createObjectURL(file?.file || file)}
+      imageUrl={URL.createObjectURL(fileWithMeta.file)}
       onRemoveFile={onRemoveFileAndForward}
     />
   )

@@ -69,15 +69,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": [
-    "server.ts",
-    "src/**/*.tsx",
-    "src/**/*.ts",
-    "knexfile.ts",
-    "pages/gallery/GalleryView.tsx",
-    "pages/galleryedit/FileUploadGalleryPreview.tsx",
-    "pages/login/LoginView.tsx",
-    "pages/galleryedit/GalleryEditView.tsx"
-  ],
+  "include": ["src/**/*.tsx", "src/**/*.ts", "pages/**/*.ts"],
   "exclude": ["node_modules"]
 }

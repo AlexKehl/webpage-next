@@ -7,7 +7,7 @@ import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'
 import useUser from '../../src/lib/hooks/useUser'
 import { Category } from '../../src/types'
-import { ImageForConsumer } from '../../src/types/ApiResponses'
+import { ImageForGallery } from '../../src/types/ApiResponses'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 
 interface State {
@@ -16,7 +16,7 @@ interface State {
 }
 
 interface Props {
-  images: ImageForConsumer[]
+  images: ImageForGallery[]
   category: Category
 }
 

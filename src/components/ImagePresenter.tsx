@@ -1,10 +1,10 @@
 import { InfoOutlineIcon } from '@chakra-ui/icons'
 import React, { FC } from 'react'
-import { ImageForConsumer } from '../types/ApiResponses'
+import { ImageForGallery } from '../../common/interface/ConsumerData'
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
-  image: Partial<ImageForConsumer>
+  image: Partial<ImageForGallery>
   onInfoClick?: React.MouseEventHandler<SVGElement>
 }
 
@@ -19,7 +19,7 @@ const ImagePresenter: FC<Props> = ({ onClick, image, onInfoClick }) => {
         />
       )}
       <img
-        className="object-cover h-full m-auto p-1 border"
+        className="object-cover h-full p-1 m-auto border"
         src={image.url}
         onClick={onClick}
       />

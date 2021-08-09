@@ -2,7 +2,7 @@
 import { Button } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import Dropzone from 'react-dropzone'
-import { FileWithMeta } from '../../src/types'
+import { FileWithMeta } from '../../src/types/GalleryImages'
 import GalleryUploadPreviewContainer from './GalleryUploadPreviewContainer'
 
 interface Props {
@@ -18,11 +18,11 @@ const GalleryEditView: FC<Props> = ({
 }) => {
   return (
     <div>
-      {filesList?.map((file, idx) => {
+      {filesList?.map((fileWithMeta, idx) => {
         return (
           <GalleryUploadPreviewContainer
             key={idx}
-            file={file}
+            fileWithMeta={fileWithMeta}
             onRemoveFile={onRemoveFile}
           />
         )
