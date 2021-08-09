@@ -6,9 +6,9 @@ import WithHeader from '../../src/components/HOC/WithHeader'
 import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'
 import useUser from '../../src/lib/hooks/useUser'
-import { Category } from '../../src/types'
-import { ImageForGallery } from '../../src/types/ApiResponses'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
+import { ImageForGallery } from '../../common/interface/ConsumerData'
+import { Category } from '../../common/interface/Constants'
 
 interface State {
   currentImage: number
