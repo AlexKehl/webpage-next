@@ -2,68 +2,35 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import React, { FC, useEffect, useState } from 'react'
 import WithHeader from '../../src/components/HOC/WithHeader'
 import Categories from '../../src/constants/Categories'
-import {
-  getInitialGalleryFiles,
-  syncGalleryFiles,
-} from '../../src/lib/api/Files'
-import { Category, FileToUpload } from '../../src/types'
+import { getInitialGalleryFiles } from '../../src/lib/api/Files'
+import { Category, FileWithMeta } from '../../src/types'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
-import useApi from '../../src/lib/hooks/useApi'
-import { omit } from 'lodash/fp'
 import GalleryEditView from './GalleryEditView'
-import { FilesToUpload } from './types'
 
 interface Props {
   category: Category
 }
 
 const GalleryEdit: FC<Props> = ({ category }) => {
-  const { validatedRequest } = useApi()
-  const [filesToUpload, setFilesToUpload] = useState<FilesToUpload>({})
+  const [filesList, setFilesList] = useState<FileWithMeta[]>()
 
   useEffect(() => {
-    getInitialGalleryFiles(category).then((files) => {
-      const initialFiles = files.reduce((acc, file) => {
-        return {
-          ...acc,
-          [file.name]: file,
-        }
-      }, {})
-      setFilesToUpload(initialFiles)
-    })
+    getInitialGalleryFiles(category).then(setFilesList)
   }, [])
 
-  const onPreviewConfirm = (file: FileToUpload) => {
-    setFilesToUpload({
-      ...filesToUpload,
-      [file.name]: file,
-    })
+  const onAddFiles = (acceptedFiles: any[]) => {
+    setFilesList([...filesList, ...acceptedFiles])
   }
 
-  const onAddFiles = (acceptedFiles: any) => {
-    setFilesToUpload({
-      ...filesToUpload,
-      [acceptedFiles[0].name]: { file: acceptedFiles[0] },
-    })
-  }
-
-  const onDelete = (fileName: string) => {
-    setFilesToUpload(omit(fileName, filesToUpload))
-  }
-
-  const onSubmit = () => {
-    validatedRequest(() =>
-      syncGalleryFiles(category)(Object.values(filesToUpload))
-    )
+  const onRemoveFile = (fileName: string) => {
+    setFilesList(filesList.filter((file) => file.name !== fileName))
   }
 
   return (
     <GalleryEditView
-      onSubmit={onSubmit}
-      onDelete={onDelete}
-      filesToUpload={filesToUpload}
-      onPreviewConfirm={onPreviewConfirm}
+      filesList={filesList}
       onAddFiles={onAddFiles}
+      onRemoveFile={onRemoveFile}
     />
   )
 }

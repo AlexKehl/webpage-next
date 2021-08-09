@@ -4,45 +4,39 @@ import React, {
   FormEventHandler,
   useState,
 } from 'react'
-import { FileToUpload } from '../../src/types'
+import { deleteImage, uploadImage } from '../../src/lib/api/Files'
+import useApi from '../../src/lib/hooks/useApi'
+import { FileToUpload, FileWithMeta } from '../../src/types'
 import FileUploadGalleryPreviewView from './GalleryUploadPreviewView'
 import { PreviewFormData } from './types'
 
-interface Props extends Partial<FileToUpload> {
-  onPreviewConfirm: (file: FileToUpload) => void
-  onDelete: (fileName: string) => void
+interface Props {
+  onRemoveFile: (fileName: string) => void
+  file: FileWithMeta
 }
 
-const FileUploadPreviewContainer: FC<Props> = ({
-  onPreviewConfirm,
-  file,
-  onDelete,
-  size,
-  price,
-  isForSell = false,
-  description,
-  name,
-}) => {
+const FileUploadPreviewContainer: FC<Props> = ({ onRemoveFile, file }) => {
+  const { validatedRequest } = useApi()
   const [formData, updateFormData] = useState<PreviewFormData>({
-    isForSell,
-    width: size?.width,
-    height: size?.height,
-    name: name || file.name,
-    price,
-    description,
+    isForSell: file.isForSell,
+    width: file.size?.width,
+    height: file.size?.height,
+    name: file.name || file.file.name,
+    price: file.price,
+    description: file.description,
   })
 
-  const onPreviewConfirmHandler: FormEventHandler<HTMLFormElement> = (e) => {
+  const onPreviewConfirm: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     const generatedFile: FileToUpload = {
-      file: file,
+      file: file.file,
       ...formData,
       size: {
         width: formData.width,
         height: formData.height,
       },
     }
-    onPreviewConfirm(generatedFile)
+    validatedRequest(() => uploadImage(file.category)(generatedFile))
   }
 
   const onFormFieldChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -53,13 +47,18 @@ const FileUploadPreviewContainer: FC<Props> = ({
     })
   }
 
+  const onRemoveFileAndForward = async (name: string) => {
+    await validatedRequest(() => deleteImage(file.category, name))
+    onRemoveFile(name)
+  }
+
   return (
     <FileUploadGalleryPreviewView
       formData={formData}
       onFormFieldChange={onFormFieldChange}
-      onPreviewConfirm={onPreviewConfirmHandler}
-      imageUrl={URL.createObjectURL(file)}
-      onDelete={onDelete}
+      onPreviewConfirm={onPreviewConfirm}
+      imageUrl={URL.createObjectURL(file?.file || file)}
+      onRemoveFile={onRemoveFileAndForward}
     />
   )
 }

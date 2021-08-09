@@ -85,53 +85,56 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
           }
         />
       )}
-      <Modal isOpen={isOpen} onClose={onClose} size="md">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Info</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Table variant="simple" className="mb-4">
-              <Tbody>
-                <Tr>
-                  <Td>Name</Td>
-                  <Td>{images[idx].name}</Td>
-                </Tr>
-                <Tr>
-                  <Td>Width</Td>
-                  <Td>{images[idx].size.width} cm</Td>
-                </Tr>
-                <Tr>
-                  <Td>Height</Td>
-                  <Td>{images[idx].size.height} cm</Td>
-                </Tr>
-                <Tr>
-                  <Td>Is for sell</Td>
-                  <Td>
-                    {images[idx].isForSell ? (
-                      <CheckIcon color="green.500" />
-                    ) : (
-                      <CloseIcon color="red.500" />
-                    )}
-                  </Td>
-                </Tr>
-                {images[idx].isForSell && (
+
+      {images && images.length > 0 && (
+        <Modal isOpen={isOpen} onClose={onClose} size="md">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Info</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Table variant="simple" className="mb-4">
+                <Tbody>
                   <Tr>
-                    <Td>Price</Td>
-                    <Td>{images[idx].price} Euro</Td>
+                    <Td>Name</Td>
+                    <Td>{images[idx].name}</Td>
                   </Tr>
-                )}
-                {images[idx].description && (
                   <Tr>
-                    <Td>Description</Td>
-                    <Td>{images[idx].description}</Td>
+                    <Td>Width</Td>
+                    <Td>{images[idx].size.width} cm</Td>
                   </Tr>
-                )}
-              </Tbody>
-            </Table>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+                  <Tr>
+                    <Td>Height</Td>
+                    <Td>{images[idx].size.height} cm</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>Is for sell</Td>
+                    <Td>
+                      {images[idx].isForSell ? (
+                        <CheckIcon color="green.500" />
+                      ) : (
+                        <CloseIcon color="red.500" />
+                      )}
+                    </Td>
+                  </Tr>
+                  {images[idx].isForSell && (
+                    <Tr>
+                      <Td>Price</Td>
+                      <Td>{images[idx].price} Euro</Td>
+                    </Tr>
+                  )}
+                  {images[idx].description && (
+                    <Tr>
+                      <Td>Description</Td>
+                      <Td>{images[idx].description}</Td>
+                    </Tr>
+                  )}
+                </Tbody>
+              </Table>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   )
 }

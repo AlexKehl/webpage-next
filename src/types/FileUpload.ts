@@ -1,3 +1,4 @@
+import { Category } from '.'
 import { ImageSize } from './Dto'
 
 export interface FileToUploadMeta {
@@ -13,7 +14,7 @@ export type FileToUpload = { file: File } & FileToUploadMeta
 export interface FileMeta {
   name: string
   url: string
-  category: string
+  category: Category
   id: string
   description?: string
   isForSell: boolean

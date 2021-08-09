@@ -5,7 +5,7 @@ import {
   GalleryCategoryResponse,
   ImageForConsumer,
 } from '../../types/ApiResponses'
-import { GalleryImageDto } from '../../types/Dto'
+import { DeleteGalleryImageDto, GalleryImageDto } from '../../types/Dto'
 import { attemptProtectedRequest } from './Auth'
 
 async function getBlobFromUrl(url: string): Promise<Blob> {
@@ -57,33 +57,33 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   return window.btoa(binary)
 }
 
-const syncGalleryFiles = (category: Category) => async (
-  files: FileToUpload[]
-) => {
-  const buffers = await Promise.all(
-    files.map((file) => file.file.arrayBuffer())
-  )
+const uploadImage = (category: Category) => async (file: FileToUpload) => {
+  const buffer = await file.arrayBuffer()
+  const image = arrayBufferToBase64(buffer)
 
   const data: GalleryImageDto = {
+    ...file,
     category,
-    images: files.map((file, idx) => {
-      const buffer = buffers[idx]
-      const encoded = arrayBufferToBase64(buffer)
-      return {
-        image: encoded,
-        name: file.file.name,
-        isForSell: file.isForSell,
-        size: file.size,
-        price: file.price,
-        description: file.description,
-      }
-    }),
+    image,
   }
+
   return attemptProtectedRequest({
-    url: `${API}/file/sync/gallery`,
+    url: `${API}/file/gallery/upload`,
     method: 'post',
     data,
   })
 }
 
-export { syncGalleryFiles, getInitialGalleryFiles, getGalleryFiles }
+const deleteImage = async (category: Category, name: string) => {
+  const data: DeleteGalleryImageDto = {
+    category,
+    name,
+  }
+  return attemptProtectedRequest({
+    url: `${API}/file/gallery/delete`,
+    method: 'post',
+    data,
+  })
+}
+
+export { getInitialGalleryFiles, getGalleryFiles, uploadImage, deleteImage }

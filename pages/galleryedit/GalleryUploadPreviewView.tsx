@@ -16,7 +16,7 @@ import { PreviewFormData } from './types'
 
 interface Props {
   onPreviewConfirm: FormEventHandler<HTMLFormElement>
-  onDelete: (fileName: string) => void
+  onRemoveFile: (fileName: string) => void
   imageUrl: string
   onFormFieldChange: ChangeEventHandler<any>
   formData: PreviewFormData
@@ -24,7 +24,7 @@ interface Props {
 
 const FileUploadPreviewView: FC<Props> = ({
   onPreviewConfirm,
-  onDelete,
+  onRemoveFile,
   imageUrl,
   onFormFieldChange,
   formData,
@@ -127,7 +127,7 @@ const FileUploadPreviewView: FC<Props> = ({
               color="red.500"
               aria-label=""
               icon={<CloseIcon />}
-              onClick={() => onDelete(formData.name)}
+              onClick={() => onRemoveFile(formData.name)}
             />
           </Flex>
         </div>

@@ -1,39 +1,29 @@
 // @refresh reset
 import { Button } from '@chakra-ui/react'
 import React, { FC } from 'react'
-import Dropzone, { DropEvent, FileRejection } from 'react-dropzone'
-import { FileToUpload } from '../../src/types'
-import FileUploadPreviewContainer from './GalleryUploadPreviewContainer'
-import { FilesToUpload } from './types'
+import Dropzone from 'react-dropzone'
+import { FileWithMeta } from '../../src/types'
+import GalleryUploadPreviewContainer from './GalleryUploadPreviewContainer'
 
 interface Props {
-  onDelete: (fileName: string) => void
-  onSubmit: () => void
-  onAddFiles: <T extends File>(
-    acceptedFiles: T[],
-    fileRejections: FileRejection[],
-    event: DropEvent
-  ) => void
-  onPreviewConfirm: (file: FileToUpload) => void
-  filesToUpload: FilesToUpload
+  filesList: FileWithMeta[]
+  onAddFiles: (x: any) => void
+  onRemoveFile: (fileName: string) => void
 }
 
 const GalleryEditView: FC<Props> = ({
-  onSubmit,
-  onDelete,
-  onPreviewConfirm,
-  filesToUpload,
+  filesList,
   onAddFiles,
+  onRemoveFile,
 }) => {
   return (
     <div>
-      {Object.values(filesToUpload).map((file, idx) => {
+      {filesList?.map((file, idx) => {
         return (
-          <FileUploadPreviewContainer
+          <GalleryUploadPreviewContainer
             key={idx}
-            onPreviewConfirm={onPreviewConfirm}
-            onDelete={onDelete}
-            {...file}
+            file={file}
+            onRemoveFile={onRemoveFile}
           />
         )
       })}
@@ -47,9 +37,6 @@ const GalleryEditView: FC<Props> = ({
           </section>
         )}
       </Dropzone>
-      <Button className="m-2" onClick={onSubmit}>
-        Submit
-      </Button>
     </div>
   )
 }

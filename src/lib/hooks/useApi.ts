@@ -19,6 +19,7 @@ const useApi = () => {
       return res
     } catch (e) {
       if (!axios.isAxiosError(e)) {
+        console.error(e)
         toast({
           title: 'Error',
           description: 'Server error happened. Please try again later',
@@ -27,7 +28,8 @@ const useApi = () => {
           isClosable: true,
         })
       }
-      if (e.response.status === HttpStatus.BAD_REQUEST) {
+      if (e?.response?.status === HttpStatus.BAD_REQUEST) {
+        console.error(e)
         toast({
           title: 'Invalid data',
           description: 'Verify submitted data',
