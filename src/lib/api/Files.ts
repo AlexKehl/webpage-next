@@ -1,11 +1,13 @@
 import axios from 'axios'
-import { API } from '../../../config'
-import { Category, FileToUpload, FileWithMeta } from '../../types'
+import { Category } from '../../../../common/interface/Constants'
+import { ImageForGallery } from '../../../../common/interface/ConsumerData'
+import { GalleryCategoryResponse } from '../../../../common/interface/ConsumerResponses'
 import {
-  GalleryCategoryResponse,
-  ImageForConsumer,
-} from '../../types/ApiResponses'
-import { DeleteGalleryImageDto, GalleryImageDto } from '../../types/Dto'
+  DeleteGalleryImageDto,
+  GalleryImageDto,
+} from '../../../../common/interface/Dto'
+import { API } from '../../../config'
+import { FileWithMeta } from '../../types/GalleryImages'
 import { attemptProtectedRequest } from './Auth'
 
 async function getBlobFromUrl(url: string): Promise<Blob> {
@@ -19,7 +21,7 @@ async function getBlobFromUrl(url: string): Promise<Blob> {
 
 const getGalleryFiles = async (
   category: string
-): Promise<ImageForConsumer[]> => {
+): Promise<ImageForGallery[]> => {
   const { data } = await axios.get<GalleryCategoryResponse>(
     `${API}/files/${category}`
   )
@@ -27,7 +29,7 @@ const getGalleryFiles = async (
 }
 
 const getInitialGalleryFiles = async (
-  category: string
+  category: Category
 ): Promise<FileWithMeta[]> => {
   const { data } = await axios.get<GalleryCategoryResponse>(
     `${API}/files/${category}`
@@ -57,13 +59,12 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   return window.btoa(binary)
 }
 
-const uploadImage = (category: Category) => async (file: FileToUpload) => {
-  const buffer = await file.arrayBuffer()
+const uploadImage = async (fileWithMeta: FileWithMeta) => {
+  const buffer = await fileWithMeta.file.arrayBuffer()
   const image = arrayBufferToBase64(buffer)
 
   const data: GalleryImageDto = {
-    ...file,
-    category,
+    ...fileWithMeta,
     image,
   }
 

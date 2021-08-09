@@ -1,17 +1,15 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { LoginResponse } from '../../../../common/interface/ConsumerResponses'
+import { LoginDto } from '../../../../common/interface/Dto'
 import { API } from '../../../config'
 import UnauthorizedException from '../../exceptions/UnauthorizedException'
-import { Credentials, User } from '../../types'
-import { LoginResponseData } from '../../types/ApiResponses'
 import { tryCatch } from '../../utils/Functions'
 import HttpStatus from '../../utils/HttpStatus'
 
-const login = async (credentials: Credentials): Promise<LoginResponseData> => {
-  const { data } = await axios.post<LoginResponseData>(
-    `${API}/login`,
-    credentials,
-    { withCredentials: true }
-  )
+const login = async (loginDto: LoginDto): Promise<LoginResponse> => {
+  const { data } = await axios.post<LoginResponse>(`${API}/login`, loginDto, {
+    withCredentials: true,
+  })
   return data
 }
 

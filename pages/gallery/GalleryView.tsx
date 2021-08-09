@@ -15,13 +15,13 @@ import {
 } from '@chakra-ui/react'
 import React, { FC, useState } from 'react'
 import Lightbox from 'react-image-lightbox'
-import { User } from '../../src/types'
-import { ImageForConsumer } from '../../src/types/ApiResponses'
 import { hasRole } from '../../src/utils/UserUtils'
 import ImagePresenter from '../../src/components/ImagePresenter'
+import { ImageForGallery } from '../../../common/interface/ConsumerData'
+import { User } from '../../../common/interface/ConsumerResponses'
 
 interface GalleryProps {
-  images: ImageForConsumer[]
+  images: ImageForGallery[]
   openLightbox: (event: any, obj: { index: number }) => void
   closeLightbox: () => void
   isViewerOpen: boolean

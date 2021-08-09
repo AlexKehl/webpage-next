@@ -1,4 +1,4 @@
-import { Category } from '../types'
+import { Category } from '../../../common/interface/Constants'
 
 const categories: Category[] = ['acryl', 'oil']
 
