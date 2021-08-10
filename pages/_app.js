@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css'
+import '../src/globalstyles/gallery.css'
 import { ChakraProvider } from '@chakra-ui/react'
 
 export default function MyApp({ Component, pageProps }) {
