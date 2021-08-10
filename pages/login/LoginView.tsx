@@ -26,7 +26,7 @@ const LoginForm: FC<Props> = ({
   return (
     <Center h="100vh">
       <Stack boxShadow="xl" p="20" rounded="md">
-        <Image src="/logo.jpg" maxW="70px" mb="8" mx="auto"></Image>
+        <Image src="/logo.jpg" maxW="170px" mb="8" mx="auto"></Image>
         <Heading as="h1"> Log in.</Heading>
         <Text fontSize="lg" color="gray.600">
           Please log in with the data you entered during registration.

@@ -1,11 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React, { FC, useEffect, useState } from 'react'
+import Categories from '../../common/constants/Categories'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import WithHeader from '../../src/components/HOC/WithHeader'
-import Categories from '../../src/constants/Categories'
 import { getInitialGalleryFiles } from '../../src/lib/api/Files'
-import { FileWithMeta } from '../../src/types/GalleryImages'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 import GalleryEditView from './GalleryEditView'
 
