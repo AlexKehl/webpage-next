@@ -1,26 +1,32 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import LoginView from './LoginView'
 import useUser from '../../src/lib/hooks/useUser'
+import { LoginDto } from '../../common/interface/Dto'
 
 export const Login = () => {
-  const { register, handleSubmit, formState } = useForm()
+  const [formData, setFormData] = useState<LoginDto>({
+    email: '',
+    password: '',
+  })
   const { hasFalseCredentials, performLogin } = useUser()
-  const email = register('email', {
-    required: true,
-    pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-  })
-  const password = register('password', {
-    minLength: 3,
-    required: true,
-  })
+
+  const updateFormData: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    })
+  }
+
+  const onFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    performLogin(formData)
+  }
+
   return (
     <LoginView
-      onSubmit={handleSubmit(performLogin)}
+      onSubmit={onFormSubmit}
       hasFalseCredentials={hasFalseCredentials}
-      errors={formState.errors}
-      email={email}
-      password={password}
+      updateFormData={updateFormData}
     />
   )
 }

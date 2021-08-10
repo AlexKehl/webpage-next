@@ -20,7 +20,6 @@
     "react": "^17.0.2",
     "react-cookie": "^4.0.3",
     "react-dropzone": "^11.3.4",
-    "react-hook-form": "^7.12.1",
     "react-image-lightbox": "^5.1.4"
   },
   "devDependencies": {

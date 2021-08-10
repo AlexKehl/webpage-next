@@ -1,100 +1,71 @@
-import React, { FC, FormEventHandler } from 'react'
-import {
-  DeepMap,
-  FieldErrors,
-  FieldValues,
-  UseFormRegisterReturn,
-} from 'react-hook-form'
-import { joinClasses } from '../../src/utils/TailWind'
+import React, { ChangeEventHandler, FC, FormEventHandler } from 'react'
 import Alert from '../../src/components/Alert'
 import WithHeader from '../../src/components/HOC/WithHeader'
-import InputField from '../../src/components/InputField'
+import {
+  Center,
+  Stack,
+  Image,
+  Heading,
+  Text,
+  Button,
+  Input,
+  Checkbox,
+} from '@chakra-ui/react'
 
 interface Props {
   onSubmit: FormEventHandler<HTMLFormElement>
   hasFalseCredentials: boolean
-  errors: DeepMap<FieldValues, FieldErrors>
-  email: UseFormRegisterReturn
-  password: UseFormRegisterReturn
+  updateFormData: ChangeEventHandler<HTMLInputElement>
 }
 
 const LoginForm: FC<Props> = ({
   onSubmit,
   hasFalseCredentials,
-  errors,
-  email,
-  password,
+  updateFormData,
 }) => {
   return (
-    <div className="flex items-center justify-center w-screen h-screen">
-      <form
-        onSubmit={onSubmit}
-        className="bg-white shadow-md rounded w-96 px-8 pt-6 pb-8 mb-4"
-      >
-        <InputField
-          placeholder="Email"
-          type="text"
-          id="email"
-          error={Boolean(errors['email'])}
-          errorText="Enter valid email"
-          register={email}
-        />
-        <InputField
-          type="password"
-          id="password"
-          placeholder="Password"
-          error={Boolean(errors['password'])}
-          errorText="Password must be long enough"
-          register={password}
-        />
+    <Center h="100vh">
+      <Stack boxShadow="xl" p="20" rounded="md">
+        <Image src="/logo.jpg" maxW="70px" mb="8" mx="auto"></Image>
+        <Heading as="h1"> Log in.</Heading>
+        <Text fontSize="lg" color="gray.600">
+          Please log in with the data you entered during registration.
+        </Text>
 
-        {hasFalseCredentials && <Alert text={'Wrong credentials entered'} />}
+        <form onSubmit={onSubmit}>
+          <Stack my="4" spacing="6">
+            <Input
+              id="email"
+              type="email"
+              placeholder="Email"
+              onChange={updateFormData}
+            />
+            <Input
+              id="password"
+              type="password"
+              placeholder="Password"
+              onChange={updateFormData}
+            />
+            {hasFalseCredentials && (
+              <Alert text={'Wrong credentials entered'} />
+            )}
+            <Checkbox colorScheme="purple">Keep me logged in</Checkbox>
+            <Button size="lg" colorScheme="purple" type="submit">
+              Login
+            </Button>
+          </Stack>
+        </form>
 
-        <div className="flex items-center justify-between">
-          <input
-            type="submit"
-            value="Sign In"
-            className={joinClasses([
-              'bg-blue-500',
-              'hover:bg-blue-700',
-              'text-white',
-              'font-bold',
-              'py-2',
-              'px-4',
-              'rounded',
-              'focus:outline-none',
-              'focus:shadow-outline',
-              'w-full',
-            ])}
-          />
-        </div>
-        <div className="border-t mt-4 text-center">
-          <span className="bg-white px-2 relative -top-3.5 text-gray-400">
-            or
-          </span>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <input
-            onClick={() => alert('hi')}
-            type="button"
-            value="Register"
-            className={joinClasses([
-              'bg-gray-500',
-              'hover:bg-gray-700',
-              'text-white',
-              'font-bold',
-              'py-2',
-              'px-4',
-              'rounded',
-              'focus:outline-none',
-              'focus:shadow-outline',
-              'w-full',
-            ])}
-          />
-        </div>
-      </form>
-    </div>
+        <Stack justify="center" color="gray.600" spacing="3">
+          <Text as="div" textAlign="center">
+            <span>Don't have an account?</span>
+            <Button colorScheme="purple" variant="link">
+              Sign up
+            </Button>
+          </Text>
+        </Stack>
+      </Stack>
+    </Center>
   )
 }
 
