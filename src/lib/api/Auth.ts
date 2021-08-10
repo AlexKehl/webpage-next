@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { LoginResponse } from '../../../common/interface/ConsumerResponses'
 import { LoginDto } from '../../../common/interface/Dto'
+import { tryCatch } from '../../../common/utils/Functions'
 import { API } from '../../../config'
 import UnauthorizedException from '../../exceptions/UnauthorizedException'
-import { tryCatch } from '../../utils/Functions'
 import HttpStatus from '../../utils/HttpStatus'
 
 const login = async (loginDto: LoginDto): Promise<LoginResponse> => {

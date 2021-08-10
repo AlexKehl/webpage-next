@@ -18,7 +18,7 @@ import Lightbox from 'react-image-lightbox'
 import ImagePresenter from '../../src/components/ImagePresenter'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { User } from '../../common/interface/ConsumerResponses'
-import { hasRole } from '../../common/functions/User'
+import { hasRole } from '../../common/utils/User'
 
 interface GalleryProps {
   images: ImageForGallery[]
