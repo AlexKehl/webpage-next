@@ -4,7 +4,7 @@ import { LoginDto } from '../../../common/interface/Dto'
 import { tryCatch } from '../../../common/utils/Functions'
 import { API } from '../../../config'
 import UnauthorizedException from '../../exceptions/UnauthorizedException'
-import HttpStatus from '../../utils/HttpStatus'
+import HttpStatus from '../../../common/constants/HttpStatus'
 
 const login = async (loginDto: LoginDto): Promise<LoginResponse> => {
   const { data } = await axios.post<LoginResponse>(`${API}/login`, loginDto, {

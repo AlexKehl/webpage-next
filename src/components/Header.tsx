@@ -2,10 +2,10 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
-import Categories from '../constants/Categories'
 import useUser from '../lib/hooks/useUser'
 import Dropdown from './Dropdown'
 import { capitalize } from 'lodash'
+import Categories from '../../common/constants/Categories'
 
 const Header: FC = () => {
   const router = useRouter()

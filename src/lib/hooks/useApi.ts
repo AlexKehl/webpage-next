@@ -1,6 +1,6 @@
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
-import HttpStatus from '../../utils/HttpStatus'
+import HttpStatus from '../../../common/constants/HttpStatus'
 
 const useApi = () => {
   const toast = useToast()

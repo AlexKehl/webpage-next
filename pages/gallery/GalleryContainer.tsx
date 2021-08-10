@@ -3,12 +3,12 @@ import { useRouter } from 'next/router'
 import React, { FC, Reducer, useReducer } from 'react'
 import Gallery from './GalleryView'
 import WithHeader from '../../src/components/HOC/WithHeader'
-import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'
 import useUser from '../../src/lib/hooks/useUser'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { Category } from '../../common/interface/Constants'
+import Categories from '../../common/constants/Categories'
 
 interface State {
   currentImage?: number
@@ -69,7 +69,7 @@ const GalleryPage: FC<Props> = ({ images, category }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => ({
-  paths: generateCategoryPaths({ locales, categories: CATEGORIES }),
+  paths: generateCategoryPaths({ locales, categories: Categories }),
   fallback: true,
 })
 
