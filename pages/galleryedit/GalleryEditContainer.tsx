@@ -1,9 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React, { FC, useEffect, useState } from 'react'
+import { Category } from '../../common/interface/Constants'
+import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import WithHeader from '../../src/components/HOC/WithHeader'
 import Categories from '../../src/constants/Categories'
 import { getInitialGalleryFiles } from '../../src/lib/api/Files'
-import { Category, FileWithMeta } from '../../src/types'
+import { FileWithMeta } from '../../src/types/GalleryImages'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 import GalleryEditView from './GalleryEditView'
 
@@ -12,22 +14,27 @@ interface Props {
 }
 
 const GalleryEdit: FC<Props> = ({ category }) => {
-  const [filesList, setFilesList] = useState<FileWithMeta[]>()
+  const [filesList, setFilesList] = useState<
+    ({ file: File } & Partial<GalleryImageMeta>)[]
+  >([])
 
   useEffect(() => {
     getInitialGalleryFiles(category).then(setFilesList)
   }, [])
 
-  const onAddFiles = (acceptedFiles: any[]) => {
-    setFilesList([...filesList, ...acceptedFiles])
+  const onAddFiles = (acceptedFiles: File[]) => {
+    setFilesList([...filesList, ...acceptedFiles.map((file) => ({ file }))])
   }
 
   const onRemoveFile = (fileName: string) => {
-    setFilesList(filesList.filter((file) => file.name !== fileName))
+    setFilesList(
+      filesList.filter((file) => (file.name || file.file.name) !== fileName)
+    )
   }
 
   return (
     <GalleryEditView
+      category={category}
       filesList={filesList}
       onAddFiles={onAddFiles}
       onRemoveFile={onRemoveFile}
@@ -35,7 +42,7 @@ const GalleryEdit: FC<Props> = ({ category }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
   return {
     paths: generateCategoryPaths({ locales, categories: Categories }),
     fallback: true,
@@ -45,7 +52,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   return {
     props: {
-      category: params.category as Category,
+      category: params?.['category'] as Category,
     },
   }
 }

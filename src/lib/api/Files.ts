@@ -6,6 +6,7 @@ import {
   DeleteGalleryImageDto,
   GalleryImageDto,
 } from '../../../common/interface/Dto'
+import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
 import { API } from '../../../config'
 import { FileWithMeta } from '../../types/GalleryImages'
 import { attemptProtectedRequest } from './Auth'
@@ -36,17 +37,21 @@ const getInitialGalleryFiles = async (
   )
   const blobPromises = data.images.map((image) => getBlobFromUrl(image.url))
   const blobs = await Promise.all(blobPromises)
-  const filesWithMeta: FileWithMeta[] = blobs.map((blob, idx) => ({
-    file: new File([blob], data.images[idx].name, { type: 'image/jpeg' }),
-    name: data.images[idx].name,
-    url: data.images[idx].url,
-    category,
-    isForSell: data.images[idx].isForSell,
-    id: data.images[idx].id,
-    size: data.images[idx].size,
-    price: data.images[idx].price,
-    description: data.images[idx].description,
-  }))
+  const filesWithMeta: FileWithMeta[] = blobs.map((blob, idx) => {
+    const currentImage = data.images[idx]!
+    return {
+      file: new File([blob], currentImage.name, { type: 'image/jpeg' }),
+      name: currentImage.name,
+      url: currentImage.url,
+      category,
+      isForSell: currentImage.isForSell,
+      id: currentImage.id,
+      width: currentImage.width,
+      height: currentImage.height,
+      price: currentImage.price,
+      description: currentImage.description,
+    }
+  })
   return filesWithMeta
 }
 
@@ -54,16 +59,18 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = ''
   let bytes = new Uint8Array(buffer)
   for (let i = 0; i < bytes.byteLength; i++) {
-    binary += String.fromCharCode(bytes[i])
+    binary += String.fromCharCode(bytes[i]!)
   }
   return window.btoa(binary)
 }
 
-const uploadImage = async (fileWithMeta: FileWithMeta) => {
+const uploadImage = async (
+  fileWithMeta: { file: File } & Partial<GalleryImageMeta>
+) => {
   const buffer = await fileWithMeta.file.arrayBuffer()
   const image = arrayBufferToBase64(buffer)
 
-  const data: GalleryImageDto = {
+  const data: Partial<GalleryImageDto> = {
     ...fileWithMeta,
     image,
   }

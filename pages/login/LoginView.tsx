@@ -35,7 +35,7 @@ const LoginForm: FC<Props> = ({
           placeholder="Email"
           type="text"
           id="email"
-          error={Boolean(errors.email)}
+          error={Boolean(errors['email'])}
           errorText="Enter valid email"
           register={email}
         />
@@ -43,7 +43,7 @@ const LoginForm: FC<Props> = ({
           type="password"
           id="password"
           placeholder="Password"
-          error={Boolean(errors.password)}
+          error={Boolean(errors['password'])}
           errorText="Password must be long enough"
           register={password}
         />

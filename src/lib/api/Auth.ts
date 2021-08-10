@@ -13,7 +13,10 @@ const login = async (loginDto: LoginDto): Promise<LoginResponse> => {
   return data
 }
 
-const logout = async (email: string) => {
+const logout = async (email?: string) => {
+  if (!email) {
+    return
+  }
   await axios.post(`${API}/logout`, { email }, { withCredentials: true })
 }
 

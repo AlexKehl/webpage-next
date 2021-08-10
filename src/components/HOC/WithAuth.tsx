@@ -7,7 +7,7 @@ type WithAuth = <T>(component: FC<T>) => FC<T>
 
 const WithAuth: HOC = (Component) => (props) => {
   const { getUser } = useUser()
-  const shouldDisplay = hasRole(getUser(), 'Admin')
+  const shouldDisplay = hasRole(getUser() || {}, 'Admin')
   return <div>{shouldDisplay && <Component {...props} />}</div>
 }
 

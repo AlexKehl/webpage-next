@@ -6,7 +6,7 @@ const useApi = () => {
   const toast = useToast()
   const validatedRequest = async <T>(
     requestFn: () => Promise<T>
-  ): Promise<T> => {
+  ): Promise<T | undefined> => {
     try {
       const res = await requestFn()
       toast({

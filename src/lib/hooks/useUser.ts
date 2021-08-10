@@ -12,9 +12,10 @@ const useUser = () => {
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
 
   const setUser = (user: User | {}) => setObj('user', user)
-  const getUser = (): User => getObj<User>('user')
+  const getUser = (): User =>
+    getObj<User>('user') || { email: 'placeholderUser', roles: [] }
 
-  const isLoggedIn = Boolean(cookies.accessToken)
+  const isLoggedIn = Boolean(cookies['accessToken'])
 
   const performLogin = async (credentials: LoginDto) => {
     try {
@@ -29,7 +30,7 @@ const useUser = () => {
   const performLogout = async () => {
     removeCookie('accessToken', { path: '/' })
     setUser({})
-    await logout(getUser().email)
+    await logout(getUser()?.email)
     router.push('/login')
   }
 
