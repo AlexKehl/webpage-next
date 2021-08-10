@@ -4,62 +4,71 @@ import React, {
   FormEventHandler,
   useState,
 } from 'react'
+import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import { deleteImage, uploadImage } from '../../src/lib/api/Files'
 import useApi from '../../src/lib/hooks/useApi'
-import { FileWithMeta } from '../../src/types/GalleryImages'
-import FileUploadGalleryPreviewView from './GalleryUploadPreviewView'
+import { getEventValue } from '../../src/utils/Functions'
+import GalleryUploadPreviewView from './GalleryUploadPreviewView'
 
 interface Props {
   onRemoveFile: (fileName: string) => void
-  fileWithMeta: FileWithMeta
+  fileMeta?: Partial<GalleryImageMeta>
+  file: File
+  category: Category
 }
 
-const FileUploadPreviewContainer: FC<Props> = ({
+const GalleryUploadPreviewContainer: FC<Props> = ({
   onRemoveFile,
-  fileWithMeta,
+  fileMeta,
+  file,
+  category,
 }) => {
-  const { file, ...fileMeta } = fileWithMeta
-
   const { validatedRequest } = useApi()
-  const [formData, updateFormData] = useState<GalleryImageMeta>({
-    isForSell: fileWithMeta.isForSell,
-    size: fileWithMeta.size,
-    name: fileWithMeta.name || fileWithMeta.file.name,
-    price: fileWithMeta.price,
-    description: fileWithMeta.description,
-    category: fileWithMeta.category,
+  const [formData, updateFormData] = useState<Partial<GalleryImageMeta>>({
+    isForSell: fileMeta?.isForSell || false,
+    width: fileMeta?.width,
+    height: fileMeta?.height,
+    name: fileMeta?.name || file.name,
+    price: fileMeta?.price,
+    description: fileMeta?.description,
+    category: fileMeta?.category,
   })
 
   const onPreviewConfirm: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    validatedRequest(() => uploadImage(fileWithMeta))
+    validatedRequest(() =>
+      uploadImage({
+        file,
+        ...formData,
+        category,
+      })
+    )
   }
 
   const onFormFieldChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     updateFormData({
       ...formData,
-      [e.target.id]:
-        e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+      [e.target.id]: getEventValue(e),
     })
   }
 
   const onRemoveFileAndForward = async () => {
     await validatedRequest(() =>
-      deleteImage(fileWithMeta.category, fileWithMeta.name)
+      deleteImage(category, fileMeta?.name || file.name)
     )
-    onRemoveFile(fileWithMeta.name)
+    onRemoveFile(fileMeta?.name || file.name)
   }
 
   return (
-    <FileUploadGalleryPreviewView
-      galleryImageMeta={fileMeta}
+    <GalleryUploadPreviewView
+      galleryImageMeta={fileMeta || {}}
       onFormFieldChange={onFormFieldChange}
       onPreviewConfirm={onPreviewConfirm}
-      imageUrl={URL.createObjectURL(fileWithMeta.file)}
+      file={file}
       onRemoveFile={onRemoveFileAndForward}
     />
   )
 }
 
-export default FileUploadPreviewContainer
+export default GalleryUploadPreviewContainer

@@ -1,6 +1,6 @@
 import { PaperClipIcon } from '@heroicons/react/solid'
 import React, { FC } from 'react'
-import { User } from '../../src/types'
+import { User } from '../../common/interface/ConsumerResponses'
 import WithHeader from '../../src/components/HOC/WithHeader'
 
 const Profile: FC<User> = ({ email }) => {
@@ -8,20 +8,20 @@ const Profile: FC<User> = ({ email }) => {
     <div className="flex flex-col items-center justify-center w-screen h-screen">
       <div className="w-1/2 bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">User</h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">
+          <h3 className="text-lg font-medium text-gray-900 leading-6">User</h3>
+          <p className="max-w-2xl mt-1 text-sm text-gray-500">
             Personal details and status.
           </p>
         </div>
         <div className="border-t border-gray-200">
           <dl>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div className="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Email</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {email}
               </dd>
             </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div className="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">
                 Application for
               </dt>
@@ -29,7 +29,7 @@ const Profile: FC<User> = ({ email }) => {
                 Backend Developer
               </dd>
             </div>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div className="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">
                 Email address
               </dt>
@@ -37,7 +37,7 @@ const Profile: FC<User> = ({ email }) => {
                 margotfoster@example.com
               </dd>
             </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div className="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">
                 Salary expectation
               </dt>
@@ -45,7 +45,7 @@ const Profile: FC<User> = ({ email }) => {
                 $120,000
               </dd>
             </div>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div className="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">About</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim
@@ -55,21 +55,21 @@ const Profile: FC<User> = ({ email }) => {
                 reprehenderit deserunt qui eu.
               </dd>
             </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div className="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Attachments</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                  <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                    <div className="w-0 flex-1 flex items-center">
+                  <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                    <div className="flex items-center flex-1 w-0">
                       <PaperClipIcon
-                        className="flex-shrink-0 h-5 w-5 text-gray-400"
+                        className="flex-shrink-0 w-5 h-5 text-gray-400"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 flex-1 w-0 truncate">
+                      <span className="flex-1 w-0 ml-2 truncate">
                         resume_back_end_developer.pdf
                       </span>
                     </div>
-                    <div className="ml-4 flex-shrink-0">
+                    <div className="flex-shrink-0 ml-4">
                       <a
                         href="#"
                         className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -78,17 +78,17 @@ const Profile: FC<User> = ({ email }) => {
                       </a>
                     </div>
                   </li>
-                  <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                    <div className="w-0 flex-1 flex items-center">
+                  <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                    <div className="flex items-center flex-1 w-0">
                       <PaperClipIcon
-                        className="flex-shrink-0 h-5 w-5 text-gray-400"
+                        className="flex-shrink-0 w-5 h-5 text-gray-400"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 flex-1 w-0 truncate">
+                      <span className="flex-1 w-0 ml-2 truncate">
                         coverletter_back_end_developer.pdf
                       </span>
                     </div>
-                    <div className="ml-4 flex-shrink-0">
+                    <div className="flex-shrink-0 ml-4">
                       <a
                         href="#"
                         className="font-medium text-indigo-600 hover:text-indigo-500"

@@ -1,8 +1,8 @@
-export const getObj = <T = any>(key: string): T => {
+export const getObj = <T = any>(key: string): T | null => {
   if (typeof window === 'undefined') {
-    return
+    return null
   }
-  return JSON.parse(localStorage.getItem(key))
+  return JSON.parse(localStorage.getItem(key) || '{}')
 }
 
 export const setObj = (key: string, obj: Record<string, any>): void => {

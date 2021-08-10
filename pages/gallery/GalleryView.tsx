@@ -69,7 +69,7 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
       {isViewerOpen && (
         <Lightbox
           imagePadding={0}
-          mainSrc={imageUrls[currentImage]}
+          mainSrc={imageUrls[currentImage] || ''}
           nextSrc={imageUrls[(currentImage + 1) % imageUrls.length]}
           prevSrc={
             imageUrls[(currentImage + imageUrls.length - 1) % imageUrls.length]
@@ -97,36 +97,36 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
                 <Tbody>
                   <Tr>
                     <Td>Name</Td>
-                    <Td>{images[idx].name}</Td>
+                    <Td>{images[idx]?.name}</Td>
                   </Tr>
                   <Tr>
                     <Td>Width</Td>
-                    <Td>{images[idx].size.width} cm</Td>
+                    <Td>{images[idx]?.width} cm</Td>
                   </Tr>
                   <Tr>
                     <Td>Height</Td>
-                    <Td>{images[idx].size.height} cm</Td>
+                    <Td>{images[idx]?.height} cm</Td>
                   </Tr>
                   <Tr>
                     <Td>Is for sell</Td>
                     <Td>
-                      {images[idx].isForSell ? (
+                      {images[idx]?.isForSell ? (
                         <CheckIcon color="green.500" />
                       ) : (
                         <CloseIcon color="red.500" />
                       )}
                     </Td>
                   </Tr>
-                  {images[idx].isForSell && (
+                  {images[idx]?.isForSell && (
                     <Tr>
                       <Td>Price</Td>
-                      <Td>{images[idx].price} Euro</Td>
+                      <Td>{images[idx]?.price} Euro</Td>
                     </Tr>
                   )}
-                  {images[idx].description && (
+                  {images[idx]?.description && (
                     <Tr>
                       <Td>Description</Td>
-                      <Td>{images[idx].description}</Td>
+                      <Td>{images[idx]?.description}</Td>
                     </Tr>
                   )}
                 </Tbody>

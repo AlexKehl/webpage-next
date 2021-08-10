@@ -17,18 +17,19 @@ import { joinClasses } from '../../src/utils/TailWind'
 interface Props {
   onPreviewConfirm: FormEventHandler<HTMLFormElement>
   onRemoveFile: (fileName: string) => void
-  imageUrl: string
+  file: File
   onFormFieldChange: ChangeEventHandler<any>
-  galleryImageMeta: GalleryImageMeta
+  galleryImageMeta: Partial<GalleryImageMeta>
 }
 
-const FileUploadPreviewView: FC<Props> = ({
+const GalleryUploadPreviewView: FC<Props> = ({
   onPreviewConfirm,
   onRemoveFile,
-  imageUrl,
+  file,
   onFormFieldChange,
   galleryImageMeta,
 }) => {
+  const imageUrl = URL.createObjectURL(file)
   return (
     <form
       className={joinClasses(['w-full', 'bg-gray-50'])}
@@ -42,14 +43,14 @@ const FileUploadPreviewView: FC<Props> = ({
             className="my-1"
             placeholder="Name"
             onChange={onFormFieldChange}
-            defaultValue={galleryImageMeta.name}
+            defaultValue={galleryImageMeta?.name || file.name}
           />
           <Textarea
             id="description"
             className="my-1"
             placeholder="Description"
             onChange={onFormFieldChange}
-            defaultValue={galleryImageMeta.description}
+            defaultValue={galleryImageMeta?.description}
           />
 
           <div className="flex w-full">
@@ -59,7 +60,8 @@ const FileUploadPreviewView: FC<Props> = ({
                 <Input
                   id="width"
                   width={16}
-                  defaultValue={galleryImageMeta.size.width}
+                  type="number"
+                  defaultValue={galleryImageMeta?.width}
                   onChange={onFormFieldChange}
                   className="m-1"
                 />
@@ -73,9 +75,10 @@ const FileUploadPreviewView: FC<Props> = ({
               <span className="flex">
                 <Input
                   id="height"
+                  type="number"
                   width={16}
                   onChange={onFormFieldChange}
-                  defaultValue={galleryImageMeta.size.height}
+                  defaultValue={galleryImageMeta?.height}
                   className="m-1"
                 />
                 <Text className="self-end" fontSize="md">
@@ -88,21 +91,22 @@ const FileUploadPreviewView: FC<Props> = ({
               <Checkbox
                 id="isForSell"
                 className="my-2 mr-2"
-                defaultIsChecked={galleryImageMeta.isForSell}
+                defaultIsChecked={galleryImageMeta?.isForSell}
                 size="lg"
                 onChange={onFormFieldChange}
               >
                 For sale
               </Checkbox>
-              {galleryImageMeta.isForSell && (
+              {galleryImageMeta?.isForSell && (
                 <div id="price-block">
                   <FormLabel>Price</FormLabel>
                   <div className="flex">
                     <Input
                       id="price"
                       width={20}
-                      onChange={onFormFieldChange}
-                      defaultValue={galleryImageMeta.price}
+                      type="number"
+                      onChange={(val) => onFormFieldChange}
+                      defaultValue={galleryImageMeta?.price}
                       className="m-1"
                     />
                     <Text className="self-end" fontSize="md">
@@ -127,7 +131,7 @@ const FileUploadPreviewView: FC<Props> = ({
               color="red.500"
               aria-label=""
               icon={<CloseIcon />}
-              onClick={() => onRemoveFile(galleryImageMeta.name)}
+              onClick={() => onRemoveFile(galleryImageMeta?.name || file.name)}
             />
           </Flex>
         </div>
@@ -136,4 +140,4 @@ const FileUploadPreviewView: FC<Props> = ({
   )
 }
 
-export default FileUploadPreviewView
+export default GalleryUploadPreviewView

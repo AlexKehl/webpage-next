@@ -6,12 +6,12 @@ import WithHeader from '../../src/components/HOC/WithHeader'
 import CATEGORIES from '../../src/constants/Categories'
 import { getGalleryFiles } from '../../src/lib/api/Files'
 import useUser from '../../src/lib/hooks/useUser'
-import { Category } from '../../src/types'
-import { ImageForGallery } from '../../src/types/ApiResponses'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
+import { ImageForGallery } from '../../common/interface/ConsumerData'
+import { Category } from '../../common/interface/Constants'
 
 interface State {
-  currentImage: number
+  currentImage?: number
   isViewerOpen: boolean
 }
 
@@ -60,7 +60,7 @@ const GalleryPage: FC<Props> = ({ images, category }) => {
       }
       closeLightbox={() => dispatch({ type: 'CLOSE_LIGHTBOX' })}
       isViewerOpen={state.isViewerOpen}
-      currentImage={state.currentImage}
+      currentImage={state.currentImage || 0}
       setCurrentImage={(idx) =>
         dispatch({ type: 'SET_CURRENT_IMAGE', payload: idx })
       }
@@ -68,17 +68,17 @@ const GalleryPage: FC<Props> = ({ images, category }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => ({
+export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => ({
   paths: generateCategoryPaths({ locales, categories: CATEGORIES }),
   fallback: true,
 })
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const images = await getGalleryFiles(params.category as string)
+  const images = await getGalleryFiles(params?.['category'] as string)
   return {
     props: {
       images,
-      category: params.category as Category,
+      category: params?.['category'] as Category,
     },
   }
 }
