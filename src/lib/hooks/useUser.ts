@@ -1,26 +1,27 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { getObj, setObj } from '../../utils/LocalStorage'
 import { login, logout } from '../api/Auth'
 import { LoginDto } from '../../../common/interface/Dto'
 import { User } from '../../../common/interface/ConsumerResponses'
+import { decode } from 'jsonwebtoken'
 
 const useUser = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
   const router = useRouter()
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
 
-  const setUser = (user: User | {}) => setObj('user', user)
-  const getUser = (): User =>
-    getObj<User>('user') || { email: 'placeholderUser', roles: [] }
+  const getUser = (): User => {
+    const accessToken = cookies['accessToken']
+    const { email, roles } = decode(accessToken, { json: true }) || {}
+    return { email, roles }
+  }
 
   const isLoggedIn = Boolean(cookies['accessToken'])
 
   const performLogin = async (credentials: LoginDto) => {
     try {
-      const { user } = await login(credentials)
-      setUser(user)
+      await login(credentials)
       router.push('/')
     } catch (error) {
       setHasFalseCredentials(true)
@@ -29,7 +30,6 @@ const useUser = () => {
 
   const performLogout = async () => {
     removeCookie('accessToken', { path: '/' })
-    setUser({})
     await logout(getUser()?.email)
     router.push('/login')
   }
