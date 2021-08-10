@@ -15,10 +15,10 @@ import {
 } from '@chakra-ui/react'
 import React, { FC, useState } from 'react'
 import Lightbox from 'react-image-lightbox'
-import { hasRole } from '../../src/utils/UserUtils'
 import ImagePresenter from '../../src/components/ImagePresenter'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { User } from '../../common/interface/ConsumerResponses'
+import { hasRole } from '../../common/functions/User'
 
 interface GalleryProps {
   images: ImageForGallery[]
@@ -50,7 +50,7 @@ const Gallery: FC<GalleryProps & typeof defaultProps> = ({
   const imageUrls = images.map((image) => image.url)
   return (
     <div className="max-w-5xl m-auto mt-3">
-      {hasRole(user, 'Admin') && (
+      {hasRole({ user, role: 'Admin' }) && (
         <div className="flex flex-row-reverse">
           <Button onClick={onEdit}>Edit</Button>
         </div>
