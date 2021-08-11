@@ -1,4 +1,4 @@
-import { InfoOutlineIcon } from '@chakra-ui/icons'
+import { InfoIcon } from '@chakra-ui/icons'
 import React, { FC } from 'react'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 
@@ -10,11 +10,13 @@ interface Props {
 
 const ImagePresenter: FC<Props> = ({ onClick, image, onInfoClick }) => {
   return (
-    <span className="inline-block mx-3 mb-3 p-0 w-48 h-48 bg-gray-100 rounded-lg">
+    <span className="inline-block mx-3 mb-3 p-0 w-56 h-56 bg-gray-100 rounded-lg">
       {onInfoClick && (
-        <InfoOutlineIcon
-          boxSize="1em"
-          className="absolute ml-44"
+        <InfoIcon
+          boxSize="1.5em"
+          border="black"
+          color="white"
+          className="absolute mt-2 ml-48"
           onClick={onInfoClick}
         />
       )}
