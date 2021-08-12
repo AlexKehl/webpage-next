@@ -44,24 +44,18 @@ interface Action {
 }
 
 const galleryReducer: Reducer<State, Action> = (state, action) => {
-  switch (action.type) {
-    case 'OPEN_LIGHTBOX':
-      return {
-        ...state,
-        currentImage: action.payload,
-        isViewerOpen: true,
-      }
-    case 'CLOSE_LIGHTBOX':
-      return { ...state, isViewerOpen: false }
-    case 'SET_CURRENT_IMAGE':
-      return { ...state, currentImage: action.payload }
-    case 'OPEN_MODAL':
-      return { ...state, isModalOpen: true, currentImage: action.payload }
-    case 'CLOSE_MODAL':
-      return { ...state, isModalOpen: false, currentImage: action.payload }
-    default:
-      throw new Error('unknown Action')
+  const reducerActions: Record<Action['type'], State> = {
+    OPEN_LIGHTBOX: {
+      ...state,
+      currentImage: action.payload,
+      isViewerOpen: true,
+    },
+    CLOSE_LIGHTBOX: { ...state, isViewerOpen: false },
+    SET_CURRENT_IMAGE: { ...state, currentImage: action.payload },
+    OPEN_MODAL: { ...state, isModalOpen: true, currentImage: action.payload },
+    CLOSE_MODAL: { ...state, isModalOpen: false, currentImage: action.payload },
   }
+  return reducerActions[action.type]
 }
 
 const Gallery: FC<Props> = ({ images, category }) => {
