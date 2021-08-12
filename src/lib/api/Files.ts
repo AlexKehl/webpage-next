@@ -1,4 +1,8 @@
 import axios from 'axios'
+import {
+  Endpoints,
+  staticEndPointPart,
+} from '../../../common/constants/Endpoints'
 import { Category } from '../../../common/interface/Constants'
 import { ImageForGallery } from '../../../common/interface/ConsumerData'
 import { GalleryCategoryResponse } from '../../../common/interface/ConsumerResponses'
@@ -24,7 +28,7 @@ const getGalleryFiles = async (
   category: string
 ): Promise<ImageForGallery[]> => {
   const { data } = await axios.get<GalleryCategoryResponse>(
-    `${API}/files/${category}`
+    `${API}${staticEndPointPart('galleryCategoryList')}${category}`
   )
   return data.images
 }
@@ -33,7 +37,7 @@ const getInitialGalleryFiles = async (
   category: Category
 ): Promise<FileWithMeta[]> => {
   const { data } = await axios.get<GalleryCategoryResponse>(
-    `${API}/files/${category}`
+    `${API}${staticEndPointPart('galleryCategoryList')}${category}`
   )
   const blobPromises = data.images.map((image) => getBlobFromUrl(image.url))
   const blobs = await Promise.all(blobPromises)
@@ -76,7 +80,7 @@ const uploadImage = async (
   }
 
   return attemptProtectedRequest({
-    url: `${API}/file/gallery/upload`,
+    url: `${API}${Endpoints.galleryUpload}`,
     method: 'post',
     data,
   })
@@ -88,7 +92,7 @@ const deleteImage = async (category: Category, name: string) => {
     name,
   }
   return attemptProtectedRequest({
-    url: `${API}/file/gallery/delete`,
+    url: `${API}${Endpoints.galleryDelete}`,
     method: 'post',
     data,
   })

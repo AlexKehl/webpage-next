@@ -5,11 +5,16 @@ import { tryCatch } from '../../../common/utils/Functions'
 import { API } from '../../../config'
 import UnauthorizedException from '../../exceptions/UnauthorizedException'
 import HttpStatus from '../../../common/constants/HttpStatus'
+import { Endpoints } from '../../../common/constants/Endpoints'
 
 const login = async (loginDto: LoginDto): Promise<LoginResponse> => {
-  const { data } = await axios.post<LoginResponse>(`${API}/login`, loginDto, {
-    withCredentials: true,
-  })
+  const { data } = await axios.post<LoginResponse>(
+    `${API}${Endpoints.login}`,
+    loginDto,
+    {
+      withCredentials: true,
+    }
+  )
   return data
 }
 
@@ -17,12 +22,16 @@ const logout = async (email?: string) => {
   if (!email) {
     return
   }
-  await axios.post(`${API}/logout`, { email }, { withCredentials: true })
+  await axios.post(
+    `${API}${Endpoints.logout}`,
+    { email },
+    { withCredentials: true }
+  )
 }
 
 const refreshToken = async () => {
   await axios({
-    url: `${API}/refreshToken`,
+    url: `${API}${Endpoints.refreshAccessToken}`,
     method: 'post',
     withCredentials: true,
   })
