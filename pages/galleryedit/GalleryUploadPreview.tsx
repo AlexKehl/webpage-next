@@ -1,35 +1,79 @@
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import {
-  Checkbox,
-  Flex,
   FormControl,
-  FormLabel,
-  IconButton,
   Input,
   Text,
   Textarea,
+  FormLabel,
+  Flex,
+  Checkbox,
+  IconButton,
 } from '@chakra-ui/react'
-import React, { ChangeEventHandler, FC, FormEventHandler } from 'react'
+import React, {
+  ChangeEventHandler,
+  FC,
+  FormEventHandler,
+  useState,
+} from 'react'
+import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import ImagePresenter from '../../src/components/ImagePresenter'
+import { deleteImage, uploadImage } from '../../src/lib/api/Files'
+import useApi from '../../src/lib/hooks/useApi'
+import { getEventValue } from '../../src/utils/Functions'
 import { joinClasses } from '../../src/utils/TailWind'
 
 interface Props {
-  onPreviewConfirm: FormEventHandler<HTMLFormElement>
   onRemoveFile: (fileName: string) => void
+  fileMeta?: Partial<GalleryImageMeta>
   file: File
-  onFormFieldChange: ChangeEventHandler<any>
-  galleryImageMeta: Partial<GalleryImageMeta>
+  category: Category
 }
 
-const GalleryUploadPreviewView: FC<Props> = ({
-  onPreviewConfirm,
+const GalleryUploadPreviewContainer: FC<Props> = ({
   onRemoveFile,
+  fileMeta,
   file,
-  onFormFieldChange,
-  galleryImageMeta,
+  category,
 }) => {
+  const { validatedRequest } = useApi()
+  const [formData, updateFormData] = useState<Partial<GalleryImageMeta>>({
+    isForSell: fileMeta?.isForSell || false,
+    width: fileMeta?.width,
+    height: fileMeta?.height,
+    name: fileMeta?.name || file.name,
+    price: fileMeta?.price,
+    description: fileMeta?.description,
+    category: fileMeta?.category,
+  })
+
   const imageUrl = URL.createObjectURL(file)
+
+  const onPreviewConfirm: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    validatedRequest(() =>
+      uploadImage({
+        file,
+        ...formData,
+        category,
+      })
+    )
+  }
+
+  const onFormFieldChange: ChangeEventHandler<any> = (e) => {
+    updateFormData({
+      ...formData,
+      [e.target.id]: getEventValue(e),
+    })
+  }
+
+  const onRemoveFileHandler = async () => {
+    await validatedRequest(() =>
+      deleteImage(category, fileMeta?.name || file.name)
+    )
+    onRemoveFile(fileMeta?.name || file.name)
+  }
+
   return (
     <form
       className={joinClasses(['w-full', 'bg-gray-50'])}
@@ -43,14 +87,14 @@ const GalleryUploadPreviewView: FC<Props> = ({
             className="my-1"
             placeholder="Name"
             onChange={onFormFieldChange}
-            defaultValue={galleryImageMeta?.name || file.name}
+            defaultValue={fileMeta?.name || file.name}
           />
           <Textarea
             id="description"
             className="my-1"
             placeholder="Description"
             onChange={onFormFieldChange}
-            defaultValue={galleryImageMeta?.description}
+            defaultValue={fileMeta?.description}
           />
 
           <div className="flex w-full">
@@ -61,7 +105,7 @@ const GalleryUploadPreviewView: FC<Props> = ({
                   id="width"
                   width={16}
                   type="number"
-                  defaultValue={galleryImageMeta?.width}
+                  defaultValue={fileMeta?.width}
                   onChange={onFormFieldChange}
                   className="m-1"
                 />
@@ -78,7 +122,7 @@ const GalleryUploadPreviewView: FC<Props> = ({
                   type="number"
                   width={16}
                   onChange={onFormFieldChange}
-                  defaultValue={galleryImageMeta?.height}
+                  defaultValue={fileMeta?.height}
                   className="m-1"
                 />
                 <Text className="self-end" fontSize="md">
@@ -91,13 +135,13 @@ const GalleryUploadPreviewView: FC<Props> = ({
               <Checkbox
                 id="isForSell"
                 className="my-2 mr-2"
-                defaultIsChecked={galleryImageMeta?.isForSell}
+                defaultIsChecked={fileMeta?.isForSell}
                 size="lg"
                 onChange={onFormFieldChange}
               >
                 For sale
               </Checkbox>
-              {galleryImageMeta?.isForSell && (
+              {formData?.isForSell && (
                 <div id="price-block">
                   <FormLabel>Price</FormLabel>
                   <div className="flex">
@@ -105,8 +149,8 @@ const GalleryUploadPreviewView: FC<Props> = ({
                       id="price"
                       width={20}
                       type="number"
-                      onChange={(val) => onFormFieldChange}
-                      defaultValue={galleryImageMeta?.price}
+                      onChange={onFormFieldChange}
+                      defaultValue={fileMeta?.price}
                       className="m-1"
                     />
                     <Text className="self-end" fontSize="md">
@@ -131,7 +175,7 @@ const GalleryUploadPreviewView: FC<Props> = ({
               color="red.500"
               aria-label=""
               icon={<CloseIcon />}
-              onClick={() => onRemoveFile(galleryImageMeta?.name || file.name)}
+              onClick={() => onRemoveFileHandler()}
             />
           </Flex>
         </div>
@@ -140,4 +184,4 @@ const GalleryUploadPreviewView: FC<Props> = ({
   )
 }
 
-export default GalleryUploadPreviewView
+export default GalleryUploadPreviewContainer

@@ -1,12 +1,11 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { Button } from '@chakra-ui/react'
 import React, { FC, useEffect, useState } from 'react'
-import Categories from '../../common/constants/Categories'
+import Dropzone from 'react-dropzone'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import WithHeader from '../../src/components/HOC/WithHeader'
 import { getInitialGalleryFiles } from '../../src/lib/api/Files'
-import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
-import GalleryEditView from './GalleryEditView'
+import GalleryUploadPreviewContainer from './GalleryUploadPreview'
 
 interface Props {
   category: Category
@@ -32,28 +31,31 @@ const GalleryEdit: FC<Props> = ({ category }) => {
   }
 
   return (
-    <GalleryEditView
-      category={category}
-      filesList={filesList}
-      onAddFiles={onAddFiles}
-      onRemoveFile={onRemoveFile}
-    />
+    <div>
+      {filesList?.map((fileWithMeta, idx) => {
+        const { file, ...fileMeta } = fileWithMeta
+        return (
+          <GalleryUploadPreviewContainer
+            key={idx}
+            category={category}
+            fileMeta={fileMeta}
+            file={file}
+            onRemoveFile={onRemoveFile}
+          />
+        )
+      })}
+      <Dropzone accept="image/*" onDrop={onAddFiles}>
+        {({ getRootProps, getInputProps }) => (
+          <section className="w-12">
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <Button className="m-2">Add File</Button>
+            </div>
+          </section>
+        )}
+      </Dropzone>
+    </div>
   )
-}
-
-export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
-  return {
-    paths: generateCategoryPaths({ locales, categories: Categories }),
-    fallback: true,
-  }
-}
-
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  return {
-    props: {
-      category: params?.['category'] as Category,
-    },
-  }
 }
 
 export default WithHeader(GalleryEdit)
