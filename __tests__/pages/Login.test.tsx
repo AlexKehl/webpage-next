@@ -13,8 +13,8 @@ const buildLoginForm = () => {
 }
 
 it('should show error if email input is not an email', async () => {
-  // expect(true).toEqual(true)
   render(<Login />)
+
   const { password } = buildLoginForm()
 
   userEvent.type(screen.getByPlaceholderText(/email/i), 'fooBar')
