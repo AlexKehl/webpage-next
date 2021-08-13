@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import React from 'react'
 import useUser from '../../src/lib/hooks/useUser'
 import { LoginDto } from '../../common/interface/Dto'
 import {
@@ -13,24 +13,15 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { Texts } from '../../src/constants/Texts'
+import { useForm } from 'react-hook-form'
 
 export const Login = () => {
-  const [formData, setFormData] = useState<LoginDto>({
-    email: '',
-    password: '',
-  })
-  const { hasFalseCredentials, performLogin } = useUser()
+  const { register, handleSubmit, formState } = useForm()
 
-  const updateFormData: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    })
-  }
+  const { performLogin, hasFalseCredentials } = useUser()
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    performLogin(formData)
+  const onSubmit = (data: LoginDto) => {
+    performLogin(data)
   }
 
   return (
@@ -42,20 +33,26 @@ export const Login = () => {
           {Texts.pleaseLogIn}
         </Text>
 
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Stack my="4" spacing="6">
             <Input
               id="email"
-              type="email"
               placeholder={Texts.email}
-              onChange={updateFormData}
+              {...register('email', {
+                required: true,
+                pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+              })}
             />
+            {formState.errors['email'] && <span>{Texts.emailRuleFail}</span>}
             <Input
               id="password"
               type="password"
               placeholder={Texts.password}
-              onChange={updateFormData}
+              {...register('password', { required: true, minLength: 8 })}
             />
+            {formState.errors['password'] && (
+              <span>{Texts.passwordRuleFail}</span>
+            )}
             {hasFalseCredentials && <Alert text={Texts.wrongCredentials} />}
             <Checkbox colorScheme="purple">{Texts.keepMeLoggedIn}</Checkbox>
             <Button size="lg" colorScheme="purple" type="submit">

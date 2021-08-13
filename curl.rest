@@ -9,3 +9,13 @@ POST api/sessions
   "email": "test@test.com",
   "password": "123"
 }
+
+http://localhost:3002
+
+Content-Type: application/json
+
+POST /login
+{
+  "email": "test@test.com",
+  "password": "12345678"
+}
