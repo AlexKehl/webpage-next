@@ -3,7 +3,6 @@ import React, { FC, useEffect, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
-import WithHeader from '../../src/components/HOC/WithHeader'
 import { getInitialGalleryFiles } from '../../src/lib/api/Files'
 import GalleryUploadPreviewContainer from './GalleryUploadPreview'
 
@@ -58,4 +57,4 @@ const GalleryEdit: FC<Props> = ({ category }) => {
   )
 }
 
-export default WithHeader(GalleryEdit)
+export default GalleryEdit

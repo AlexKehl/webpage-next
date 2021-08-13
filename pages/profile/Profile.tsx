@@ -1,9 +1,10 @@
 import { PaperClipIcon } from '@heroicons/react/solid'
 import React, { FC } from 'react'
-import { User } from '../../common/interface/ConsumerResponses'
-import WithHeader from '../../src/components/HOC/WithHeader'
+import useUser from '../../src/lib/hooks/useUser'
 
-const Profile: FC<User> = ({ email }) => {
+const ProfilePage: FC = () => {
+  const { getUser } = useUser()
+  const { email } = getUser()
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">
       <div className="w-1/2 bg-white shadow overflow-hidden sm:rounded-lg">
@@ -107,4 +108,4 @@ const Profile: FC<User> = ({ email }) => {
   )
 }
 
-export default WithHeader(Profile)
+export default ProfilePage

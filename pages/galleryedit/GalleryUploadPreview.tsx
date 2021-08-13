@@ -30,7 +30,7 @@ interface Props {
   category: Category
 }
 
-const GalleryUploadPreviewContainer: FC<Props> = ({
+const GalleryUploadPreview: FC<Props> = ({
   onRemoveFile,
   fileMeta,
   file,
@@ -184,4 +184,4 @@ const GalleryUploadPreviewContainer: FC<Props> = ({
   )
 }
 
-export default GalleryUploadPreviewContainer
+export default GalleryUploadPreview

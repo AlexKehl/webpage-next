@@ -18,7 +18,6 @@ import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { hasRole } from '../../common/utils/User'
-import WithHeader from '../../src/components/HOC/WithHeader'
 import ImagePresenter from '../../src/components/ImagePresenter'
 import useUser from '../../src/lib/hooks/useUser'
 
@@ -170,4 +169,4 @@ const Gallery: FC<Props> = ({ images, category }) => {
   )
 }
 
-export default WithHeader(Gallery)
+export default Gallery

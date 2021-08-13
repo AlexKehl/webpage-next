@@ -40,4 +40,4 @@ export const Home = () => {
   )
 }
 
-export default WithHeader(Home)
+export default Home
