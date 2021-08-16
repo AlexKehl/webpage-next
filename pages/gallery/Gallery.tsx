@@ -18,7 +18,9 @@ import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { hasRole } from '../../common/utils/User'
+import WithHeader from '../../src/components/HOC/WithHeader'
 import ImagePresenter from '../../src/components/ImagePresenter'
+import { Texts } from '../../src/constants/Texts'
 import useUser from '../../src/lib/hooks/useUser'
 
 interface Props {
@@ -74,7 +76,7 @@ const Gallery: FC<Props> = ({ images, category }) => {
       {hasRole({ user: getUser(), role: 'Admin' }) && (
         <div className="flex flex-row-reverse">
           <Button onClick={() => router.push(`/galleryedit/${category}`)}>
-            Edit
+            {Texts.edit}
           </Button>
         </div>
       )}
@@ -169,4 +171,4 @@ const Gallery: FC<Props> = ({ images, category }) => {
   )
 }
 
-export default Gallery
+export default WithHeader(Gallery)

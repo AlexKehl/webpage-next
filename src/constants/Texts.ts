@@ -15,4 +15,8 @@ export const Texts = {
   profile: 'Profile',
   logout: 'Logout',
   successFullLogout: 'Successfully logged out',
+  status: 'Status',
+  edit: 'Edit',
+  gallery: 'Gallery',
+  addFile: 'Add File',
 }

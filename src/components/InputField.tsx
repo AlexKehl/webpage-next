@@ -1,61 +1,22 @@
-import { FC } from 'react'
-import { UseFormRegisterReturn } from 'react-hook-form'
-import { joinClasses } from '../utils/TailWind'
+import { Input, InputProps, Text } from '@chakra-ui/react'
+import React from 'react'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 
-interface Props {
-  label?: string
+type Props = {
   error: boolean
   errorText: string
-  id: string
-  type: string
-  placeholder?: string
-  register?: UseFormRegisterReturn
-}
-const InputField: FC<Props> = ({
-  id,
-  type,
-  placeholder,
-  register,
-  errorText,
-  error,
-  label,
-}) => {
-  const normalFieldStateCss = joinClasses([
-    'my-2',
-    'shadow',
-    'appearance-none',
-    'border',
-    'rounded',
-    'w-full',
-    'py-3',
-    'px-3',
-    'text-gray-700',
-    'mb-3',
-    'leading-tight',
-    'focus:outline-none',
-    'focus:shadow-outline',
-  ])
-  const errorFieldStateCss = error
-    ? `${normalFieldStateCss} border-red-500`
-    : normalFieldStateCss
+  hookFormRegister: ReturnType<UseFormRegister<FieldValues>>
+} & InputProps
+
+const InputField = ({ error, errorText, hookFormRegister, ...rest }: Props) => {
   return (
     <div>
-      {label && (
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="username"
-        >
-          {label}
-        </label>
+      <Input isInvalid={error} {...rest} {...hookFormRegister} />
+      {error && (
+        <Text fontSize="small" color="red.500">
+          {errorText}
+        </Text>
       )}
-      <input
-        className={errorFieldStateCss}
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        {...register}
-      />
-      {error && <p className="text-red-500 text-xs italic">{errorText}</p>}
     </div>
   )
 }

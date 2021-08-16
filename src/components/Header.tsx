@@ -1,30 +1,48 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import {
+  Button,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+} from '@chakra-ui/react'
 import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import Categories from '../../common/constants/Categories'
-import useUser from '../lib/hooks/useUser'
+import { Texts } from '../constants/Texts'
 import ProfileMenu from './ProfileMenu'
 
 const Header: FC = () => {
   const router = useRouter()
 
   return (
-    <div className="flex justify-between bg-gray-100 px-12 py-2">
+    <Flex
+      justifyContent={'space-between'}
+      background={'gray.100'}
+      paddingX={'12'}
+      paddingY={'2'}
+    >
       <div>
         <Button onClick={() => router.push('/')}> Home </Button>
       </div>
-      <div className="flex justify-between space-x-3">
+      <Stack direction="row">
         <Button onClick={() => router.push('/about')}> About </Button>
         <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-            Gallery
+          <MenuButton
+            data-testid="gallerymenu"
+            as={Button}
+            rightIcon={<ChevronDownIcon />}
+          >
+            {Texts.gallery}
           </MenuButton>
           <MenuList>
             {Categories.map((category, idx) => (
               <MenuItem
                 key={idx}
+                data-testid="gallerycategory"
                 onClick={() => router.push(`/gallery/${category}`)}
               >
                 {capitalize(category)}
@@ -33,8 +51,8 @@ const Header: FC = () => {
           </MenuList>
         </Menu>
         <ProfileMenu />
-      </div>
-    </div>
+      </Stack>
+    </Flex>
   )
 }
 

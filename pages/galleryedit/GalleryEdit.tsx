@@ -3,6 +3,8 @@ import React, { FC, useEffect, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
+import WithHeader from '../../src/components/HOC/WithHeader'
+import { Texts } from '../../src/constants/Texts'
 import { getInitialGalleryFiles } from '../../src/lib/api/Files'
 import GalleryUploadPreviewContainer from './GalleryUploadPreview'
 
@@ -48,7 +50,7 @@ const GalleryEdit: FC<Props> = ({ category }) => {
           <section className="w-12">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <Button className="m-2">Add File</Button>
+              <Button className="m-2">{Texts.addFile}</Button>
             </div>
           </section>
         )}
@@ -57,4 +59,4 @@ const GalleryEdit: FC<Props> = ({ category }) => {
   )
 }
 
-export default GalleryEdit
+export default WithHeader(GalleryEdit)

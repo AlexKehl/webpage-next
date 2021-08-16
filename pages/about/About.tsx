@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import WithHeader from '../../src/components/HOC/WithHeader'
 import AboutText from '../../src/constants/AboutText'
 
 export const AboutPage: FC = () => (
@@ -14,4 +15,4 @@ export const AboutPage: FC = () => (
   </div>
 )
 
-export default AboutPage
+export default WithHeader(AboutPage)

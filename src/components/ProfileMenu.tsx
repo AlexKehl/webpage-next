@@ -15,7 +15,7 @@ const ProfileMenu = () => {
         icon={<ChevronDownIcon />}
         rightIcon={<ChevronDownIcon />}
       >
-        {getUser().email}
+        {getUser().email || Texts.profile}
       </MenuButton>
       <MenuList>
         {!isLoggedIn && (

@@ -14,6 +14,8 @@ import {
 } from '@chakra-ui/react'
 import { Texts } from '../../src/constants/Texts'
 import { useForm } from 'react-hook-form'
+import WithHeader from '../../src/components/HOC/WithHeader'
+import InputField from '../../src/components/InputField'
 
 export const Login = () => {
   const { register, handleSubmit, formState } = useForm()
@@ -22,6 +24,10 @@ export const Login = () => {
 
   const onSubmit = (data: LoginDto) => {
     performLogin(data)
+  }
+  const registerWithNoRefs = (...args: any) => {
+    const { ref, ...res } = register(args)
+    return res
   }
 
   return (
@@ -35,24 +41,27 @@ export const Login = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack my="4" spacing="6">
-            <Input
+            <InputField
               id="email"
               placeholder={Texts.email}
-              {...register('email', {
+              error={formState.errors['email']}
+              errorText={Texts.emailRuleFail}
+              hookFormRegister={register('email', {
                 required: true,
                 pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
               })}
             />
-            {formState.errors['email'] && <span>{Texts.emailRuleFail}</span>}
-            <Input
+            <InputField
               id="password"
               type="password"
               placeholder={Texts.password}
-              {...register('password', { required: true, minLength: 8 })}
+              error={formState.errors['password']}
+              errorText={Texts.passwordRuleFail}
+              hookFormRegister={register('password', {
+                required: true,
+                minLength: 8,
+              })}
             />
-            {formState.errors['password'] && (
-              <span>{Texts.passwordRuleFail}</span>
-            )}
             {hasFalseCredentials && <Alert text={Texts.wrongCredentials} />}
             <Checkbox colorScheme="purple">{Texts.keepMeLoggedIn}</Checkbox>
             <Button size="lg" colorScheme="purple" type="submit">
@@ -74,4 +83,4 @@ export const Login = () => {
   )
 }
 
-export default Login
+export default WithHeader(Login)
