@@ -1,11 +1,14 @@
+import { UserWithPassword } from '../../common/fixtures/User'
 import { BASE_URL } from '../../config'
 import { Texts } from '../../src/constants/Texts'
+
 describe('auth', () => {
+  const { password, email } = UserWithPassword
   it('logs in and out successfully', () => {
     cy.visit(`${BASE_URL}/login`)
 
-    cy.findByRole('textbox').type('test@test.com')
-    cy.findByPlaceholderText(Texts.password).type('12345678')
+    cy.findByRole('textbox').type(email)
+    cy.findByPlaceholderText(Texts.password).type(password)
     cy.findByRole('button', { name: Texts.login }).click()
 
     cy.findByText(Texts.successFullLogin).should('exist')
@@ -22,8 +25,8 @@ describe('auth', () => {
   it('can visit profile page after login', () => {
     cy.visit(`${BASE_URL}/login`)
 
-    cy.findByRole('textbox').type('test@test.com')
-    cy.findByPlaceholderText(Texts.password).type('12345678')
+    cy.findByRole('textbox').type(email)
+    cy.findByPlaceholderText(Texts.password).type(password)
     cy.findByRole('button', { name: Texts.login }).click()
 
     cy.findByTestId('profilemenu').click()
