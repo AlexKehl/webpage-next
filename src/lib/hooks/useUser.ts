@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { login, logout } from '../api/Auth'
 import { LoginDto } from '../../../common/interface/Dto'
@@ -13,14 +13,17 @@ const useUser = () => {
   const router = useRouter()
   const toast = useToast()
   const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    setIsLoggedIn(Boolean(cookies['accessToken']))
+  }, [cookies])
 
   const getUser = (): User => {
     const accessToken = cookies['accessToken']
     const { email, roles } = decode(accessToken, { json: true }) || {}
     return { email, roles }
   }
-
-  const isLoggedIn = Boolean(cookies['accessToken'])
 
   const performLogin = async (credentials: LoginDto) => {
     try {
@@ -40,7 +43,15 @@ const useUser = () => {
 
   const performLogout = async () => {
     removeCookie('accessToken', { path: '/' })
-    await logout(getUser()?.email)
+    await logout(getUser().email)
+
+    toast({
+      title: 'Success',
+      description: Texts.successFullLogout,
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    })
     router.push('/login')
   }
 

@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router'
+import React from 'react'
+import Header from '../src/components/Header'
 import { Texts } from '../src/constants/Texts'
 import useI18n from '../src/lib/hooks/useI18n'
 import useUser from '../src/lib/hooks/useUser'
@@ -8,9 +10,11 @@ export const Home = () => {
   const { changeLanguage, i18n, locale } = useI18n()
   const { getUser } = useUser()
 
-  const { email, roles } = getUser()
   return (
-    <div>{`${Texts.homeWelcome} ${email}`}</div>
+    <div>
+      <Header />
+      {`${Texts.homeWelcome} ${getUser().email}`}
+    </div>
     // <Fragment>
     //   <Toolbar className="flex justify-between my-2 mx-1">
     //     <div>

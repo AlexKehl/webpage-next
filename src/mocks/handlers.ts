@@ -20,4 +20,8 @@ export const handlers = [
       ctx.status(HttpStatus.OK)
     )
   }),
+
+  rest.post(`${API}/logout`, (req, res, ctx) => {
+    return res(ctx.status(HttpStatus.OK))
+  }),
 ]

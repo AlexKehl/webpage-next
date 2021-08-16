@@ -1,4 +1,3 @@
-import { PaperClipIcon } from '@heroicons/react/solid'
 import React, { FC } from 'react'
 import useUser from '../../src/lib/hooks/useUser'
 
@@ -62,10 +61,6 @@ const ProfilePage: FC = () => {
                 <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                   <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
                     <div className="flex items-center flex-1 w-0">
-                      <PaperClipIcon
-                        className="flex-shrink-0 w-5 h-5 text-gray-400"
-                        aria-hidden="true"
-                      />
                       <span className="flex-1 w-0 ml-2 truncate">
                         resume_back_end_developer.pdf
                       </span>
@@ -81,10 +76,6 @@ const ProfilePage: FC = () => {
                   </li>
                   <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
                     <div className="flex items-center flex-1 w-0">
-                      <PaperClipIcon
-                        className="flex-shrink-0 w-5 h-5 text-gray-400"
-                        aria-hidden="true"
-                      />
                       <span className="flex-1 w-0 ml-2 truncate">
                         coverletter_back_end_developer.pdf
                       </span>
