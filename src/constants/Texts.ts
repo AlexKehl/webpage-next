@@ -19,4 +19,11 @@ export const Texts = {
   edit: 'Edit',
   gallery: 'Gallery',
   addFile: 'Add File',
+  createAccount: 'Create Account',
+  repeatPassword: 'Repeat password',
+  passwordsDoNotMatch: 'Passwords do not match',
+  create: 'Create',
+  verifyEmail: 'Please verify your email.',
+  succssfullRegistered: 'Successfully registered.',
+  emailAlreadyTaken: 'This email is already registered',
 }

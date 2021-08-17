@@ -24,4 +24,12 @@ export const handlers = [
   rest.post(`${API}/logout`, (req, res, ctx) => {
     return res(ctx.status(HttpStatus.OK))
   }),
+
+  // rest.post(`${API}/register`, (req, res, ctx) => {
+  //   return res(ctx.status(HttpStatus.OK))
+  // }),
+
+  rest.post(`${API}/register`, async (_req, res, ctx) => {
+    return res(ctx.status(HttpStatus.CONFLICT), ctx.json({ success: false }))
+  }),
 ]

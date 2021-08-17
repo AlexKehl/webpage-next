@@ -7,29 +7,31 @@ import {
   Center,
   Stack,
   Heading,
-  Input,
   Alert,
   Checkbox,
   Button,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { Texts } from '../../src/constants/Texts'
 import { useForm } from 'react-hook-form'
 import WithHeader from '../../src/components/HOC/WithHeader'
 import InputField from '../../src/components/InputField'
+import Register from './Register'
 
 export const Login = () => {
   const { register, handleSubmit, formState } = useForm()
+
+  const {
+    isOpen: isRegisterOpen,
+    onOpen: onRegisterOpen,
+    onClose: onRegisterClose,
+  } = useDisclosure()
 
   const { performLogin, hasFalseCredentials } = useUser()
 
   const onSubmit = (data: LoginDto) => {
     performLogin(data)
   }
-  const registerWithNoRefs = (...args: any) => {
-    const { ref, ...res } = register(args)
-    return res
-  }
-
   return (
     <Center h="100vh">
       <Stack boxShadow="xl" p="20" rounded="md">
@@ -73,12 +75,17 @@ export const Login = () => {
         <Stack justify="center" color="gray.600" spacing="3">
           <Text as="div" textAlign="center">
             <span>{Texts.doNotHaveAccount}</span>
-            <Button colorScheme="purple" variant="link">
+            <Button
+              colorScheme="purple"
+              variant="link"
+              onClick={onRegisterOpen}
+            >
               {Texts.signUp}
             </Button>
           </Text>
         </Stack>
       </Stack>
+      <Register isOpen={isRegisterOpen} onClose={onRegisterClose} />
     </Center>
   )
 }
