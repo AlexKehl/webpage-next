@@ -4,7 +4,7 @@ import axios from 'axios'
 import Login from '../../pages/login/Login'
 import { Texts } from '../../src/constants/Texts'
 
-axios.defaults.adapter = require('axios/lib/adapters/http')
+// axios.defaults.adapter = require('axios/lib/adapters/http')
 
 it('should show error if email input is not an email', async () => {
   render(<Login />)

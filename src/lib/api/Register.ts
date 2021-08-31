@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Endpoints } from '../../../common/constants/Endpoints'
-import { RegisterDto } from '../../../common/interface/Dto'
+import { ConfirmEmailDto, RegisterDto } from '../../../common/interface/Dto'
 import { API } from '../../../config'
 
 const registerRequest = async (registerDto: RegisterDto): Promise<any> => {
@@ -14,4 +14,9 @@ const registerRequest = async (registerDto: RegisterDto): Promise<any> => {
   return data
 }
 
-export { registerRequest }
+const confirmEmailTokenRequest = async (dto: ConfirmEmailDto) => {
+  const { data } = await axios.post(`${API}${Endpoints.emailConfirm}`, dto)
+  return data
+}
+
+export { registerRequest, confirmEmailTokenRequest }

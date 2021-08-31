@@ -1,14 +1,16 @@
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
-import { rest } from 'msw'
+import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { UserWithPassword, USER_EMAIL } from '../../common/fixtures/User'
 import Login from '../../pages/login/Login'
 import { Texts } from '../../src/constants/Texts'
-import { server } from '../../src/mocks/server'
+import { mockRoute, setupMswServer } from '../utils/Msw'
 
-// axios.defaults.adapter = require('axios/lib/adapters/http')
+axios.defaults.adapter = require('axios/lib/adapters/http')
+
+setupMswServer()
 
 const getDialog = async () => {
   render(<Login />)
@@ -99,6 +101,12 @@ it('shows email confirmation dialog if all fields are correct', async () => {
   const { email, password } = UserWithPassword
   const dialog = await getDialog()
 
+  mockRoute({
+    route: Endpoints.register,
+    httpStatus: HttpStatus.OK,
+    method: 'post',
+  })
+
   userEvent.type(dialog.getByPlaceholderText(Texts.email), email)
   userEvent.type(dialog.getByPlaceholderText(Texts.password), password)
   userEvent.type(dialog.getByPlaceholderText(Texts.repeatPassword), password)
@@ -106,19 +114,18 @@ it('shows email confirmation dialog if all fields are correct', async () => {
 
   await waitFor(() => {
     expect(screen.getByText(Texts.verifyEmail)).toBeInTheDocument()
-    expect(screen.queryByText(Texts.createAccount)).toBeNull()
   })
 })
 
-it.only('shows email taken toast if email is registered', async () => {
+it('shows email taken toast if email is registered', async () => {
   const { email, password } = UserWithPassword
   const dialog = await getDialog()
 
-  // server.use(
-  //   rest.post('/register', async (_req, res, ctx) => {
-  //     return res(ctx.status(HttpStatus.CONFLICT))
-  //   })
-  // )
+  mockRoute({
+    route: Endpoints.register,
+    httpStatus: HttpStatus.CONFLICT,
+    method: 'post',
+  })
 
   userEvent.type(dialog.getByPlaceholderText(Texts.email), email)
   userEvent.type(dialog.getByPlaceholderText(Texts.password), password)

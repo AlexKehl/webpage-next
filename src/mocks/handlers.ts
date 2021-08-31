@@ -1,9 +1,10 @@
 import { rest } from 'msw'
+import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { API } from '../../config'
 
 export const handlers = [
-  rest.post(`${API}/login`, (req, res, ctx) => {
+  rest.post(`${API}${Endpoints.login}`, (_req, res, ctx) => {
     return res(
       ctx.cookie(
         'accessToken',
@@ -21,15 +22,11 @@ export const handlers = [
     )
   }),
 
-  rest.post(`${API}/logout`, (req, res, ctx) => {
+  rest.post(`${API}${Endpoints.logout}`, (_req, res, ctx) => {
     return res(ctx.status(HttpStatus.OK))
   }),
 
-  // rest.post(`${API}/register`, (req, res, ctx) => {
-  //   return res(ctx.status(HttpStatus.OK))
-  // }),
-
-  rest.post(`${API}/register`, async (_req, res, ctx) => {
-    return res(ctx.status(HttpStatus.CONFLICT), ctx.json({ success: false }))
+  rest.post(`${API}/register`, (_req, res, ctx) => {
+    return res(ctx.status(HttpStatus.OK))
   }),
 ]
