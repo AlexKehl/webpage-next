@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { UserWithPassword, USER_EMAIL } from '../../common/fixtures/User'
-import Login from '../../pages/login/Login'
+import Login from '../../src/components/Login'
 import { Texts } from '../../src/constants/Texts'
 import { mockRoute, setupMswServer } from '../utils/Msw'
 

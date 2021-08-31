@@ -3,9 +3,9 @@ import React, { FC, useEffect, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
-import WithHeader from '../../src/components/HOC/WithHeader'
-import { Texts } from '../../src/constants/Texts'
-import { getInitialGalleryFiles } from '../../src/lib/api/Files'
+import WithHeader from './HOC/WithHeader'
+import { Texts } from '../constants/Texts'
+import { getInitialGalleryFiles } from '../lib/api/Files'
 import GalleryUploadPreviewContainer from './GalleryUploadPreview'
 
 interface Props {

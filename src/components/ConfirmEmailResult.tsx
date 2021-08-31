@@ -2,9 +2,9 @@ import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import { Center, Spinner, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import WithHeader from '../../src/components/HOC/WithHeader'
-import { Texts } from '../../src/constants/Texts'
-import { confirmEmailTokenRequest } from '../../src/lib/api/Register'
+import WithHeader from './HOC/WithHeader'
+import { Texts } from '../constants/Texts'
+import { confirmEmailTokenRequest } from '../lib/api/Register'
 
 type ConfirmationState = 'CONFIRMED' | 'NOT_CONFIRMED' | 'PENDING'
 

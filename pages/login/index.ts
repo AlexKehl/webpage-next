@@ -1,1 +1,1 @@
-export { default } from './Login'
+export { default } from '../../src/components/Login'

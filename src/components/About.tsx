@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import WithHeader from '../../src/components/HOC/WithHeader'
-import AboutText from '../../src/constants/AboutText'
+import WithHeader from './HOC/WithHeader'
+import AboutText from '../constants/AboutText'
 import Image from 'next/image'
 import AboutPicture from '../../public/photo_2021-01-14 02.52.26.jpeg'
 

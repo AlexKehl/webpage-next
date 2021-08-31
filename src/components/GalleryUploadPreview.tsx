@@ -17,11 +17,11 @@ import React, {
 } from 'react'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
-import ImagePresenter from '../../src/components/ImagePresenter'
-import { deleteImage, uploadImage } from '../../src/lib/api/Files'
-import useApi from '../../src/lib/hooks/useApi'
-import { getEventValue } from '../../src/utils/Functions'
-import { joinClasses } from '../../src/utils/TailWind'
+import ImagePresenter from './ImagePresenter'
+import { deleteImage, uploadImage } from '../lib/api/Files'
+import useApi from '../lib/hooks/useApi'
+import { getEventValue } from '../utils/Functions'
+import { joinClasses } from '../utils/TailWind'
 
 interface Props {
   onRemoveFile: (fileName: string) => void

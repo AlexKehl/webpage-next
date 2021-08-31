@@ -17,10 +17,10 @@ import { useForm } from 'react-hook-form'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { RegisterDto } from '../../common/interface/Dto'
 import { tryCatch } from '../../common/utils/Functions'
-import InputField from '../../src/components/InputField'
-import { Texts } from '../../src/constants/Texts'
-import { registerRequest } from '../../src/lib/api/Register'
-import ConfirmEmail from './ConfirmEmail'
+import InputField from './InputField'
+import { Texts } from '../constants/Texts'
+import { registerRequest } from '../lib/api/Register'
+import ConfirmEmail from './ConfirmEmailDialog'
 
 interface Props {
   isOpen: boolean

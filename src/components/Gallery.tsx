@@ -18,13 +18,13 @@ import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { hasRole } from '../../common/utils/User'
-import WithHeader from '../../src/components/HOC/WithHeader'
-import ImagePresenter from '../../src/components/ImagePresenter'
-import { Texts } from '../../src/constants/Texts'
-import useUser from '../../src/lib/hooks/useUser'
+import WithHeader from './HOC/WithHeader'
+import ImagePresenter from './ImagePresenter'
+import { Texts } from '../constants/Texts'
+import useUser from '../lib/hooks/useUser'
 
 interface Props {
-  images: ImageForGallery[]
+  images?: ImageForGallery[]
   category: Category
 }
 
@@ -59,7 +59,7 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
   return reducerActions[action.type]
 }
 
-const Gallery: FC<Props> = ({ images, category }) => {
+const Gallery: FC<Props> = ({ images = [], category }) => {
   const router = useRouter()
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImage: 0,

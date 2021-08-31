@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Login from '../../pages/login/Login'
+import Login from '../../src/components/Login'
 import { Texts } from '../../src/constants/Texts'
 
 // axios.defaults.adapter = require('axios/lib/adapters/http')

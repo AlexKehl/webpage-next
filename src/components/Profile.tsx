@@ -9,9 +9,9 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import React, { FC } from 'react'
-import WithHeader from '../../src/components/HOC/WithHeader'
-import { Texts } from '../../src/constants/Texts'
-import useUser from '../../src/lib/hooks/useUser'
+import WithHeader from './HOC/WithHeader'
+import { Texts } from '../constants/Texts'
+import useUser from '../lib/hooks/useUser'
 
 const ProfilePage: FC = () => {
   const { getUser } = useUser()

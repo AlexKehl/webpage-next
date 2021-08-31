@@ -4,7 +4,7 @@ import { Category } from '../../common/interface/Constants'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { getGalleryFiles } from '../../src/lib/api/Files'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
-import Gallery from './Gallery'
+import Gallery from '../../src/components/Gallery'
 
 interface Props {
   images: ImageForGallery[]

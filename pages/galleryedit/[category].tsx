@@ -3,7 +3,7 @@ import React from 'react'
 import Categories from '../../common/constants/Categories'
 import { Category } from '../../common/interface/Constants'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
-import GalleryEdit from './GalleryEdit'
+import GalleryEdit from '../../src/components/GalleryEdit'
 
 interface Props {
   category: Category
