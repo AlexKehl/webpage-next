@@ -4,4 +4,7 @@ module.exports = {
     defaultLocale: 'en',
     reactStrictMode: true,
   },
+  images: {
+    domains: ['localhost'],
+  },
 }

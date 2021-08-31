@@ -17,7 +17,7 @@ const ConfirmEmail = (): JSX.Element => {
     confirmEmailTokenRequest({ token: query['token'] as string })
       .then(() => setConfirmationState('CONFIRMED'))
       .catch(() => setConfirmationState('NOT_CONFIRMED'))
-  }, [query['token']])
+  }, [query])
 
   return (
     <div>

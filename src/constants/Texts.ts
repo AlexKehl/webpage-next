@@ -27,7 +27,7 @@ export const Texts = {
   succssfullRegistered: 'Successfully registered.',
   emailAlreadyTaken: 'This email is already registered',
   emailConfirmSuccess:
-    'Email successfully confirm. You can now log in with your credentials',
+    'Email successfully confirmed. You can now log in with your credentials',
   emailConfirmFail: 'Email confirmation failed. Please try again later.',
   awaitingEmailConfirmation: 'Waiting for email confirmation...',
 }

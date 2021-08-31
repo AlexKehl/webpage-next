@@ -19,7 +19,7 @@ const GalleryEdit: FC<Props> = ({ category }) => {
 
   useEffect(() => {
     getInitialGalleryFiles(category).then(setFilesList)
-  }, [])
+  }, [category])
 
   const onAddFiles = (acceptedFiles: File[]) => {
     setFilesList([...filesList, ...acceptedFiles.map((file) => ({ file }))])

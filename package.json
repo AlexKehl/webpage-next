@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watch",
+    "lint": "next lint",
     "cy:install": "cypress install",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
@@ -42,6 +43,8 @@
     "autoprefixer": "^10.2.6",
     "cypress": "^8.2.0",
     "cypress-file-upload": "^5.0.8",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^11.1.2",
     "faker": "^5.5.3",
     "msw": "^0.34.0",
     "postcss": "^8.3.5",
@@ -49,5 +52,8 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "jest": {
+    "testURL": "http://192.168.1.253"
   }
 }
