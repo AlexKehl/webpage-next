@@ -15,7 +15,7 @@ import Categories from '../../common/constants/Categories'
 import { Texts } from '../constants/Texts'
 import ProfileMenu from './ProfileMenu'
 
-const Header: FC = () => {
+const Header = () => {
   const router = useRouter()
 
   return (

@@ -9,12 +9,7 @@ import {
   Checkbox,
   IconButton,
 } from '@chakra-ui/react'
-import React, {
-  ChangeEventHandler,
-  FC,
-  FormEventHandler,
-  useState,
-} from 'react'
+import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import ImagePresenter from './ImagePresenter'
@@ -30,12 +25,12 @@ interface Props {
   category: Category
 }
 
-const GalleryUploadPreview: FC<Props> = ({
+const GalleryUploadPreview = ({
   onRemoveFile,
   fileMeta,
   file,
   category,
-}) => {
+}: Props) => {
   const { validatedRequest } = useApi()
   const [formData, updateFormData] = useState<Partial<GalleryImageMeta>>({
     isForSell: fileMeta?.isForSell || false,

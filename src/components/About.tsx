@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
+import React from 'react'
 import WithHeader from './HOC/WithHeader'
 import AboutText from '../constants/AboutText'
 import Image from 'next/image'
 import AboutPicture from '../../public/photo_2021-01-14 02.52.26.jpeg'
 
-export const AboutPage: FC = () => (
+export const AboutPage = () => (
   <div className="max-w-4xl mx-auto">
     <div className="flex justify-center">
       <Image alt="" className="max-w-full p-4 border-2" src={AboutPicture} />

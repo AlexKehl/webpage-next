@@ -59,7 +59,7 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
   return reducerActions[action.type]
 }
 
-const Gallery: FC<Props> = ({ images = [], category }) => {
+const Gallery = ({ images = [], category }: Props) => {
   const router = useRouter()
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImage: 0,

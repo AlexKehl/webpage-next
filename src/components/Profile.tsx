@@ -8,12 +8,12 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import React, { FC } from 'react'
+import React from 'react'
 import WithHeader from './HOC/WithHeader'
 import { Texts } from '../constants/Texts'
 import useUser from '../lib/hooks/useUser'
 
-const ProfilePage: FC = () => {
+const ProfilePage = () => {
   const { getUser } = useUser()
   const { email } = getUser()
   return (

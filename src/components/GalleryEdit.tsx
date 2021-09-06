@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react'
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
@@ -12,7 +12,7 @@ interface Props {
   category: Category
 }
 
-const GalleryEdit: FC<Props> = ({ category }) => {
+const GalleryEdit = ({ category }: Props) => {
   const [filesList, setFilesList] = useState<
     ({ file: File } & Partial<GalleryImageMeta>)[]
   >([])
