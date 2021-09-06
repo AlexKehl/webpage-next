@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { rest } from 'msw'
 import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
@@ -13,6 +14,8 @@ interface MockRouteOpts {
 }
 
 export const setupMswServer = () => {
+  axios.defaults.adapter = require('axios/lib/adapters/http')
+
   beforeAll(() => server.listen())
   afterEach(() => server.resetHandlers())
   afterAll(() => server.close())

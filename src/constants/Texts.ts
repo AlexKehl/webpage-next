@@ -32,4 +32,5 @@ export const Texts = {
   awaitingEmailConfirmation: 'Waiting for email confirmation...',
   success: 'Success',
   error: 'Error',
+  unexpectedError: 'Unexpected Error occured. Please try again later.',
 }

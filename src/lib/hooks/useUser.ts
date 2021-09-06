@@ -7,6 +7,8 @@ import { User } from '../../../common/interface/ConsumerResponses'
 import { decode } from 'jsonwebtoken'
 import { Texts } from '../../constants/Texts'
 import useToasts from './useToasts'
+import HttpStatus from '../../../common/constants/HttpStatus'
+import { handleHttpError } from '../errors/Handlers'
 
 const useUser = () => {
   const [cookies, , removeCookie] = useCookies(['accessToken'])
@@ -29,9 +31,13 @@ const useUser = () => {
       await login(credentials)
       showSuccess({ text: Texts.successFullLogin })
       router.push('/')
-    } catch (e) {
-      console.log(e.message)
-      showError({ text: Texts.wrongCredentials })
+    } catch (error) {
+      handleHttpError({
+        error,
+        [HttpStatus.UNAUTHORIZED]: () =>
+          showError({ text: Texts.wrongCredentials }),
+        default: () => showError({ text: Texts.unexpectedError }),
+      })
     }
   }
 
