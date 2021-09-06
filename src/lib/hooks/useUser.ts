@@ -5,14 +5,13 @@ import { login, logout } from '../api/Auth'
 import { LoginDto } from '../../../common/interface/Dto'
 import { User } from '../../../common/interface/ConsumerResponses'
 import { decode } from 'jsonwebtoken'
-import { useToast } from '@chakra-ui/react'
 import { Texts } from '../../constants/Texts'
+import useToasts from './useToasts'
 
 const useUser = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
+  const [cookies, , removeCookie] = useCookies(['accessToken'])
   const router = useRouter()
-  const toast = useToast()
-  const [hasFalseCredentials, setHasFalseCredentials] = useState(false)
+  const { showError, showSuccess } = useToasts()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
@@ -28,16 +27,11 @@ const useUser = () => {
   const performLogin = async (credentials: LoginDto) => {
     try {
       await login(credentials)
-      toast({
-        title: 'Success',
-        description: Texts.successFullLogin,
-        status: 'success',
-        duration: 9000,
-        isClosable: true,
-      })
+      showSuccess({ text: Texts.successFullLogin })
       router.push('/')
-    } catch (error) {
-      setHasFalseCredentials(true)
+    } catch (e) {
+      console.log(e.message)
+      showError({ text: Texts.wrongCredentials })
     }
   }
 
@@ -45,13 +39,7 @@ const useUser = () => {
     removeCookie('accessToken', { path: '/' })
     await logout(getUser().email)
 
-    toast({
-      title: 'Success',
-      description: Texts.successFullLogout,
-      status: 'success',
-      duration: 9000,
-      isClosable: true,
-    })
+    showSuccess({ text: Texts.successFullLogout })
     router.push('/login')
   }
 
@@ -59,7 +47,6 @@ const useUser = () => {
     isLoggedIn,
     performLogin,
     performLogout,
-    hasFalseCredentials,
     getUser,
   }
 }

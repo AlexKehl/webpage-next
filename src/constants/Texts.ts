@@ -30,4 +30,6 @@ export const Texts = {
     'Email successfully confirmed. You can now log in with your credentials',
   emailConfirmFail: 'Email confirmation failed. Please try again later.',
   awaitingEmailConfirmation: 'Waiting for email confirmation...',
+  success: 'Success',
+  error: 'Error',
 }
