@@ -10,12 +10,14 @@ import {
 } from '@chakra-ui/react'
 import { capitalize } from 'lodash'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import React from 'react'
 import Categories from '../../common/constants/Categories'
-import { Texts } from '../constants/Texts'
+import useI18n from '../lib/hooks/useI18n'
+import LanguageSwitch from './LanguageSwitch'
 import ProfileMenu from './ProfileMenu'
 
 const Header = () => {
+  const { t } = useI18n()
   const router = useRouter()
 
   return (
@@ -31,12 +33,13 @@ const Header = () => {
       <Stack direction="row">
         <Button onClick={() => router.push('/about')}> About </Button>
         <Menu>
+          <LanguageSwitch />
           <MenuButton
             data-testid="gallerymenu"
             as={Button}
             rightIcon={<ChevronDownIcon />}
           >
-            {Texts.gallery}
+            {t.gallery}
           </MenuButton>
           <MenuList>
             {Categories.map((category, idx) => (

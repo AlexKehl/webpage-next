@@ -1,6 +1,6 @@
 import React from 'react'
 import { FieldValues, FormState, UseFormRegister } from 'react-hook-form'
-import { Texts } from '../constants/Texts'
+import useI18n from '../lib/hooks/useI18n'
 import InputField from './InputField'
 
 interface Props {
@@ -9,12 +9,14 @@ interface Props {
 }
 
 const EmailField = ({ register, formState }: Props) => {
+  const { t } = useI18n()
+
   return (
     <InputField
       id="email"
-      placeholder={Texts.email}
+      placeholder={t.email}
       error={formState.errors['email']}
-      errorText={Texts.emailRuleFail}
+      errorText={t.emailRuleFail}
       hookFormRegister={register('email', {
         required: true,
         pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { FieldValues, FormState, UseFormRegister } from 'react-hook-form'
-import { Texts } from '../constants/Texts'
+import useI18n from '../lib/hooks/useI18n'
 import InputField from './InputField'
 
 interface Props {
@@ -9,13 +9,14 @@ interface Props {
 }
 
 const PasswordField = ({ register, formState }: Props) => {
+  const { t } = useI18n()
   return (
     <InputField
       id="password"
       type="password"
-      placeholder={Texts.password}
+      placeholder={t.password}
       error={formState.errors['password']}
-      errorText={Texts.passwordRuleFail}
+      errorText={t.passwordRuleFail}
       hookFormRegister={register('password', {
         required: true,
         minLength: 8,

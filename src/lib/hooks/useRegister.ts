@@ -2,9 +2,9 @@ import { useDisclosure } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { RegisterDto } from '../../../common/interface/Dto'
-import { Texts } from '../../constants/Texts'
 import { registerRequest } from '../api/Register'
 import { handleHttpError } from '../errors/Handlers'
+import useI18n from './useI18n'
 import useToasts from './useToasts'
 
 interface Options {
@@ -12,6 +12,8 @@ interface Options {
 }
 
 const useRegister = ({ onClose }: Options) => {
+  const { t } = useI18n()
+
   const { register, handleSubmit, formState, getValues } = useForm()
   const {
     isOpen: isConfirmEmailOpen,
@@ -28,9 +30,8 @@ const useRegister = ({ onClose }: Options) => {
     } catch (error) {
       handleHttpError({
         error,
-        default: () => showError({ text: Texts.unexpectedError }),
-        [HttpStatus.CONFLICT]: () =>
-          showError({ text: Texts.emailAlreadyTaken }),
+        default: () => showError({ text: t.unexpectedError }),
+        [HttpStatus.CONFLICT]: () => showError({ text: t.emailAlreadyTaken }),
       })
     }
   }

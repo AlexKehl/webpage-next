@@ -4,15 +4,16 @@ import Dropzone from 'react-dropzone'
 import { Category } from '../../common/interface/Constants'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import WithHeader from './HOC/WithHeader'
-import { Texts } from '../constants/Texts'
 import { getInitialGalleryFiles } from '../lib/api/Files'
 import GalleryUploadPreviewContainer from './GalleryUploadPreview'
+import useI18n from '../lib/hooks/useI18n'
 
 interface Props {
   category: Category
 }
 
 const GalleryEdit = ({ category }: Props) => {
+  const { t } = useI18n()
   const [filesList, setFilesList] = useState<
     ({ file: File } & Partial<GalleryImageMeta>)[]
   >([])
@@ -50,7 +51,7 @@ const GalleryEdit = ({ category }: Props) => {
           <section className="w-12">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <Button className="m-2">{Texts.addFile}</Button>
+              <Button className="m-2">{t.addFile}</Button>
             </div>
           </section>
         )}

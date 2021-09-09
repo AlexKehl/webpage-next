@@ -10,7 +10,7 @@ import {
   Center,
 } from '@chakra-ui/react'
 import React from 'react'
-import { Texts } from '../constants/Texts'
+import useI18n from '../lib/hooks/useI18n'
 
 interface Props {
   isOpen: boolean
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const Register = ({ isOpen, onClose }: Props) => {
+  const { t } = useI18n()
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -30,7 +31,7 @@ const Register = ({ isOpen, onClose }: Props) => {
         <ModalCloseButton />
         <ModalBody pb="6">
           <Center>
-            <Text fontSize="3xl">{Texts.verifyEmail}</Text>
+            <Text fontSize="3xl">{t.verifyEmail}</Text>
           </Center>
         </ModalBody>
       </ModalContent>

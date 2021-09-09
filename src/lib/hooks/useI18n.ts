@@ -2,8 +2,9 @@ import { useRouter } from 'next/router'
 import en from '../../locales/en'
 import de from '../../locales/de'
 import ru from '../../locales/ru'
+import { Language } from '../../../common/constants/Languages'
 
-const getTranslated = (locale?: string) => {
+const getTranslated = (locale?: Language) => {
   switch (locale) {
     case 'en':
       return en
@@ -21,14 +22,14 @@ const useI18n = () => {
 
   const { locale, pathname, asPath } = router
 
-  const changeLanguage = (locale: string) => {
+  const changeLanguage = (locale: Language) => {
     router.push(pathname, asPath, { locale })
   }
 
   return {
     locale,
     changeLanguage,
-    i18n: getTranslated(locale),
+    t: getTranslated(locale as Language),
   }
 }
 

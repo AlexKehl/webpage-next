@@ -2,10 +2,11 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import router from 'next/router'
 import React from 'react'
-import { Texts } from '../constants/Texts'
+import useI18n from '../lib/hooks/useI18n'
 import useUser from '../lib/hooks/useUser'
 
 const ProfileMenu = () => {
+  const { t } = useI18n()
   const { performLogout, isLoggedIn, getUser } = useUser()
   return (
     <Menu>
@@ -15,20 +16,18 @@ const ProfileMenu = () => {
         icon={<ChevronDownIcon />}
         rightIcon={<ChevronDownIcon />}
       >
-        {getUser().email || Texts.profile}
+        {getUser().email || t.profile}
       </MenuButton>
       <MenuList>
         {!isLoggedIn && (
-          <MenuItem onClick={() => router.push('/login')}>
-            {Texts.signIn}
-          </MenuItem>
+          <MenuItem onClick={() => router.push('/login')}>{t.signIn}</MenuItem>
         )}
         {isLoggedIn && (
           <div>
             <MenuItem onClick={() => router.push('/profile')}>
-              {Texts.profile}
+              {t.profile}
             </MenuItem>
-            <MenuItem onClick={performLogout}>{Texts.logout}</MenuItem>
+            <MenuItem onClick={performLogout}>{t.logout}</MenuItem>
           </div>
         )}
       </MenuList>

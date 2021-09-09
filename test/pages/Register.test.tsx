@@ -5,17 +5,16 @@ import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { UserWithPassword, USER_EMAIL } from '../../common/fixtures/User'
 import Login from '../../src/components/Login'
-import { Texts } from '../../src/constants/Texts'
-import { mockRoute, setupMswServer } from '../utils/Msw'
+import en from '../../src/locales/en'
+import { setupMswServer, mockRoute, mockRouter } from '../utils/Setup'
 
-axios.defaults.adapter = require('axios/lib/adapters/http')
-
+mockRouter()
 setupMswServer()
 
 const getDialog = async () => {
   render(<Login />)
 
-  userEvent.click(screen.getByRole('button', { name: Texts.signUp }))
+  userEvent.click(screen.getByRole('button', { name: en.signUp }))
 
   return within(screen.getByRole('dialog'))
 }
@@ -23,27 +22,27 @@ const getDialog = async () => {
 it('opens a register dialog on sign up click', async () => {
   const dialog = await getDialog()
 
-  expect(dialog.getByText(Texts.createAccount)).toBeInTheDocument()
-  expect(dialog.getByPlaceholderText(Texts.email)).toBeInTheDocument()
-  expect(dialog.getByPlaceholderText(Texts.password)).toBeInTheDocument()
-  expect(dialog.getByPlaceholderText(Texts.repeatPassword)).toBeInTheDocument()
-  expect(dialog.getByRole('button', { name: Texts.create })).toBeInTheDocument()
+  expect(dialog.getByText(en.createAccount)).toBeInTheDocument()
+  expect(dialog.getByPlaceholderText(en.email)).toBeInTheDocument()
+  expect(dialog.getByPlaceholderText(en.password)).toBeInTheDocument()
+  expect(dialog.getByPlaceholderText(en.repeatPassword)).toBeInTheDocument()
+  expect(dialog.getByRole('button', { name: en.create })).toBeInTheDocument()
 })
 
 it('validates email input', async () => {
   const dialog = await getDialog()
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.email), 'someEmail')
-  userEvent.click(dialog.getByRole('button', { name: Texts.create }))
+  userEvent.type(dialog.getByPlaceholderText(en.email), 'someEmail')
+  userEvent.click(dialog.getByRole('button', { name: en.create }))
 
   await waitFor(() => {
-    expect(dialog.getByText(Texts.emailRuleFail)).toBeInTheDocument()
+    expect(dialog.getByText(en.emailRuleFail)).toBeInTheDocument()
   })
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.email), USER_EMAIL)
+  userEvent.type(dialog.getByPlaceholderText(en.email), USER_EMAIL)
 
   await waitFor(() => {
-    expect(dialog.queryByText(Texts.emailRuleFail)).toBeNull()
+    expect(dialog.queryByText(en.emailRuleFail)).toBeNull()
   })
 })
 
@@ -51,17 +50,17 @@ it('validates password input', async () => {
   const { password } = UserWithPassword
   const dialog = await getDialog()
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.password), '123')
-  userEvent.click(dialog.getByRole('button', { name: Texts.create }))
+  userEvent.type(dialog.getByPlaceholderText(en.password), '123')
+  userEvent.click(dialog.getByRole('button', { name: en.create }))
 
   await waitFor(() => {
-    expect(dialog.getByText(Texts.passwordRuleFail)).toBeInTheDocument()
+    expect(dialog.getByText(en.passwordRuleFail)).toBeInTheDocument()
   })
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.password), password)
+  userEvent.type(dialog.getByPlaceholderText(en.password), password)
 
   await waitFor(() => {
-    expect(dialog.queryByText(Texts.passwordRuleFail)).toBeNull()
+    expect(dialog.queryByText(en.passwordRuleFail)).toBeNull()
   })
 })
 
@@ -69,15 +68,12 @@ it('validates repeat password', async () => {
   const { password } = UserWithPassword
   const dialog = await getDialog()
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.password), password)
-  userEvent.type(
-    dialog.getByPlaceholderText(Texts.repeatPassword),
-    `${password}`
-  )
-  userEvent.click(dialog.getByRole('button', { name: Texts.create }))
+  userEvent.type(dialog.getByPlaceholderText(en.password), password)
+  userEvent.type(dialog.getByPlaceholderText(en.repeatPassword), `${password}`)
+  userEvent.click(dialog.getByRole('button', { name: en.create }))
 
   await waitFor(() => {
-    expect(dialog.queryByText(Texts.passwordsDoNotMatch)).toBeNull()
+    expect(dialog.queryByText(en.passwordsDoNotMatch)).toBeNull()
   })
 })
 
@@ -85,15 +81,15 @@ it('shows error text if passwords do not match', async () => {
   const { password } = UserWithPassword
   const dialog = await getDialog()
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.password), password)
+  userEvent.type(dialog.getByPlaceholderText(en.password), password)
   userEvent.type(
-    dialog.getByPlaceholderText(Texts.repeatPassword),
+    dialog.getByPlaceholderText(en.repeatPassword),
     `${password}foo`
   )
-  userEvent.click(dialog.getByRole('button', { name: Texts.create }))
+  userEvent.click(dialog.getByRole('button', { name: en.create }))
 
   await waitFor(() => {
-    expect(dialog.queryByText(Texts.passwordsDoNotMatch)).toBeInTheDocument()
+    expect(dialog.queryByText(en.passwordsDoNotMatch)).toBeInTheDocument()
   })
 })
 
@@ -107,13 +103,13 @@ it('shows email confirmation dialog if all fields are correct', async () => {
     method: 'post',
   })
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.email), email)
-  userEvent.type(dialog.getByPlaceholderText(Texts.password), password)
-  userEvent.type(dialog.getByPlaceholderText(Texts.repeatPassword), password)
-  userEvent.click(dialog.getByRole('button', { name: Texts.create }))
+  userEvent.type(dialog.getByPlaceholderText(en.email), email)
+  userEvent.type(dialog.getByPlaceholderText(en.password), password)
+  userEvent.type(dialog.getByPlaceholderText(en.repeatPassword), password)
+  userEvent.click(dialog.getByRole('button', { name: en.create }))
 
   await waitFor(() => {
-    expect(screen.getByText(Texts.verifyEmail)).toBeInTheDocument()
+    expect(screen.getByText(en.verifyEmail)).toBeInTheDocument()
   })
 })
 
@@ -127,12 +123,12 @@ it('shows email taken toast if email is registered', async () => {
     method: 'post',
   })
 
-  userEvent.type(dialog.getByPlaceholderText(Texts.email), email)
-  userEvent.type(dialog.getByPlaceholderText(Texts.password), password)
-  userEvent.type(dialog.getByPlaceholderText(Texts.repeatPassword), password)
-  userEvent.click(dialog.getByRole('button', { name: Texts.create }))
+  userEvent.type(dialog.getByPlaceholderText(en.email), email)
+  userEvent.type(dialog.getByPlaceholderText(en.password), password)
+  userEvent.type(dialog.getByPlaceholderText(en.repeatPassword), password)
+  userEvent.click(dialog.getByRole('button', { name: en.create }))
 
   await waitFor(() => {
-    expect(screen.getByText(Texts.emailAlreadyTaken)).toBeInTheDocument()
+    expect(screen.getByText(en.emailAlreadyTaken)).toBeInTheDocument()
   })
 })

@@ -10,10 +10,11 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import WithHeader from './HOC/WithHeader'
-import { Texts } from '../constants/Texts'
 import useUser from '../lib/hooks/useUser'
+import useI18n from '../lib/hooks/useI18n'
 
 const ProfilePage = () => {
+  const { t } = useI18n()
   const { getUser } = useUser()
   const { email } = getUser()
   return (
@@ -27,11 +28,11 @@ const ProfilePage = () => {
           </Thead>
           <Tbody>
             <Tr>
-              <Td>{Texts.email}</Td>
+              <Td>{t.email}</Td>
               <Td>{email}</Td>
             </Tr>
             <Tr>
-              <Td>{Texts.status}</Td>
+              <Td>{t.status}</Td>
               <Td bg="green.100" rounded="xl">
                 {'logged in'}
               </Td>

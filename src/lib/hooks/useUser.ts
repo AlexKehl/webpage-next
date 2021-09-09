@@ -5,12 +5,13 @@ import { login, logout } from '../api/Auth'
 import { LoginDto } from '../../../common/interface/Dto'
 import { User } from '../../../common/interface/ConsumerResponses'
 import { decode } from 'jsonwebtoken'
-import { Texts } from '../../constants/Texts'
 import useToasts from './useToasts'
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { handleHttpError } from '../errors/Handlers'
+import useI18n from './useI18n'
 
 const useUser = () => {
+  const { t } = useI18n()
   const [cookies, , removeCookie] = useCookies(['accessToken'])
   const router = useRouter()
   const { showError, showSuccess } = useToasts()
@@ -29,14 +30,14 @@ const useUser = () => {
   const performLogin = async (credentials: LoginDto) => {
     try {
       await login(credentials)
-      showSuccess({ text: Texts.successFullLogin })
+      showSuccess({ text: t.successFullLogin })
       router.push('/')
     } catch (error) {
       handleHttpError({
         error,
         [HttpStatus.UNAUTHORIZED]: () =>
-          showError({ text: Texts.wrongCredentials }),
-        default: () => showError({ text: Texts.unexpectedError }),
+          showError({ text: t.wrongCredentials }),
+        default: () => showError({ text: t.unexpectedError }),
       })
     }
   }
@@ -45,7 +46,7 @@ const useUser = () => {
     removeCookie('accessToken', { path: '/' })
     await logout(getUser().email)
 
-    showSuccess({ text: Texts.successFullLogout })
+    showSuccess({ text: t.successFullLogout })
     router.push('/login')
   }
 

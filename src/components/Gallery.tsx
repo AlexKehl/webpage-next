@@ -13,15 +13,15 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React, { FC, Reducer, useReducer } from 'react'
+import React, { Reducer, useReducer } from 'react'
 import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { hasRole } from '../../common/utils/User'
 import WithHeader from './HOC/WithHeader'
 import ImagePresenter from './ImagePresenter'
-import { Texts } from '../constants/Texts'
 import useUser from '../lib/hooks/useUser'
+import useI18n from '../lib/hooks/useI18n'
 
 interface Props {
   images?: ImageForGallery[]
@@ -60,6 +60,7 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
 }
 
 const Gallery = ({ images = [], category }: Props) => {
+  const { t } = useI18n()
   const router = useRouter()
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImage: 0,
@@ -76,7 +77,7 @@ const Gallery = ({ images = [], category }: Props) => {
       {hasRole({ user: getUser(), role: 'Admin' }) && (
         <div className="flex flex-row-reverse">
           <Button onClick={() => router.push(`/galleryedit/${category}`)}>
-            {Texts.edit}
+            {t.edit}
           </Button>
         </div>
       )}

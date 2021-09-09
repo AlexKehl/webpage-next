@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import { Texts } from '../../constants/Texts'
+import useI18n from './useI18n'
 
 interface ToastOptions {
   text: string
@@ -9,12 +9,13 @@ interface ToastOptions {
 }
 
 const useToasts = () => {
+  const { t } = useI18n()
   const toast = useToast()
   const defaultDuration = 9000
 
   const showSuccess = ({
     text,
-    title = Texts.success,
+    title = t.success,
     isClosable = true,
     duration = defaultDuration,
   }: ToastOptions) => {
@@ -29,7 +30,7 @@ const useToasts = () => {
 
   const showError = ({
     text,
-    title = Texts.error,
+    title = t.error,
     isClosable = true,
     duration = defaultDuration,
   }: ToastOptions) => {

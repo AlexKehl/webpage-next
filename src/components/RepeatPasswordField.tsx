@@ -1,6 +1,6 @@
 import React from 'react'
 import { FieldValues, FormState, UseFormRegister } from 'react-hook-form'
-import { Texts } from '../constants/Texts'
+import useI18n from '../lib/hooks/useI18n'
 import InputField from './InputField'
 
 interface Props {
@@ -14,14 +14,15 @@ const RepeatPasswordField = ({
   formState,
   arePasswordsMatching,
 }: Props) => {
+  const { t } = useI18n()
   return (
     <InputField
       id="repeatpassword"
       my="2"
       type="password"
-      placeholder={Texts.repeatPassword}
+      placeholder={t.repeatPassword}
       error={formState.errors['repeatpassword']}
-      errorText={Texts.passwordsDoNotMatch}
+      errorText={t.passwordsDoNotMatch}
       hookFormRegister={register('repeatpassword', {
         required: true,
         minLength: 8,
