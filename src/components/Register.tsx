@@ -44,9 +44,10 @@ const Register = ({ isOpen, onClose }: Props) => {
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <EmailField formState={formState} register={register} />
-              <PasswordField formState={formState} register={register} />
+              <EmailField my="1" formState={formState} register={register} />
+              <PasswordField my="1" formState={formState} register={register} />
               <RepeatPasswordField
+                my="1"
                 formState={formState}
                 register={register}
                 arePasswordsMatching={arePasswordsMatching}
