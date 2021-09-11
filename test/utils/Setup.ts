@@ -3,9 +3,9 @@ import { rest } from 'msw'
 import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { ValueOf } from '../../common/types'
-import { API } from '../../config'
 import { server } from '../../src/mocks/server'
 import * as router from 'next/router'
+import { API } from '../../src/constants/EnvProxy'
 
 interface MockRouteOpts {
   route: ValueOf<typeof Endpoints>
@@ -19,9 +19,6 @@ export const mockRouter = () => {
   router.useRouter = () => ({
     push: jest.fn(),
     locale: 'en',
-    query: {
-      token: 'fooToken',
-    },
   })
 }
 

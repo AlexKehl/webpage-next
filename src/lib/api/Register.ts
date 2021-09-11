@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Endpoints } from '../../../common/constants/Endpoints'
 import { ConfirmEmailDto, RegisterDto } from '../../../common/interface/Dto'
-import { API } from '../../../config'
+import { API } from '../../constants/EnvProxy'
 
 const registerRequest = async (registerDto: RegisterDto): Promise<any> => {
   const { data } = await axios.post<any>(

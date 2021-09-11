@@ -11,7 +11,7 @@ import {
   GalleryImageDto,
 } from '../../../common/interface/Dto'
 import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
-import { API } from '../../../config'
+import { API } from '../../constants/EnvProxy'
 import { FileWithMeta } from '../../types/GalleryImages'
 import { attemptProtectedRequest } from './Auth'
 

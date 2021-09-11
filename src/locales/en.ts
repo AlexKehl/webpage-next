@@ -35,6 +35,7 @@ const en = {
   error: 'Error',
   unexpectedError: 'Unexpected Error occured. Please try again later.',
   language: 'Language',
+  userNotRegistered: 'This user is not registered.',
 } as const
 
 export default en

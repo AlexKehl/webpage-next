@@ -2,10 +2,10 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { LoginResponse } from '../../../common/interface/ConsumerResponses'
 import { LoginDto } from '../../../common/interface/Dto'
 import { tryCatch } from '../../../common/utils/Functions'
-import { API } from '../../../config'
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { Endpoints } from '../../../common/constants/Endpoints'
 import UnauthorizedException from '../errors/exceptions/UnauthorizedException'
+import { API } from '../../constants/EnvProxy'
 
 const login = async (loginDto: LoginDto): Promise<LoginResponse> => {
   const { data } = await axios.post<LoginResponse>(

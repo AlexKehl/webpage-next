@@ -37,6 +37,7 @@ const useUser = () => {
         error,
         [HttpStatus.UNAUTHORIZED]: () =>
           showError({ text: t.wrongCredentials }),
+        [HttpStatus.NOT_FOUND]: () => showError({ text: t.userNotRegistered }),
         default: () => showError({ text: t.unexpectedError }),
       })
     }

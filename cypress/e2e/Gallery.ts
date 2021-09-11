@@ -2,8 +2,8 @@ import {
   AdminUserWithPassword,
   UserWithPassword,
 } from '../../common/fixtures/User'
-import { BASE_URL } from '../../config'
-import { Texts } from '../../src/constants/Texts'
+import { BASE_URL } from '../../src/constants/EnvProxy'
+import en from '../../src/locales/en'
 
 describe('gallery', () => {
   it('can see edit button when admin', () => {
@@ -11,13 +11,13 @@ describe('gallery', () => {
     cy.visit(`${BASE_URL}/login`)
 
     cy.findByRole('textbox').type(email)
-    cy.findByPlaceholderText(Texts.password).type(password)
-    cy.findByRole('button', { name: Texts.login }).click()
+    cy.findByPlaceholderText(en.password).type(password)
+    cy.findByRole('button', { name: en.login }).click()
 
     cy.findByTestId('gallerymenu').click()
     cy.findAllByTestId('gallerycategory').first().click()
 
-    cy.findByRole('button', { name: Texts.edit }).should('exist')
+    cy.findByRole('button', { name: en.edit }).should('exist')
   })
 
   it('cannot see edit button as normal user', () => {
@@ -25,12 +25,12 @@ describe('gallery', () => {
     cy.visit(`${BASE_URL}/login`)
 
     cy.findByRole('textbox').type(email)
-    cy.findByPlaceholderText(Texts.password).type(password)
-    cy.findByRole('button', { name: Texts.login }).click()
+    cy.findByPlaceholderText(en.password).type(password)
+    cy.findByRole('button', { name: en.login }).click()
 
     cy.findByTestId('gallerymenu').click()
     cy.findAllByTestId('gallerycategory').first().click()
 
-    cy.findByRole('button', { name: Texts.edit }).should('not.exist')
+    cy.findByRole('button', { name: en.edit }).should('not.exist')
   })
 })

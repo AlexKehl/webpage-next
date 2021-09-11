@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
-import { API } from '../../config'
+import { API } from '../../src/constants/EnvProxy'
 
 export const handlers = [
   rest.post(`${API}${Endpoints.login}`, (_req, res, ctx) => {
