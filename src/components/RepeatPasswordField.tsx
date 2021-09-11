@@ -1,22 +1,16 @@
 import { InputProps } from '@chakra-ui/react'
 import React from 'react'
-import { FieldValues, FormState, UseFormRegister } from 'react-hook-form'
+import { useFormContext } from '../lib/contexts/FormContext'
 import useI18n from '../lib/hooks/useI18n'
 import InputField from './InputField'
 
 type Props = {
-  register: UseFormRegister<FieldValues>
-  formState: FormState<FieldValues>
   arePasswordsMatching: (passwordRepeat: string) => boolean
 } & InputProps
 
-const RepeatPasswordField = ({
-  register,
-  formState,
-  arePasswordsMatching,
-  ...rest
-}: Props) => {
+const RepeatPasswordField = ({ arePasswordsMatching, ...rest }: Props) => {
   const { t } = useI18n()
+  const { formState, register } = useFormContext()
   return (
     <InputField
       id="repeatpassword"

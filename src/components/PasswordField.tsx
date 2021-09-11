@@ -1,16 +1,12 @@
 import { InputProps } from '@chakra-ui/react'
 import React from 'react'
-import { FieldValues, FormState, UseFormRegister } from 'react-hook-form'
+import { useFormContext } from '../lib/contexts/FormContext'
 import useI18n from '../lib/hooks/useI18n'
 import InputField from './InputField'
 
-type Props = {
-  register: UseFormRegister<FieldValues>
-  formState: FormState<FieldValues>
-} & InputProps
-
-const PasswordField = ({ register, formState, ...rest }: Props) => {
+const PasswordField = ({ ...rest }: InputProps) => {
   const { t } = useI18n()
+  const { formState, register } = useFormContext()
   return (
     <InputField
       id="password"

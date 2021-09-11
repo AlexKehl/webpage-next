@@ -14,6 +14,7 @@ import EmailField from './EmailField'
 import PasswordField from './PasswordField'
 import useLogin from '../lib/hooks/useLogin'
 import useI18n from '../lib/hooks/useI18n'
+import { FormContextProvider } from '../lib/contexts/FormContext'
 
 export const Login = () => {
   const {
@@ -36,9 +37,11 @@ export const Login = () => {
 
         <form onSubmit={onSubmit}>
           <Stack my="4" spacing="6">
-            <EmailField formState={formState} register={register} />
-            <PasswordField formState={formState} register={register} />
-            <Checkbox colorScheme="purple">{t.keepMeLoggedIn}</Checkbox>
+            <FormContextProvider value={{ formState, register }}>
+              <EmailField />
+              <PasswordField />
+              <Checkbox colorScheme="purple">{t.keepMeLoggedIn}</Checkbox>
+            </FormContextProvider>
             <Button size="lg" colorScheme="purple" type="submit">
               {t.login}
             </Button>
