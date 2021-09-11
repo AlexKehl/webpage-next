@@ -36,4 +36,3 @@ yarn-error.log*
 dist
 
 config.ts
-next.config.js
