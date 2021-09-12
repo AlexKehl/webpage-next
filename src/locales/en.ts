@@ -44,6 +44,10 @@ const en = {
   isForSell: 'Is for sell',
   price: 'Price',
   description: 'Description',
+  cm: 'cm',
+  euro: 'Euro',
+  save: 'Save',
+  delete: 'Delete',
 } as const
 
 export default en

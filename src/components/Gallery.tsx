@@ -1,4 +1,4 @@
-import { Button, Center, Flex } from '@chakra-ui/react'
+import { Button, Flex, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Lightbox from 'react-image-lightbox'
@@ -11,6 +11,7 @@ import useUser from '../lib/hooks/useUser'
 import useI18n from '../lib/hooks/useI18n'
 import useGallery from '../lib/hooks/useGallery'
 import GalleryImageInfo from './GalleryImageInfo'
+import { EditIcon } from '@chakra-ui/icons'
 
 interface Props {
   images?: ImageForGallery[]
@@ -32,13 +33,16 @@ const Gallery = ({ images = [], category }: Props) => {
   const { isViewerOpen, isModalOpen } = state
 
   return (
-    <Center maxW="5xl" mt="3">
+    <VStack my="3" mx="auto" maxW="6xl">
       {hasRole({ user: getUser(), role: 'Admin' }) && (
-        <Flex flexDirection="row-reverse">
-          <Button onClick={() => router.push(`/galleryedit/${category}`)}>
-            {t.edit}
-          </Button>
-        </Flex>
+        <Button
+          w="full"
+          variant="ghost"
+          onClick={() => router.push(`/galleryedit/${category}`)}
+          rightIcon={<EditIcon />}
+        >
+          {t.edit}
+        </Button>
       )}
       <Flex wrap="wrap">
         {images.map((image, index) => (
@@ -86,7 +90,7 @@ const Gallery = ({ images = [], category }: Props) => {
           onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
         />
       )}
-    </Center>
+    </VStack>
   )
 }
 

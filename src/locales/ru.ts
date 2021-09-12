@@ -4,7 +4,7 @@ const ru = {
   ...en,
   about: 'О художнике',
   gallery: 'Галлерея',
-  signUp: 'Войти',
+  signUp: 'Зарегистрироваться',
   language: 'Язык',
 } as const
 

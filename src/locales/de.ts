@@ -4,7 +4,7 @@ const de = {
   ...en,
   about: 'Über',
   gallery: 'Gallerie',
-  signUp: 'Einloggen',
+  signUp: 'Registrieren',
   pleaseLogIn: 'Bitte einloggen',
   language: 'Sprache',
 } as const
