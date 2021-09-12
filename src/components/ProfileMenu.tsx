@@ -10,14 +10,27 @@ const ProfileMenu = () => {
   const { performLogout, isLoggedIn, getUser } = useUser()
   return (
     <Menu>
-      <MenuButton
-        as={Button}
-        data-testid="profilemenu"
-        icon={<ChevronDownIcon />}
-        rightIcon={<ChevronDownIcon />}
-      >
-        {getUser().email || t.profile}
-      </MenuButton>
+      {getUser().email ? (
+        <MenuButton
+          as={Button}
+          variant="ghost"
+          data-testid="profilemenu"
+          icon={<ChevronDownIcon />}
+          rightIcon={<ChevronDownIcon />}
+        >
+          {t.profile}
+        </MenuButton>
+      ) : (
+        <Button
+          fontSize={'sm'}
+          fontWeight={400}
+          variant={'link'}
+          onClick={() => router.push('/login')}
+        >
+          {t.signIn}
+        </Button>
+      )}
+
       <MenuList>
         {!isLoggedIn && (
           <MenuItem onClick={() => router.push('/login')}>{t.signIn}</MenuItem>

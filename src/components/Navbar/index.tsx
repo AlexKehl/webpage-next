@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   IconButton,
-  Button,
   Stack,
   Collapse,
   useColorModeValue,
@@ -12,6 +11,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import React from 'react'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
+import ProfileMenu from '../ProfileMenu'
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
@@ -55,28 +55,7 @@ export default function WithSubnavigation() {
           direction={'row'}
           spacing={6}
         >
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300',
-            }}
-          >
-            Sign Up
-          </Button>
+          <ProfileMenu />
         </Stack>
       </Flex>
 

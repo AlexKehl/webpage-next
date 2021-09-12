@@ -1,8 +1,6 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
-  Text,
   useDisclosure,
-  Link,
   useColorModeValue,
   Collapse,
   Flex,
@@ -20,7 +18,6 @@ const MobileNavItem = ({ label, children, onClick }: NavItem) => {
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
-        // as={() => <Button onClick={onClick}>{label}</Button>}
         justify={'space-between'}
         align={'center'}
         _hover={{
