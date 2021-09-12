@@ -23,7 +23,7 @@ const DesktopNav = () => {
     <Stack direction={'row'} spacing={4}>
       {getNavItems(i18n).map((navItem) => (
         <Box key={navItem.label}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
+          <Popover trigger={'hover'} placement={'bottom'}>
             <PopoverTrigger>
               <Button
                 p={2}
@@ -44,10 +44,10 @@ const DesktopNav = () => {
             {navItem.children && (
               <PopoverContent
                 border={0}
-                boxShadow={'xl'}
+                boxShadow={'sm'}
                 bg={popoverContentBgColor}
                 p={4}
-                rounded={'xl'}
+                rounded={'md'}
                 maxW={'min'}
               >
                 <Stack>

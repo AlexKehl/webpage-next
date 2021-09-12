@@ -51,6 +51,7 @@ export default function WithSubnavigation() {
 
         <Stack
           flex={{ base: 1, md: 0 }}
+          mr={{ base: 'none', md: 10 }}
           justify={'flex-end'}
           direction={'row'}
           spacing={6}

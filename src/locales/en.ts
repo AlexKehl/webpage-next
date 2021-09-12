@@ -38,6 +38,12 @@ const en = {
   userNotRegistered: 'This user is not registered.',
   acryl: 'Acryl',
   oil: 'Oil',
+  imageName: 'Name',
+  width: 'Width',
+  height: 'Height',
+  isForSell: 'Is for sell',
+  price: 'Price',
+  description: 'Description',
 } as const
 
 export default en

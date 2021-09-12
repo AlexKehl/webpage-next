@@ -27,8 +27,8 @@ export const Login = () => {
   } = useLogin()
   const { t } = useI18n()
   return (
-    <Center h="100vh">
-      <Stack boxShadow="xl" p="20" rounded="md">
+    <Center my="auto">
+      <Stack p={{ base: 10, sm: 20 }} rounded="md">
         <Image alt="" src="/logo.jpg" maxW="170px" mb="8" mx="auto"></Image>
         <Heading as="h1"> Log in.</Heading>
         <Text fontSize="lg" color="gray.600">
