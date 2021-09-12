@@ -17,6 +17,8 @@ const getTranslated = (locale?: Language) => {
   }
 }
 
+export type I18n = ReturnType<typeof getTranslated>
+
 const useI18n = () => {
   const router = useRouter()
 
@@ -27,6 +29,7 @@ const useI18n = () => {
   }
 
   return {
+    router,
     locale,
     changeLanguage,
     t: getTranslated(locale as Language),

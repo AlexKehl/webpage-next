@@ -2,8 +2,8 @@ import en from './en'
 
 const ru = {
   ...en,
-  about: 'о художнике',
-  gallery: 'галлерея',
+  about: 'О художнике',
+  gallery: 'Галлерея',
   signUp: 'Войти',
   language: 'Язык',
 } as const

@@ -1,5 +1,5 @@
 const en = {
-  about: 'about',
+  about: 'About',
   email: 'Email',
   password: 'Password',
   wrongCredentials: 'Wrong credentials entered',
@@ -36,6 +36,8 @@ const en = {
   unexpectedError: 'Unexpected Error occured. Please try again later.',
   language: 'Language',
   userNotRegistered: 'This user is not registered.',
+  acryl: 'Acryl',
+  oil: 'Oil',
 } as const
 
 export default en

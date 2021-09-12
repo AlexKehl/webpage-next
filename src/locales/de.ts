@@ -2,8 +2,8 @@ import en from './en'
 
 const de = {
   ...en,
-  about: 'über',
-  gallery: 'gallerie',
+  about: 'Über',
+  gallery: 'Gallerie',
   signUp: 'Einloggen',
   pleaseLogIn: 'Bitte einloggen',
   language: 'Sprache',
