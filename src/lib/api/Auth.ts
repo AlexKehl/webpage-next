@@ -10,11 +10,16 @@ import { API } from '../../constants/EnvProxy'
 axios.defaults.withCredentials = true
 
 const login = async (loginDto: LoginDto): Promise<LoginResponse> => {
-  const { data } = await axios.post<LoginResponse>(
-    `${API}${Endpoints.login}`,
-    loginDto
-  )
-  return data
+  const res = await fetch(`${API}${Endpoints.login}`, {
+    method: 'POST',
+    body: JSON.stringify(loginDto),
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+  })
+  return res.json()
 }
 
 const logout = async (email?: string) => {
