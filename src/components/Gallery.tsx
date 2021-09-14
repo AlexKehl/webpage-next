@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
-import { ImageForGallery } from '../../common/interface/ConsumerData'
 import { hasRole } from '../../common/utils/User'
 import WithHeader from './HOC/WithHeader'
 import ImagePresenter from './ImagePresenter'
@@ -15,11 +14,10 @@ import { EditIcon } from '@chakra-ui/icons'
 import { API } from '../constants/EnvProxy'
 
 interface Props {
-  images?: ImageForGallery[]
   category: Category
 }
 
-const Gallery = ({ images = [], category }: Props) => {
+const Gallery = ({ category }: Props) => {
   const { t } = useI18n()
   const router = useRouter()
   const { getUser } = useUser()
@@ -30,7 +28,7 @@ const Gallery = ({ images = [], category }: Props) => {
     prevImageUrl,
     currentImageUrl,
     currentImage,
-  } = useGallery(images)
+  } = useGallery(category)
   const { isViewerOpen, isModalOpen } = state
 
   return (
@@ -46,7 +44,7 @@ const Gallery = ({ images = [], category }: Props) => {
         </Button>
       )}
       <Flex wrap="wrap">
-        {images.map((image, index) => (
+        {state.images.map((image, index) => (
           <ImagePresenter
             key={index}
             src={`${API}${image.url}`}
@@ -84,7 +82,7 @@ const Gallery = ({ images = [], category }: Props) => {
           }
         />
       )}
-      {images && images.length > 0 && (
+      {state.images.length > 0 && (
         <GalleryImageInfo
           {...currentImage!}
           isOpen={isModalOpen}

@@ -7,7 +7,6 @@ import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 import Gallery from '../../src/components/Gallery'
 
 interface Props {
-  images: ImageForGallery[]
   category: Category
 }
 
@@ -24,7 +23,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const images = await getGalleryFiles(params?.['category'] as string)
   return {
     props: {
-      images,
       category: params?.['category'] as Category,
     },
   }

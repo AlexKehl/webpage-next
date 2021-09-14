@@ -1,12 +1,14 @@
-import { Reducer, useReducer } from 'react'
+import { Reducer, useEffect, useReducer } from 'react'
+import { Category } from '../../../common/interface/Constants'
 import { ImageForGallery } from '../../../common/interface/ConsumerData'
 import { API } from '../../constants/EnvProxy'
+import { getGalleryFiles } from '../api/Files'
 
 interface State {
+  images: ImageForGallery[]
   currentImageIdx: number
   isViewerOpen: boolean
   isModalOpen: boolean
-  imagesLength: number
 }
 
 type Action =
@@ -16,6 +18,7 @@ type Action =
   | { type: 'OPEN_PREV_IMAGE' }
   | { type: 'OPEN_MODAL'; payload: Pick<State, 'currentImageIdx'> }
   | { type: 'CLOSE_MODAL' }
+  | { type: 'SET_IMAGES'; payload: Pick<State, 'images'> }
 
 const galleryReducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
@@ -31,13 +34,15 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
       return {
         ...state,
         currentImageIdx:
-          (state.currentImageIdx + state.imagesLength + 1) % state.imagesLength,
+          (state.currentImageIdx + state.images.length + 1) %
+          state.images.length,
       }
     case 'OPEN_PREV_IMAGE':
       return {
         ...state,
         currentImageIdx:
-          (state.currentImageIdx + state.imagesLength - 1) % state.imagesLength,
+          (state.currentImageIdx + state.images.length - 1) %
+          state.images.length,
       }
     case 'OPEN_MODAL':
       return {
@@ -47,24 +52,32 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
       }
     case 'CLOSE_MODAL':
       return { ...state, isModalOpen: false }
+    case 'SET_IMAGES':
+      return { ...state, images: action.payload.images }
     default:
       throw new Error('Unsupported Action in galleryReducer')
   }
 }
 
-const useGallery = (images: ImageForGallery[]) => {
-  const imageUrls = images.map((image) => `${API}/${image.url}`)
+const useGallery = (category: Category) => {
+  useEffect(() => {
+    getGalleryFiles(category).then((images) =>
+      dispatch({ type: 'SET_IMAGES', payload: { images } })
+    )
+  }, [])
 
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImageIdx: 0,
     isViewerOpen: false,
     isModalOpen: false,
-    imagesLength: images.length,
+    images: [],
   })
+
+  const imageUrls = state.images.map((image) => `${API}/${image.url}`)
 
   const nextImageUrl = imageUrls[(state.currentImageIdx + 1) % imageUrls.length]
   const prevImageUrl = imageUrls[(state.currentImageIdx - 1) % imageUrls.length]
-  const currentImage = images[state.currentImageIdx]
+  const currentImage = state.images[state.currentImageIdx]
 
   return {
     state,
