@@ -1,5 +1,6 @@
 import { Reducer, useReducer } from 'react'
 import { ImageForGallery } from '../../../common/interface/ConsumerData'
+import { API } from '../../constants/EnvProxy'
 
 interface State {
   currentImageIdx: number
@@ -52,7 +53,8 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
 }
 
 const useGallery = (images: ImageForGallery[]) => {
-  const imageUrls = images.map((image) => image.url)
+  console.log(API)
+  const imageUrls = images.map((image) => `${API}/${image.url}`)
 
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImageIdx: 0,

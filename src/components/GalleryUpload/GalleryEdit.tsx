@@ -1,4 +1,4 @@
-import { Button, Center, Flex, VStack } from '@chakra-ui/react'
+import { Button, Flex, VStack } from '@chakra-ui/react'
 import React, { Fragment, useEffect, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../../common/interface/Constants'

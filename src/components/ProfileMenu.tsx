@@ -15,38 +15,6 @@ const ProfileMenu = () => {
   const { t } = useI18n()
   const { performLogout, isLoggedIn, getUser } = useUser()
   return (
-    // <Menu>
-    //   {getUser().email ? (
-    //     <MenuButton
-    //       as={Button}
-    //       variant="ghost"
-    //       data-testid="profilemenu"
-    //       icon={<ChevronDownIcon />}
-    //       rightIcon={<ChevronDownIcon />}
-    //     >
-    //       {t.profile}
-    //     </MenuButton>
-    //   ) : (
-    //     <Button
-    //       fontSize={'sm'}
-    //       fontWeight={400}
-    //       variant={'link'}
-    //       onClick={() => router.push('/login')}
-    //     >
-    //       {t.signIn}
-    //     </Button>
-    //   )}
-    //
-    //   {isLoggedIn && (
-    //     <MenuList>
-    //       <MenuItem onClick={() => router.push('/profile')}>
-    //         {t.profile}
-    //       </MenuItem>
-    //       <MenuItem onClick={performLogout}>{t.logout}</MenuItem>
-    //     </MenuList>
-    //   )}
-    // </Menu>
-
     <Popover trigger={'hover'} placement={'bottom'}>
       <PopoverTrigger>
         <Button
@@ -60,7 +28,7 @@ const ProfileMenu = () => {
             color: 'gray.800',
           }}
         >
-          {getUser().email || t.profile}
+          {getUser()?.email || t.profile}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -72,7 +40,7 @@ const ProfileMenu = () => {
         maxW="min"
       >
         <Stack>
-          {getUser().email ? (
+          {getUser()?.email ? (
             <DesktopSubNav
               label={t.profile}
               onClick={() => router.push('/profile')}

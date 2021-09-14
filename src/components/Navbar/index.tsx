@@ -19,14 +19,14 @@ export default function WithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={'white'}
+        color={'gray.600'}
         minH={'60px'}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
+        py={2}
+        px={4}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor={'gray.200'}
         align={'center'}
       >
         <Flex

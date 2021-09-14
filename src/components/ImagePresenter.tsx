@@ -1,6 +1,7 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
 import { ImageForGallery } from '../../common/interface/ConsumerData'
+import { API } from '../constants/EnvProxy'
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
@@ -23,7 +24,7 @@ const ImagePresenter = ({ onClick, image, onInfoClick }: Props) => {
 
       <img
         className="object-cover h-full p-1 m-auto border"
-        src={image.url!}
+        src={`${API}${image.url!}`}
         onClick={onClick}
       />
     </span>
