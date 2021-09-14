@@ -53,7 +53,6 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
 }
 
 const useGallery = (images: ImageForGallery[]) => {
-  console.log(API)
   const imageUrls = images.map((image) => `${API}/${image.url}`)
 
   const [state, dispatch] = useReducer(galleryReducer, {

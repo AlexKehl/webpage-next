@@ -16,7 +16,7 @@ import useI18n from '../lib/hooks/useI18n'
 const ProfilePage = () => {
   const { t } = useI18n()
   const { getUser } = useUser()
-  const { email } = getUser()
+  const user = getUser()
   return (
     <Center h="100vh">
       <Stack boxShadow="xl" p="10">
@@ -29,7 +29,7 @@ const ProfilePage = () => {
           <Tbody>
             <Tr>
               <Td>{t.email}</Td>
-              <Td>{email}</Td>
+              <Td>{user?.email}</Td>
             </Tr>
             <Tr>
               <Td>{t.status}</Td>

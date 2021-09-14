@@ -51,7 +51,7 @@ export const withErrHandle = async <T = any>({
       return handlers[status]!()
     }
     return handlers.default()
-  } catch (e) {
+  } catch (e: any) {
     console.log(e.message)
     return handlers.default()
   }
