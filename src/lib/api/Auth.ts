@@ -7,13 +7,12 @@ import { Endpoints } from '../../../common/constants/Endpoints'
 import UnauthorizedException from '../errors/exceptions/UnauthorizedException'
 import { API } from '../../constants/EnvProxy'
 
+axios.defaults.withCredentials = true
+
 const login = async (loginDto: LoginDto): Promise<LoginResponse> => {
   const { data } = await axios.post<LoginResponse>(
     `${API}${Endpoints.login}`,
-    loginDto,
-    {
-      withCredentials: true,
-    }
+    loginDto
   )
   return data
 }
@@ -22,23 +21,18 @@ const logout = async (email?: string) => {
   if (!email) {
     return
   }
-  await axios.post(
-    `${API}${Endpoints.logout}`,
-    { email },
-    { withCredentials: true }
-  )
+  await axios.post(`${API}${Endpoints.logout}`, { email })
 }
 
 const refreshToken = async () => {
   await axios({
     url: `${API}${Endpoints.refreshAccessToken}`,
     method: 'post',
-    withCredentials: true,
   })
 }
 
 const attemptProtectedRequest = async (options: AxiosRequestConfig) => {
-  const augmentedOptions = { ...options, withCredentials: true }
+  const augmentedOptions = { ...options }
   const [attemtErr, res] = await tryCatch(() => axios(augmentedOptions))
   if (!attemtErr) {
     return res
