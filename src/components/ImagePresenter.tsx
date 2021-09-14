@@ -1,15 +1,13 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
-import { ImageForGallery } from '../../common/interface/ConsumerData'
-import { API } from '../constants/EnvProxy'
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
-  image: Partial<ImageForGallery>
+  src: string
   onInfoClick?: React.MouseEventHandler<SVGElement>
 }
 
-const ImagePresenter = ({ onClick, image, onInfoClick }: Props) => {
+const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
   return (
     <span className="inline-block relative mx-3 mb-3 p-0 w-56 h-56 bg-gray-100 rounded-lg">
       {onInfoClick && (
@@ -24,7 +22,7 @@ const ImagePresenter = ({ onClick, image, onInfoClick }: Props) => {
 
       <img
         className="object-cover h-full p-1 m-auto border"
-        src={`${API}${image.url!}`}
+        src={src}
         onClick={onClick}
       />
     </span>

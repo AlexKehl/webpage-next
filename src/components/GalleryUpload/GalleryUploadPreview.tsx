@@ -74,7 +74,7 @@ const GalleryUploadPreview = ({
         backgroundColor="gray.50"
         justifyContent={{ base: 'center', md: 'flex-start' }}
       >
-        <ImagePresenter image={{ url: imageUrl }} />
+        <ImagePresenter src={imageUrl} />
         <Box id="imageinfo">
           <Input
             id="name"

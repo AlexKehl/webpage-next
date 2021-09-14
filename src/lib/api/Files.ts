@@ -39,7 +39,9 @@ const getInitialGalleryFiles = async (
   const { data } = await axios.get<GalleryCategoryResponse>(
     `${API}${staticEndPointPart('galleryCategoryList')}${category}`
   )
-  const blobPromises = data.images.map((image) => getBlobFromUrl(image.url))
+  const blobPromises = data.images.map((image) =>
+    getBlobFromUrl(`${API}${image.url}`)
+  )
   const blobs = await Promise.all(blobPromises)
   const filesWithMeta: FileWithMeta[] = blobs.map((blob, idx) => {
     const currentImage = data.images[idx]!

@@ -12,6 +12,7 @@ import useI18n from '../lib/hooks/useI18n'
 import useGallery from '../lib/hooks/useGallery'
 import GalleryImageInfo from './GalleryImageInfo'
 import { EditIcon } from '@chakra-ui/icons'
+import { API } from '../constants/EnvProxy'
 
 interface Props {
   images?: ImageForGallery[]
@@ -48,7 +49,7 @@ const Gallery = ({ images = [], category }: Props) => {
         {images.map((image, index) => (
           <ImagePresenter
             key={index}
-            image={image}
+            src={`${API}${image.url}`}
             onClick={() =>
               dispatch({
                 type: 'OPEN_LIGHTBOX',
