@@ -24,7 +24,7 @@ const useUser = () => {
   const getUser = (): User => {
     const accessToken = cookies['accessToken']
     const { email, roles } = decode(accessToken, { json: true }) || {}
-    return { email, roles }
+    return { email: 'test@test.com', roles: ['Admin'] }
   }
 
   const performLogin = async (credentials: LoginDto) => {
