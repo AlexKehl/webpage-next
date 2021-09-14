@@ -64,7 +64,7 @@ const useGallery = (category: Category) => {
     getGalleryFiles(category).then((images) =>
       dispatch({ type: 'SET_IMAGES', payload: { images } })
     )
-  }, [])
+  }, [category])
 
   const [state, dispatch] = useReducer(galleryReducer, {
     currentImageIdx: 0,
