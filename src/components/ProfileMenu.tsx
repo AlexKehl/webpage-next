@@ -8,12 +8,14 @@ import {
 import router from 'next/router'
 import React from 'react'
 import useI18n from '../lib/hooks/useI18n'
+import useLogin from '../lib/hooks/useLogin'
 import useUser from '../lib/hooks/useUser'
 import DesktopSubNav from './Navbar/DesktopSubNav'
 
 const ProfileMenu = () => {
   const { t } = useI18n()
-  const { performLogout, isLoggedIn, getUser } = useUser()
+  const { isLoggedIn, user } = useUser()
+  const { performLogout } = useLogin()
   return (
     <Popover trigger={'hover'} placement={'bottom'}>
       <PopoverTrigger>
@@ -28,7 +30,7 @@ const ProfileMenu = () => {
             color: 'gray.800',
           }}
         >
-          {getUser()?.email || t.profile}
+          {user?.email || t.profile}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -40,7 +42,7 @@ const ProfileMenu = () => {
         maxW="min"
       >
         <Stack>
-          {getUser()?.email ? (
+          {isLoggedIn ? (
             <DesktopSubNav
               label={t.profile}
               onClick={() => router.push('/profile')}

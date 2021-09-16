@@ -18,7 +18,7 @@ import { FormContextProvider } from '../lib/contexts/FormContext'
 
 export const Login = () => {
   const {
-    onSubmit,
+    performLogin,
     formState,
     register,
     onRegisterClose,
@@ -35,7 +35,7 @@ export const Login = () => {
           {t.pleaseLogIn}
         </Text>
 
-        <form onSubmit={onSubmit}>
+        <form onSubmit={performLogin}>
           <Stack my="4" spacing="6">
             <FormContextProvider value={{ formState, register }}>
               <EmailField />
