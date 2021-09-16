@@ -44,6 +44,7 @@ const GalleryEdit = ({ category }: Props) => {
               fileMeta={fileMeta}
               file={file}
               onRemoveFile={onRemoveFile}
+              imageUrl={URL.createObjectURL(file)}
             />
           )
         })}

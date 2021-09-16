@@ -15,6 +15,7 @@ interface Props {
   fileMeta?: Partial<GalleryImageMeta>
   file: File
   category: Category
+  imageUrl: string
 }
 
 const GalleryUploadPreview = ({
@@ -22,6 +23,7 @@ const GalleryUploadPreview = ({
   fileMeta,
   file,
   category,
+  imageUrl,
 }: Props) => {
   const { t } = useI18n()
   const { validatedRequest } = useApi()
@@ -34,8 +36,6 @@ const GalleryUploadPreview = ({
     description: fileMeta?.description,
     category: fileMeta?.category,
   })
-
-  const imageUrl = URL.createObjectURL(file)
 
   const onPreviewConfirm: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
