@@ -1,5 +1,6 @@
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { ValueOf } from '../../../common/types'
+import FetchError from '../errors/exceptions/FetchError'
 
 export const handleErrors = (response: Response) => {
   if (!response.ok) {
@@ -10,49 +11,61 @@ export const handleErrors = (response: Response) => {
 
 export const getData = (response: Response) => response.json()
 
-interface PostJSONOpts extends RequestInit {
+export interface PostParams extends RequestInit {
   url: string
   data?: Record<string, any>
 }
 
-export const postJSON = ({ url, method, data, ...rest }: PostJSONOpts) => {
-  return fetch(url, {
+export async function http<T>(request: RequestInfo): Promise<T> {
+  const response = await fetch(request)
+  const body = await response.json()
+  return body
+}
+
+export const postJSON = async <T>({
+  url,
+  method,
+  data,
+  ...rest
+}: PostParams): Promise<T> => {
+  const res = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
     ...rest,
   })
+  if (res.status >= 400) {
+    throw new FetchError({
+      status: res.status as ValueOf<typeof HttpStatus>,
+      statusText: res.statusText,
+    })
+  }
+
+  const body = await res.json()
+  return body
 }
 
-type WithErrHandleOptions<T> = Partial<
-  Record<ValueOf<typeof HttpStatus>, () => void>
-> & {
-  fn: () => Promise<Response>
-  onSuccess: (res: T) => any
-  default: () => void
-}
-
-export const withErrHandle = async <T = any>({
-  fn,
+export const postWithErrHandle = async <T>({
+  params,
   onSuccess,
   ...handlers
-}: WithErrHandleOptions<T>) => {
+}: {
+  params: PostParams
+  onSuccess: (res: T) => any
+  default: () => void
+} & Partial<Record<ValueOf<typeof HttpStatus>, () => void>>) => {
   try {
-    const res = await fn()
-    if (res.ok) {
-      const data = await res.json()
-      return onSuccess(data)
-    }
-    const status = res.status as ValueOf<typeof HttpStatus>
-    if (handlers[status]) {
-      return handlers[status]!()
-    }
-    return handlers.default()
+    const res = await postJSON<T>(params)
+    return onSuccess(res)
   } catch (e: any) {
-    console.log(e.message)
+    if (!(e instanceof FetchError)) {
+      return handlers.default()
+    }
+    if (handlers[e.status]) {
+      return handlers[e.status]!()
+    }
     return handlers.default()
   }
 }

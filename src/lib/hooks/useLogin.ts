@@ -6,7 +6,7 @@ import HttpStatus from '../../../common/constants/HttpStatus'
 import { LoginResponse } from '../../../common/interface/ConsumerResponses'
 import { LoginDto } from '../../../common/interface/Dto'
 import { API } from '../../constants/EnvProxy'
-import { withErrHandle, postJSON } from '../api/Utils'
+import { postWithErrHandle } from '../api/Utils'
 import useI18n from './useI18n'
 import useToasts from './useToasts'
 import useUser from './useUser'
@@ -24,13 +24,12 @@ const useLogin = () => {
   } = useDisclosure()
 
   const performLogin = async (loginDto: LoginDto) => {
-    return withErrHandle<LoginResponse>({
-      fn: () =>
-        postJSON({
-          url: `${API}${Endpoints.login}`,
-          data: loginDto,
-          credentials: 'include',
-        }),
+    return postWithErrHandle<LoginResponse>({
+      params: {
+        url: `${API}${Endpoints.login}`,
+        data: loginDto,
+        credentials: 'include',
+      },
       onSuccess: (res) => {
         showSuccess({ text: t.successFullLogin })
         setUser(res.user)

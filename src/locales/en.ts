@@ -48,6 +48,9 @@ const en = {
   euro: 'Euro',
   save: 'Save',
   delete: 'Delete',
+  serverError: 'Server error happened. Please try again later',
+  verifyData: 'Verify submitted data',
+  successfullySubmitted: 'Successfully submited your data',
 } as const
 
 export default en
