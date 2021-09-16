@@ -73,7 +73,7 @@ const useGallery = (category: Category) => {
     images: [],
   })
 
-  const imageUrls = state.images.map((image) => `${API}/${image.url}`)
+  const imageUrls = state.images.map((image) => `${API}${image.url}`)
 
   const nextImageUrl = imageUrls[(state.currentImageIdx + 1) % imageUrls.length]
   const prevImageUrl = imageUrls[(state.currentImageIdx - 1) % imageUrls.length]

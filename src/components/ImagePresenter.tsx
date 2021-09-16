@@ -1,5 +1,6 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
+import Image from 'next/image'
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
@@ -20,10 +21,12 @@ const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
         />
       )}
 
-      <img
-        className="object-cover h-full p-1 m-auto border"
-        src={src}
+      <Image
+        layout="fill"
+        objectFit="contain"
         onClick={onClick}
+        src={src}
+        alt=""
       />
     </span>
   )
