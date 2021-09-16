@@ -3,6 +3,9 @@ module.exports = {
     locales: ['en', 'de', 'ru'],
     defaultLocale: 'en',
   },
+  images: {
+    domains: ['anatolykehl.com'],
+  },
   env: {
     BASE_URL: 'http://localhost:3000',
     API: 'https://anatolykehl.ru/api',
