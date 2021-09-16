@@ -4,7 +4,7 @@ module.exports = {
     defaultLocale: 'en',
   },
   images: {
-    domains: ['anatolykehl.com'],
+    domains: ['anatolykehl.ru'],
   },
   env: {
     BASE_URL: 'http://localhost:3000',
