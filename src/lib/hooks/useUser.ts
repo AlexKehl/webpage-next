@@ -10,7 +10,7 @@ import useI18n from './useI18n'
 import { postJSON, withErrHandle } from '../api/Utils'
 import { Endpoints } from '../../../common/constants/Endpoints'
 import { API } from '../../constants/EnvProxy'
-import { getItem, setItem } from '../utils/LocalStorage'
+import { deleteItem, getItem, setItem } from '../utils/LocalStorage'
 import { useState } from 'react'
 
 const useUser = () => {
@@ -27,7 +27,12 @@ const useUser = () => {
 
   const performLogin = async (loginDto: LoginDto) => {
     return withErrHandle<LoginResponse>({
-      fn: () => postJSON({ url: `${API}${Endpoints.login}`, data: loginDto }),
+      fn: () =>
+        postJSON({
+          url: `${API}${Endpoints.login}`,
+          data: loginDto,
+          credentials: 'include',
+        }),
       onSuccess: (res) => {
         showSuccess({ text: t.successFullLogin })
         setItem('user', res.user)
@@ -41,7 +46,7 @@ const useUser = () => {
   }
 
   const performLogout = async () => {
-    setItem('user', undefined)
+    deleteItem('user')
     setUser(undefined)
 
     showSuccess({ text: t.successFullLogout })

@@ -22,6 +22,7 @@ export const postJSON = ({ url, method, data, ...rest }: PostJSONOpts) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     ...rest,
   })
 }
@@ -41,7 +42,6 @@ export const withErrHandle = async <T = any>({
 }: WithErrHandleOptions<T>) => {
   try {
     const res = await fn()
-    console.log(res)
     if (res.ok) {
       const data = await res.json()
       return onSuccess(data)

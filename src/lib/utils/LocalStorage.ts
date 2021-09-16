@@ -23,6 +23,10 @@ export const getItem = (
   }
 }
 
+export const deleteItem = (key: keyof LocalStorageData) => {
+  localStorage.removeItem(key)
+}
+
 export const setItem = (
   key: keyof LocalStorageData,
   value: ValueOf<LocalStorageData>

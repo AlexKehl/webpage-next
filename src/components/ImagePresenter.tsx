@@ -1,6 +1,6 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
-import { Box, Center, Flex } from '@chakra-ui/layout'
+import { Box, Center } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/react'
 
 interface Props {
@@ -13,21 +13,22 @@ const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
   return (
     <Box
       p="1"
-      mx="2"
+      m="2"
       width={{ base: '100vw', sm: '60' }}
       height={{ base: 'none', sm: '60' }}
       bgColor="gray.200"
     >
-      <InfoIcon
-        m="1"
-        position="absolute"
-        cursor="pointer"
-        boxSize="1.5em"
-        color="gray.700"
-        onClick={onInfoClick}
-        _hover={{ color: 'gray.500' }}
-      />
-
+      {onInfoClick && (
+        <InfoIcon
+          m="1"
+          position="absolute"
+          cursor="pointer"
+          boxSize="1.5em"
+          color="gray.700"
+          onClick={onInfoClick}
+          _hover={{ color: 'gray.500' }}
+        />
+      )}
       <Center h="full">
         <Image
           src={src}
