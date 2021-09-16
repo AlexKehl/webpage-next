@@ -1,5 +1,6 @@
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { ValueOf } from '../../../common/types'
+import { PostParams } from '../../types'
 import FetchError from '../errors/exceptions/FetchError'
 
 export const handleErrors = (response: Response) => {
@@ -10,11 +11,6 @@ export const handleErrors = (response: Response) => {
 }
 
 export const getData = (response: Response) => response.json()
-
-export interface PostParams extends RequestInit {
-  url: string
-  data?: Record<string, any>
-}
 
 export async function http<T>(request: RequestInfo): Promise<T> {
   const response = await fetch(request)
