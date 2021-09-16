@@ -1,6 +1,6 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
-import { Box, Flex } from '@chakra-ui/layout'
+import { Flex } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/react'
 
 interface Props {
@@ -21,7 +21,14 @@ const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
         onClick={onInfoClick}
         _hover={{ color: 'gray.200' }}
       />
-      <Image src={src} fit="contain" alt="Segun Adebayo" cursor="pointer" />
+
+      <Image
+        src={src}
+        fit="contain"
+        alt=""
+        cursor="pointer"
+        onClick={onClick}
+      />
     </Flex>
   )
 }
