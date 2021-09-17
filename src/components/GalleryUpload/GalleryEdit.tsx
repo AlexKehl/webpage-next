@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone'
 import { Category } from '../../../common/interface/Constants'
 import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
 import { getInitialGalleryFiles } from '../../lib/api/Files'
+import useApi from '../../lib/hooks/useApi'
 import useI18n from '../../lib/hooks/useI18n'
 import WithHeader from '../HOC/WithHeader'
 import GalleryUploadPreview from './GalleryUploadPreview'
@@ -17,9 +18,10 @@ const GalleryEdit = ({ category }: Props) => {
   const [filesList, setFilesList] = useState<
     ({ file: File } & Partial<GalleryImageMeta>)[]
   >([])
+  const { fetchWithProgress } = useApi()
 
   useEffect(() => {
-    getInitialGalleryFiles(category).then(setFilesList)
+    fetchWithProgress(() => getInitialGalleryFiles(category)).then(setFilesList)
   }, [category])
 
   const onAddFiles = (acceptedFiles: File[]) => {

@@ -14,7 +14,7 @@ const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
     <Box
       p="1"
       m="2"
-      width={{ base: '100vw', sm: '60' }}
+      width={{ base: '90vw', sm: '60' }}
       height={{ base: 'none', sm: '60' }}
       bgColor="gray.200"
     >

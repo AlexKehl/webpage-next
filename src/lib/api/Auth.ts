@@ -7,13 +7,6 @@ import { API } from '../../constants/EnvProxy'
 
 axios.defaults.withCredentials = true
 
-const logout = async (email?: string) => {
-  if (!email) {
-    return
-  }
-  await axios.post(`${API}${Endpoints.logout}`, { email })
-}
-
 const refreshToken = async () => {
   await axios({
     url: `${API}${Endpoints.refreshAccessToken}`,
@@ -44,4 +37,4 @@ const attemptProtectedRequest = async (options: AxiosRequestConfig) => {
   throw finalErr
 }
 
-export { logout, attemptProtectedRequest }
+export { attemptProtectedRequest }

@@ -15,7 +15,7 @@ const useLogin = () => {
   const { t } = useI18n()
   const { register, handleSubmit, formState } = useForm()
   const { showError, showSuccess } = useToasts()
-  const { setUser, deleteUser } = useUser()
+  const { setUser, deleteUser, user } = useUser()
   const { postWithErrHandle } = useApi()
 
   const {
@@ -43,9 +43,19 @@ const useLogin = () => {
   }
 
   const performLogout = async () => {
-    deleteUser()
-    showSuccess({ text: t.successFullLogout })
-    router.push('/login')
+    return postWithErrHandle<LoginResponse>({
+      params: {
+        url: `${API}${Endpoints.logout}`,
+        data: { email: user?.email },
+        credentials: 'include',
+      },
+      onSuccess: () => {
+        deleteUser()
+        showSuccess({ text: t.successFullLogout })
+        router.push('/login')
+      },
+      default: () => showError({ text: t.unexpectedError }),
+    })
   }
 
   return {
