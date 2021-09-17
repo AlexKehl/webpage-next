@@ -1,7 +1,6 @@
 import en from './en'
 
 const ru = {
-  ...en,
   about: 'О художнике',
   email: 'Эл. адрес',
   password: 'Пароль',
@@ -46,7 +45,7 @@ const ru = {
   oil: 'Масло',
   imageName: 'Название',
   width: 'Ширина',
-  height: 'Рост',
+  height: 'Высота',
   isForSell: 'Продается',
   price: 'Цена',
   description: 'Описание',
@@ -55,8 +54,10 @@ const ru = {
   save: 'Сохранить',
   delete: 'Удалить',
   serverError: 'Произошла ошибка сервера. Пожалуйста, попробуйте позже',
-  verifyData: 'Проверить отправленные данные',
-  successfullySubmitted: 'Ваши данные успешно отправленыр',
+  verifyData: 'Проверте отправленные данные',
+  successfullySubmitted: 'Ваши данные успешно отправлены',
 } as const
 
-export default ru
+const withDefaults = { ...en, ...ru } as const
+
+export default withDefaults

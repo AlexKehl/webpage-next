@@ -32,7 +32,7 @@ const Gallery = ({ category }: Props) => {
   const { isViewerOpen, isModalOpen } = state
 
   return (
-    <VStack my="3" mx="auto" maxW={{ base: '1', sm: '6xl' }}>
+    <VStack my="3" mx="auto" maxW={{ base: '1', sm: '7xl' }}>
       {hasRole({ user: getUser(), role: 'Admin' }) && (
         <Button
           w="full"
