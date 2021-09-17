@@ -52,7 +52,7 @@ const de = {
   cm: 'cm',
   euro: 'Euro',
   save: 'Speichern',
-  delete: 'Löshen',
+  delete: 'Löschen',
   serverError:
     'Serverfehler ist aufgetreten. Bitte versuchen Sie es später noch einmal',
   verifyData: 'Übermittelte Daten überprüfen',
