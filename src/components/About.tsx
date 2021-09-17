@@ -10,7 +10,7 @@ export const AboutPage = () => (
     <VStack maxW="4xl">
       <Image alt="" src={AboutPicture} />
       <Text fontSize="xl">My name is FooBar</Text>
-      <Text>{AboutText}</Text>
+      <Text px="2">{AboutText}</Text>
     </VStack>
   </Center>
 )

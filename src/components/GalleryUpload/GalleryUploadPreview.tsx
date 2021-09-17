@@ -9,6 +9,7 @@ import useI18n from '../../lib/hooks/useI18n'
 import { getEventValue } from '../../utils/Functions'
 import ImagePresenter from '../ImagePresenter'
 import InputWithAnnotation from './InputWithAnnotation'
+import { v4 as uuid } from 'uuid'
 
 interface Props {
   onRemoveFile: (fileName: string) => void
@@ -44,6 +45,7 @@ const GalleryUploadPreview = ({
         file,
         ...formData,
         category,
+        id: fileMeta?.id || uuid(),
       })
     )
   }
@@ -56,9 +58,9 @@ const GalleryUploadPreview = ({
   }
 
   const onRemoveFileHandler = async () => {
-    await validatedRequest(() =>
-      deleteImage(category, fileMeta?.name || file.name)
-    )
+    if (fileMeta?.id) {
+      await validatedRequest(() => deleteImage(category, fileMeta.id!))
+    }
     onRemoveFile(fileMeta?.name || file.name)
   }
 

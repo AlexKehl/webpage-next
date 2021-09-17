@@ -88,10 +88,10 @@ const uploadImage = async (
   })
 }
 
-const deleteImage = async (category: Category, name: string) => {
+const deleteImage = async (category: Category, id: GalleryImageMeta['id']) => {
   const data: DeleteGalleryImageDto = {
     category,
-    name,
+    id,
   }
   return attemptProtectedRequest({
     url: `${API}${Endpoints.galleryDelete}`,
