@@ -6,7 +6,7 @@ import HttpStatus from '../../../common/constants/HttpStatus'
 import { LoginResponse } from '../../../common/interface/ConsumerResponses'
 import { LoginDto } from '../../../common/interface/Dto'
 import { API } from '../../constants/EnvProxy'
-import { postWithErrHandle } from '../api/Utils'
+import useApi from './useApi'
 import useI18n from './useI18n'
 import useToasts from './useToasts'
 import useUser from './useUser'
@@ -16,6 +16,7 @@ const useLogin = () => {
   const { register, handleSubmit, formState } = useForm()
   const { showError, showSuccess } = useToasts()
   const { setUser, deleteUser } = useUser()
+  const { postWithErrHandle } = useApi()
 
   const {
     isOpen: isRegisterOpen,

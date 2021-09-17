@@ -3,6 +3,7 @@ import { Category } from '../../../common/interface/Constants'
 import { ImageForGallery } from '../../../common/interface/ConsumerData'
 import { API } from '../../constants/EnvProxy'
 import { getGalleryFiles } from '../api/Files'
+import useApi from './useApi'
 
 interface State {
   images: ImageForGallery[]
@@ -60,8 +61,9 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
 }
 
 const useGallery = (category: Category) => {
+  const { fetchWithProgress } = useApi()
   useEffect(() => {
-    getGalleryFiles(category).then((images) =>
+    fetchWithProgress(() => getGalleryFiles(category)).then((images) =>
       dispatch({ type: 'SET_IMAGES', payload: { images } })
     )
   }, [category])

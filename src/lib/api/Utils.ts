@@ -42,26 +42,3 @@ export const postJSON = async <T>({
   const body = await res.json()
   return body
 }
-
-export const postWithErrHandle = async <T>({
-  params,
-  onSuccess,
-  ...handlers
-}: {
-  params: PostParams
-  onSuccess: (res: T) => any
-  default: () => void
-} & Partial<Record<ValueOf<typeof HttpStatus>, () => void>>) => {
-  try {
-    const res = await postJSON<T>(params)
-    return onSuccess(res)
-  } catch (e: any) {
-    if (!(e instanceof FetchError)) {
-      return handlers.default()
-    }
-    if (handlers[e.status]) {
-      return handlers[e.status]!()
-    }
-    return handlers.default()
-  }
-}
