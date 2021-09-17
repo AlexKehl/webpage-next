@@ -3,15 +3,16 @@ import WithHeader from './HOC/WithHeader'
 import AboutText from '../constants/AboutText'
 import Image from 'next/image'
 import AboutPicture from '../../public/photo_2021-01-14 02.52.26.jpeg'
+import { Text, Center, VStack } from '@chakra-ui/react'
 
 export const AboutPage = () => (
-  <div className="max-w-4xl mx-auto">
-    <div className="flex justify-center">
-      <Image alt="" className="max-w-full p-4 border-2" src={AboutPicture} />
-    </div>
-    <div className="text-center font-bold p-4">My name is FooBar</div>
-    <div className="p-4">{AboutText}</div>
-  </div>
+  <Center>
+    <VStack maxW="4xl">
+      <Image alt="" src={AboutPicture} />
+      <Text fontSize="xl">My name is FooBar</Text>
+      <Text>{AboutText}</Text>
+    </VStack>
+  </Center>
 )
 
 export default WithHeader(AboutPage)
