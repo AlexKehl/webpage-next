@@ -54,6 +54,7 @@ const ProfileMenu = () => {
             />
           )}
 
+          <DesktopSubNav label={t.cart} onClick={() => router.push('/cart')} />
           {isLoggedIn && (
             <DesktopSubNav label={t.logout} onClick={performLogout} />
           )}

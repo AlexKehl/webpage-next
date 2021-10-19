@@ -15,7 +15,7 @@ const useLogin = () => {
   const { t } = useI18n()
   const { register, handleSubmit, formState } = useForm()
   const { showError, showSuccess } = useToasts()
-  const { setUser, deleteUser, user } = useUser()
+  const { setUser, deleteUser } = useUser()
   const { postWithErrHandle } = useApi()
 
   const {
