@@ -43,19 +43,9 @@ const useLogin = () => {
   }
 
   const performLogout = async () => {
-    return postWithErrHandle<LoginResponse>({
-      params: {
-        url: `${API}${Endpoints.logout}`,
-        data: { email: user?.email },
-        credentials: 'include',
-      },
-      onSuccess: () => {
-        deleteUser()
-        showSuccess({ text: t.successFullLogout })
-        router.push('/login')
-      },
-      default: () => showError({ text: t.unexpectedError }),
-    })
+    deleteUser()
+    showSuccess({ text: t.successFullLogout })
+    router.push('/login')
   }
 
   return {

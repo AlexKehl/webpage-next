@@ -7,7 +7,7 @@ const FullPageLoader = () => {
   return (
     <Box
       position="fixed"
-      zIndex="1000"
+      zIndex={Number.MAX_SAFE_INTEGER}
       margin="auto"
       height="100vh"
       width="full"
@@ -19,7 +19,7 @@ const FullPageLoader = () => {
       right="0"
     >
       <Center h="100vh">
-        <Image src={Spinner} className="fp-loader" alt="loading" />
+        <Image src={Spinner} alt="loading" />
       </Center>
     </Box>
   )

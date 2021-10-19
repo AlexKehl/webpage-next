@@ -51,6 +51,9 @@ const en = {
   serverError: 'Server error happened. Please try again later',
   verifyData: 'Verify submitted data',
   successfullySubmitted: 'Successfully submited your data',
+  buy: 'Buy',
+  orderPlaced: 'Order placed! You will receive an email confirmation.',
+  cart: 'Cart',
 } as const
 
 export default en
