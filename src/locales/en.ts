@@ -38,6 +38,8 @@ const en = {
   userNotRegistered: 'This user is not registered.',
   acryl: 'Acryl',
   oil: 'Oil',
+  graphics: 'Graphics',
+  other: 'Other',
   imageName: 'Name',
   width: 'Width',
   height: 'Height',

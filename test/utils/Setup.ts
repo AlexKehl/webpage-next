@@ -4,7 +4,7 @@ import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { ValueOf } from '../../common/types'
 import { server } from '../../src/mocks/server'
-import * as router from 'next/router'
+import router from 'next/router'
 import { API } from '../../src/constants/EnvProxy'
 
 interface MockRouteOpts {

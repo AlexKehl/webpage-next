@@ -43,6 +43,8 @@ const de = {
   userNotRegistered: 'Dieser Benutzer ist nicht registriert.',
   acryl: 'Acryl',
   oil: 'Öl',
+  graphics: 'Grafik',
+  other: 'Andere',
   imageName: 'Name',
   width: 'Breite',
   height: 'Höhe',

@@ -43,6 +43,8 @@ const ru = {
   userNotRegistered: 'Этот пользователь не зарегистрирован.',
   acryl: 'Акрил',
   oil: 'Масло',
+  graphics: 'Графика',
+  other: 'Другое',
   imageName: 'Название',
   width: 'Ширина',
   height: 'Высота',

@@ -3,7 +3,7 @@ import React from 'react'
 import { Endpoints } from '../../common/constants/Endpoints'
 import HttpStatus from '../../common/constants/HttpStatus'
 import ConfirmEmail from '../../src/components/ConfirmEmailResult'
-import * as nextRouter from 'next/router'
+import nextRouter from 'next/router'
 import en from '../../src/locales/en'
 import { setupMswServer, mockRoute } from '../utils/Setup'
 
