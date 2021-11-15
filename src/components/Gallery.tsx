@@ -4,7 +4,6 @@ import React from 'react'
 import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
 import { hasRole } from '../../common/utils/User'
-import WithHeader from './HOC/WithHeader'
 import ImagePresenter from './ImagePresenter'
 import useUser from '../lib/hooks/useUser'
 import useI18n from '../lib/hooks/useI18n'
@@ -93,4 +92,4 @@ const Gallery = ({ category }: Props) => {
   )
 }
 
-export default WithHeader(Gallery)
+export default Gallery

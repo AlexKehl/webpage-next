@@ -1,7 +1,7 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
 import { Box, Center } from '@chakra-ui/layout'
-import { Image } from '@chakra-ui/react'
+import Image from 'next/image'
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
@@ -29,15 +29,12 @@ const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
           _hover={{ color: 'gray.500' }}
         />
       )}
-      <Center h="full">
+      <Center h="full" position="relative" cursor="pointer">
         <Image
+          layout="fill"
+          objectFit="contain"
           src={src}
-          fit="contain"
-          maxW="full"
-          maxH="full"
-          mx="auto"
           alt=""
-          cursor="pointer"
           onClick={onClick}
         />
       </Center>

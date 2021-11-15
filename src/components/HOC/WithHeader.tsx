@@ -2,13 +2,14 @@ import React from 'react'
 import { HOC } from '../../types'
 import Navbar from '../Navbar'
 
-// eslint-disable-next-line react/display-name
-const WithHeader: HOC = (Component) => (props) =>
-  (
+function HOC<T>(Component: (props: T) => JSX.Element) {
+  const WithHeader = (props: T) => (
     <div>
       <Navbar />
       <Component {...props} />
     </div>
   )
+  return WithHeader
+}
 
-export default WithHeader
+export default HOC

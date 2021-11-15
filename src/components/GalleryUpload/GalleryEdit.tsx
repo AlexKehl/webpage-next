@@ -21,7 +21,7 @@ const GalleryEdit = ({ category }: Props) => {
   const { fetchWithProgress } = useApi()
 
   useEffect(() => {
-    fetchWithProgress(() => getInitialGalleryFiles(category)).then(setFilesList)
+    fetchWithProgress(getInitialGalleryFiles)(category).then(setFilesList)
   }, [category])
 
   const onAddFiles = (acceptedFiles: File[]) => {

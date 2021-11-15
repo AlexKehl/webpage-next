@@ -63,7 +63,7 @@ const galleryReducer: Reducer<State, Action> = (state, action) => {
 const useGallery = (category: Category) => {
   const { fetchWithProgress } = useApi()
   useEffect(() => {
-    fetchWithProgress(() => getGalleryFiles(category)).then((images) =>
+    fetchWithProgress(getGalleryFiles)(category).then((images) =>
       dispatch({ type: 'SET_IMAGES', payload: { images } })
     )
   }, [category])

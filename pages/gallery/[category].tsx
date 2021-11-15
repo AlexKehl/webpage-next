@@ -3,6 +3,7 @@ import Categories from '../../common/constants/Categories'
 import { Category } from '../../common/interface/Constants'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 import Gallery from '../../src/components/Gallery'
+import WithHeader from '../../src/components/HOC/WithHeader'
 
 interface Props {
   category: Category
@@ -25,4 +26,4 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   }
 }
 
-export default GalleryPage
+export default WithHeader(GalleryPage)
