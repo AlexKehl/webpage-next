@@ -21,6 +21,7 @@ const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
       {onInfoClick && (
         <InfoIcon
           m="1"
+          zIndex={500}
           position="absolute"
           cursor="pointer"
           boxSize="1.5em"
