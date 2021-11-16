@@ -56,19 +56,19 @@ const useApi = () => {
   }: {
     params: PostParams
     onSuccess: (res: T) => any
-    default: () => void
+    default: (...args: any[]) => void
   } & Partial<Record<ValueOf<typeof HttpStatus>, () => void>>) => {
     try {
       const res = (await fetchWithProgress(postJSON)(params)) as T
       return onSuccess(res)
     } catch (e: any) {
       if (!(e instanceof FetchError)) {
-        return handlers.default()
+        return handlers.default(e)
       }
       if (handlers[e.status]) {
         return handlers[e.status]!()
       }
-      return handlers.default()
+      return handlers.default(e)
     }
   }
 

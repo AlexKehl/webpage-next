@@ -8,7 +8,6 @@ import {
   Button,
   Stack,
 } from '@chakra-ui/react'
-import WithHeader from '../../src/components/HOC/WithHeader'
 import Register from './Register'
 import EmailField from './EmailField'
 import PasswordField from './PasswordField'
@@ -66,4 +65,4 @@ export const Login = () => {
   )
 }
 
-export default WithHeader(Login)
+export default Login

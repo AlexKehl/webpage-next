@@ -1,13 +1,17 @@
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import useCart from '../../lib/hooks/useCart'
-import WithHeader from '../HOC/WithHeader'
-import CartComponent from './CartComponent'
 import CartItem from './CartItem'
 
 const Cart = () => {
   const { cart, deleteItem } = useCart()
 
-  return <CartComponent cart={cart} deleteItem={deleteItem} />
+  return (
+    <Fragment>
+      {cart.items.map((item, idx) => (
+        <CartItem key={idx} {...item} onDelete={deleteItem} />
+      ))}
+    </Fragment>
+  )
 }
 
-export default WithHeader(Cart)
+export default Cart

@@ -2,6 +2,8 @@ import HttpStatus from '../../../common/constants/HttpStatus'
 import { ValueOf } from '../../../common/types'
 import { PostParams } from '../../types'
 import FetchError from '../errors/exceptions/FetchError'
+// @ts-ignore
+import fetch from 'node-fetch'
 
 export const handleErrors = (response: Response) => {
   if (!response.ok) {

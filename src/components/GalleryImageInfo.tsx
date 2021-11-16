@@ -16,7 +16,6 @@ import React from 'react'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import useCart from '../lib/hooks/useCart'
 import useI18n from '../lib/hooks/useI18n'
-import usePayments from '../lib/hooks/usePayments'
 
 type Props = {
   isOpen: boolean
@@ -33,10 +32,8 @@ const GalleryImageInfo = (props: Props) => {
     price,
     isOpen,
     onClose,
-    id,
   } = props
   const { t } = useI18n()
-  const { buyImage } = usePayments()
   const { addItem } = useCart()
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="md">
@@ -78,7 +75,6 @@ const GalleryImageInfo = (props: Props) => {
                       <Button
                         mx="2"
                         color="green.500"
-                        // onClick={() => buyImage({ id, price: price! })}
                         onClick={() => addItem(props)}
                       >
                         {t.buy}

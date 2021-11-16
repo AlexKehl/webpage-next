@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "CommonJS",
     "jsx": "preserve",
     "outDir": "./dist",
     "strict": true,
@@ -15,10 +15,16 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["cypress", "@testing-library/cypress"],
     "allowJs": true,
+    "useUnknownInCatchVariables": false,
+    "types": [
+      "cypress",
+      "@testing-library/cypress",
+      "jest",
+      "@testing-library/jest-dom"
+    ],
     "incremental": true
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../node_modules/cypress"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

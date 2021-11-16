@@ -1,5 +1,5 @@
 import { useDisclosure } from '@chakra-ui/react'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { Endpoints } from '../../../common/constants/Endpoints'
 import HttpStatus from '../../../common/constants/HttpStatus'
@@ -17,6 +17,7 @@ const useLogin = () => {
   const { showError, showSuccess } = useToasts()
   const { setUser, deleteUser } = useUser()
   const { postWithErrHandle } = useApi()
+  const router = useRouter()
 
   const {
     isOpen: isRegisterOpen,
@@ -37,8 +38,10 @@ const useLogin = () => {
         router.push('/')
       },
       [HttpStatus.UNAUTHORIZED]: () => showError({ text: t.wrongCredentials }),
-      [HttpStatus.NOT_FOUND]: () => showError({ text: t.userNotRegistered }),
-      default: () => showError({ text: t.unexpectedError }),
+      [HttpStatus.NOT_FOUND]: () => {
+        showError({ text: t.userNotRegistered })
+      },
+      default: (e) => showError({ text: t.unexpectedError }),
     })
   }
 
