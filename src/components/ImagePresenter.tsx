@@ -15,7 +15,7 @@ const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
       p="1"
       m="2"
       width={{ base: '90vw', sm: '60' }}
-      height={{ base: 'none', sm: '60' }}
+      height={{ base: '60', sm: '60' }}
       bgColor="gray.200"
     >
       {onInfoClick && (
