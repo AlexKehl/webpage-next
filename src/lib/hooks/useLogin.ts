@@ -13,7 +13,7 @@ import useUser from './useUser'
 
 const useLogin = () => {
   const { t } = useI18n()
-  const { register, handleSubmit, formState } = useForm()
+  const formData = useForm()
   const { showError, showSuccess } = useToasts()
   const { setUser, deleteUser } = useUser()
   const { postWithErrHandle } = useApi()
@@ -41,7 +41,7 @@ const useLogin = () => {
       [HttpStatus.NOT_FOUND]: () => {
         showError({ text: t.userNotRegistered })
       },
-      default: (e) => showError({ text: t.unexpectedError }),
+      default: () => showError({ text: t.unexpectedError }),
     })
   }
 
@@ -52,10 +52,9 @@ const useLogin = () => {
   }
 
   return {
-    performLogin: handleSubmit(performLogin),
+    formData,
+    performLogin: formData.handleSubmit(performLogin),
     performLogout,
-    formState,
-    register,
     onRegisterOpen,
     onRegisterClose,
     isRegisterOpen,

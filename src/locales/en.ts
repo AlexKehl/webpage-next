@@ -56,6 +56,12 @@ const en = {
   buy: 'Buy',
   orderPlaced: 'Order placed! You will receive an email confirmation.',
   cart: 'Cart',
+  checkout: 'Checkout',
+  yourCartIsEmpty: 'Shopping cart is empty.',
+  firstName: 'First name',
+  lastName: 'Last name',
+  fieldRequired: 'Field required',
+  next: 'Next',
 } as const
 
 export default en

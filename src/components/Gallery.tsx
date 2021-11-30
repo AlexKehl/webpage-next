@@ -11,12 +11,19 @@ import useGallery from '../lib/hooks/useGallery'
 import GalleryImageInfo from './GalleryImageInfo'
 import { EditIcon } from '@chakra-ui/icons'
 import { API } from '../constants/EnvProxy'
+import { Cart } from '../types'
 
 interface Props {
   category: Category
+  cartFromLocalStorage?: Cart
+  setCartInLocalStorage: (cart: Cart) => void
 }
 
-const Gallery = ({ category }: Props) => {
+const Gallery = ({
+  category,
+  setCartInLocalStorage,
+  cartFromLocalStorage,
+}: Props) => {
   const { t } = useI18n()
   const router = useRouter()
   const { getUser } = useUser()
@@ -86,6 +93,8 @@ const Gallery = ({ category }: Props) => {
           {...currentImage!}
           isOpen={isModalOpen}
           onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
+          setCartInLocalStorage={setCartInLocalStorage}
+          cartFromLocalStorage={cartFromLocalStorage}
         />
       )}
     </VStack>

@@ -1,28 +1,27 @@
-import React from 'react'
 import {
-  Text,
-  Image,
-  Center,
-  Heading,
-  Checkbox,
   Button,
+  Center,
+  Checkbox,
+  Heading,
+  Image,
   Stack,
+  Text,
 } from '@chakra-ui/react'
-import Register from './Register'
+import React from 'react'
+import { FormProvider } from 'react-hook-form'
+import useI18n from '../lib/hooks/useI18n'
+import useLogin from '../lib/hooks/useLogin'
 import EmailField from './EmailField'
 import PasswordField from './PasswordField'
-import useLogin from '../lib/hooks/useLogin'
-import useI18n from '../lib/hooks/useI18n'
-import { FormContextProvider } from '../lib/contexts/FormContext'
+import Register from './Register'
 
 export const Login = () => {
   const {
     performLogin,
-    formState,
-    register,
     onRegisterClose,
     onRegisterOpen,
     isRegisterOpen,
+    formData,
   } = useLogin()
   const { t } = useI18n()
   return (
@@ -36,11 +35,11 @@ export const Login = () => {
 
         <form onSubmit={performLogin}>
           <Stack my="4" spacing="6">
-            <FormContextProvider value={{ formState, register }}>
+            <FormProvider {...formData}>
               <EmailField />
               <PasswordField />
               <Checkbox colorScheme="purple">{t.keepMeLoggedIn}</Checkbox>
-            </FormContextProvider>
+            </FormProvider>
             <Button size="lg" colorScheme="purple" type="submit">
               {t.login}
             </Button>

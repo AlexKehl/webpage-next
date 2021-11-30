@@ -2,7 +2,7 @@ import React from 'react'
 import useI18n from '../lib/hooks/useI18n'
 import InputField from './InputField'
 import { InputProps } from '@chakra-ui/react'
-import { useFormContext } from '../lib/contexts/FormContext'
+import { useFormContext } from 'react-hook-form'
 
 const EmailField = ({ ...rest }: InputProps) => {
   const { t } = useI18n()

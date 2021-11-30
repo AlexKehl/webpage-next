@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { Cart, CartItem } from '../../types'
-import { getItem, setItem } from '../utils/LocalStorage'
 
-const useCart = () => {
+interface Props {
+  cartFromLocalStorage?: Cart
+  setCartInLocalStorage: (cart: Cart) => void
+}
+
+const useCart = ({ cartFromLocalStorage, setCartInLocalStorage }: Props) => {
   const emptyCart: Cart = { items: [] }
-  const [cart, setCartState] = useState<Cart>(getItem('cart') || emptyCart)
+  const [cart, setCartState] = useState<Cart>(cartFromLocalStorage || emptyCart)
 
   const setCart = (cart: Cart) => {
-    setItem('cart', cart)
+    setCartInLocalStorage(cart)
     setCartState(cart)
   }
 

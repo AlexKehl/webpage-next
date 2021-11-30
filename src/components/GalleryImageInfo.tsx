@@ -16,10 +16,13 @@ import React from 'react'
 import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import useCart from '../lib/hooks/useCart'
 import useI18n from '../lib/hooks/useI18n'
+import { Cart } from '../types'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
+  cartFromLocalStorage?: Cart
+  setCartInLocalStorage: (cart: Cart) => void
 } & GalleryImageMeta
 
 const GalleryImageInfo = (props: Props) => {
@@ -32,9 +35,11 @@ const GalleryImageInfo = (props: Props) => {
     price,
     isOpen,
     onClose,
+    setCartInLocalStorage,
+    cartFromLocalStorage,
   } = props
   const { t } = useI18n()
-  const { addItem } = useCart()
+  const { addItem } = useCart({ setCartInLocalStorage, cartFromLocalStorage })
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="md">
       <ModalOverlay />

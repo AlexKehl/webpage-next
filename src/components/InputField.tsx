@@ -13,7 +13,7 @@ const InputField = ({ error, errorText, hookFormRegister, ...rest }: Props) => {
     <div>
       <Input isInvalid={error} {...rest} {...hookFormRegister} />
       {error && (
-        <Text fontSize="small" color="red.500">
+        <Text mx="2" my="1" textAlign="left" fontSize="small" color="red.500">
           {errorText}
         </Text>
       )}

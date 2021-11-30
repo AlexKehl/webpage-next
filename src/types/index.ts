@@ -8,4 +8,6 @@ export interface PostParams extends RequestInit {
   data?: Dto
 }
 
+export type Language = 'en' | 'de' | 'ru'
+
 export * from './Cart'
