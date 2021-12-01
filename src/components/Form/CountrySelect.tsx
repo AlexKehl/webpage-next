@@ -1,5 +1,5 @@
 import React from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { Language } from '../../../common/constants/Languages'
 import Countries from '../../constants/Counries'
 import useI18n from '../../lib/hooks/useI18n'
@@ -7,7 +7,7 @@ import Select from '../Select'
 
 const Country = () => {
   const { t, locale } = useI18n()
-  const { formState, control, register } = useFormContext()
+  const { formState, register } = useFormContext()
 
   const options = Countries.map((country) => ({
     value: country.code,
@@ -17,10 +17,11 @@ const Country = () => {
   }))
   return (
     <Select
-      hookFormRegister={register('country', { required: true })}
+      data-testid="countrySelect"
+      hookFormRegister={register('countryCode', { required: true })}
       onChange={() => alert('changed')}
       options={options}
-      error={formState.errors['country']}
+      error={formState.errors['countryCode']}
       errorText={t.fieldRequired}
     />
   )

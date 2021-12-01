@@ -9,6 +9,9 @@ import React from 'react'
 import { FullPageLoaderContextProvider } from '../../src/lib/contexts/FullPageLoaderContext'
 import { render } from '@testing-library/react'
 import axios from 'axios'
+import { Provider } from 'react-redux'
+import { store as defaultStore } from '../../src/redux/store'
+import { configureStore } from '@reduxjs/toolkit'
 
 interface MockRouterOpts {
   query?: Record<string, string>
@@ -23,9 +26,14 @@ export const mockRouter = ({ query = {} }: MockRouterOpts = {}) => {
   })
 }
 
-export const renderWithContext = (component: JSX.Element) => {
+export const renderWithContext = (
+  component: JSX.Element,
+  { store = defaultStore } = {}
+) => {
   return render(
-    <FullPageLoaderContextProvider>{component}</FullPageLoaderContextProvider>
+    <Provider store={store}>
+      <FullPageLoaderContextProvider>{component}</FullPageLoaderContextProvider>
+    </Provider>
   )
 }
 
@@ -53,12 +61,15 @@ export const mockRoute = ({
   body,
   method,
 }: MockRouteOpts) => {
+  const requestBodyListener = jest.fn()
   server.use(
-    rest[method](`${API}${route}`, async (_req, res, ctx) => {
+    rest[method](`${API}${route}`, async (req, res, ctx) => {
+      requestBodyListener(req.body)
       if (body) {
         return res(ctx.status(httpStatus), ctx.json(body))
       }
       return res(ctx.status(httpStatus))
     })
   )
+  return requestBodyListener
 }

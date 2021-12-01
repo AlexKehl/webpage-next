@@ -1,6 +1,6 @@
 import { InputProps } from '@chakra-ui/react'
 import React from 'react'
-import { useFormContext } from '../lib/contexts/FormContext'
+import { useFormContext } from 'react-hook-form'
 import useI18n from '../lib/hooks/useI18n'
 import InputField from './InputField'
 

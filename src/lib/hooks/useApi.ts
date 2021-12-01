@@ -1,8 +1,6 @@
 import axios from 'axios'
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { AsyncReturnType, ValueOf } from '../../../common/types'
-import { PostParams } from '../../types'
-import { postJSON } from '../api/Utils'
 import { useLoaderContext } from '../contexts/FullPageLoaderContext'
 import FetchError from '../errors/exceptions/FetchError'
 import useI18n from './useI18n'
@@ -49,17 +47,17 @@ const useApi = () => {
     }
   }
 
-  const postWithErrHandle = async <T>({
-    params,
+  const fetchWithErrHandle = async <T>({
+    fn,
     onSuccess,
     ...handlers
   }: {
-    params: PostParams
+    fn: () => Promise<T>
     onSuccess: (res: T) => any
     default: (...args: any[]) => void
   } & Partial<Record<ValueOf<typeof HttpStatus>, () => void>>) => {
     try {
-      const res = (await fetchWithProgress(postJSON)(params)) as T
+      const res = (await fetchWithProgress(fn)()) as T
       return onSuccess(res)
     } catch (e: any) {
       if (!(e instanceof FetchError)) {
@@ -74,7 +72,7 @@ const useApi = () => {
 
   return {
     validatedRequest,
-    postWithErrHandle,
+    fetchWithErrHandle,
     fetchWithProgress,
   }
 }

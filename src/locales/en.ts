@@ -62,6 +62,14 @@ const en = {
   lastName: 'Last name',
   fieldRequired: 'Field required',
   next: 'Next',
+  previous: 'Previous',
+  phone: 'Phone',
+  sessionExpired: 'Session expired. Please login again',
+  yourContactInformation: 'Your contact information',
+  deliveryAndBillingAddress: 'Delivery and billing address',
+  payment: 'Payment',
+  cartItemAdded: 'Item has been successfully added to your cart',
+  cartItemRemoved: 'Item has been successfully removed from your cart',
 } as const
 
 export default en

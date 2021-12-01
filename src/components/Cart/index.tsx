@@ -7,7 +7,6 @@ import { Cart } from '../../types'
 import CartItem from './CartItem'
 
 interface Props {
-  cartFromLocalStorage?: Cart
   setCartInLocalStorage: (cart: Cart) => void
   onRedirect: (url: string) => void
 }

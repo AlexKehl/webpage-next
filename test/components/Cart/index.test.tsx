@@ -5,23 +5,30 @@ import { galleryImageDto } from '../../../common/fixtures/GalleryImages'
 import TestIds from '../../../src/constants/TestIds'
 import { emptyCart, testCart } from './Fixtures'
 import { mockRoute, renderWithContext, setupTests } from '../../utils/Setup'
-import Cart from '../../../src/components/Cart'
+import CartComponent from '../../../src/components/Cart'
 import en from '../../../src/locales/en'
 import { Endpoints } from '../../../common/constants/Endpoints'
 import HttpStatus from '../../../common/constants/HttpStatus'
-import { debug } from '../../utils/Logging'
+import { configureStore } from '@reduxjs/toolkit'
+import cartSlice from '../../../src/redux/slices/cartSlice'
 
 setupTests()
 
-const setup = (overrides: Partial<Parameters<typeof Cart>[0]> = {}) => {
+const setup = ({ cartFromLocalStorage = testCart } = {}) => {
   const setCartInLocalStorage = jest.fn()
   const onRedirect = jest.fn()
   renderWithContext(
-    <Cart
-      cartFromLocalStorage={overrides.cartFromLocalStorage}
+    <CartComponent
       setCartInLocalStorage={setCartInLocalStorage}
       onRedirect={onRedirect}
-    />
+    />,
+    {
+      //@ts-ignore
+      store: configureStore({
+        reducer: { cart: cartSlice },
+        preloadedState: { cart: { cart: cartFromLocalStorage } },
+      }),
+    }
   )
   const deleteCartItem = screen.queryByTestId(TestIds.deleteCartItem)
   const checkoutBtn = screen.queryByRole('button', { name: en.checkout })
@@ -52,7 +59,6 @@ it('removes item on item delete click', async () => {
 
   await waitFor(() => {
     expect(screen.queryByText(galleryImageDto.name)).toBeNull()
-    expect(setCartInLocalStorage).toHaveBeenCalledTimes(1)
     expect(setCartInLocalStorage).toHaveBeenCalledWith(emptyCart)
     expect(checkoutBtn).not.toBeInTheDocument()
     expect(screen.queryByText(en.yourCartIsEmpty)).toBeInTheDocument()
@@ -60,7 +66,7 @@ it('removes item on item delete click', async () => {
 })
 
 it('shows empty text if no items are in cart', () => {
-  const { checkoutBtn } = setup()
+  const { checkoutBtn } = setup({ cartFromLocalStorage: { items: [] } })
 
   expect(screen.queryByText(en.yourCartIsEmpty)).toBeInTheDocument()
   expect(checkoutBtn).not.toBeInTheDocument()

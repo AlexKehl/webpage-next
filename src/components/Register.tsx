@@ -16,7 +16,7 @@ import PasswordField from './PasswordField'
 import useRegister from '../lib/hooks/useRegister'
 import RepeatPasswordField from './RepeatPasswordField'
 import useI18n from '../lib/hooks/useI18n'
-import { FormContextProvider } from '../lib/contexts/FormContext'
+import { FormProvider } from 'react-hook-form'
 
 interface Props {
   isOpen: boolean
@@ -27,11 +27,10 @@ const Register = ({ isOpen, onClose }: Props) => {
   const { t } = useI18n()
   const {
     onSubmit,
-    formState,
-    register,
     arePasswordsMatching,
     onConfirmEmailClose,
     isConfirmEmailOpen,
+    formData,
   } = useRegister({ onClose })
 
   return (
@@ -45,14 +44,14 @@ const Register = ({ isOpen, onClose }: Props) => {
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <FormContextProvider value={{ formState, register }}>
+              <FormProvider {...formData}>
                 <EmailField my="1" />
                 <PasswordField my="1" />
                 <RepeatPasswordField
                   my="1"
                   arePasswordsMatching={arePasswordsMatching}
                 />
-              </FormContextProvider>
+              </FormProvider>
             </ModalBody>
 
             <ModalFooter>

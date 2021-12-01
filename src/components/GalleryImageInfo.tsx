@@ -17,6 +17,7 @@ import { GalleryImageMeta } from '../../common/interface/GalleryImages'
 import useCart from '../lib/hooks/useCart'
 import useI18n from '../lib/hooks/useI18n'
 import { Cart } from '../types'
+import { omit } from 'remeda'
 
 type Props = {
   isOpen: boolean
@@ -80,7 +81,17 @@ const GalleryImageInfo = (props: Props) => {
                       <Button
                         mx="2"
                         color="green.500"
-                        onClick={() => addItem(props)}
+                        onClick={() =>
+                          addItem(
+                            omit(props, [
+                              'onClose',
+                              'isOpen',
+                              'onClose',
+                              'cartFromLocalStorage',
+                              'setCartInLocalStorage',
+                            ])
+                          )
+                        }
                       >
                         {t.buy}
                       </Button>

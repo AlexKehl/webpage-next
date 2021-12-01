@@ -20,6 +20,24 @@ export async function http<T>(request: RequestInfo): Promise<T> {
   return body
 }
 
+export const apiGet = async <T>({
+  url,
+  params,
+  credentials,
+}: {
+  url: string
+  params?: Record<string, string>
+  credentials?: RequestCredentials
+}): Promise<T> => {
+  const stringParams = new URLSearchParams(params).toString()
+  const response = await fetch(`${url}?${stringParams}`, {
+    method: 'GET',
+    credentials,
+  })
+  const body = await response.json()
+  return body
+}
+
 export const postJSON = async <T>({
   url,
   method,

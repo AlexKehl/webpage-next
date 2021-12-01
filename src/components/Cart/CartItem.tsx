@@ -8,7 +8,7 @@ import { DeleteIcon } from '@chakra-ui/icons'
 import TestIds from '../../constants/TestIds'
 
 interface Props extends CartItem {
-  onDelete: (item: CartItem) => void
+  onDelete: (item: CartItem['id']) => void
 }
 
 const CartItemComponent = (props: Props) => {
@@ -26,7 +26,7 @@ const CartItemComponent = (props: Props) => {
         </Text>
         <Text fontSize="md">{description}</Text>
         <IconButton
-          onClick={() => onDelete(props)}
+          onClick={() => onDelete(props.id)}
           data-testid={TestIds.deleteCartItem}
           icon={<DeleteIcon w={5} h={5} />}
           variant={'ghost'}

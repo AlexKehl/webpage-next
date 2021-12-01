@@ -6,6 +6,7 @@ import HttpStatus from '../../../common/constants/HttpStatus'
 import { LoginResponse } from '../../../common/interface/ConsumerResponses'
 import { LoginDto } from '../../../common/interface/Dto'
 import { API } from '../../constants/EnvProxy'
+import { postJSON } from '../api/Utils'
 import useApi from './useApi'
 import useI18n from './useI18n'
 import useToasts from './useToasts'
@@ -16,7 +17,7 @@ const useLogin = () => {
   const formData = useForm()
   const { showError, showSuccess } = useToasts()
   const { setUser, deleteUser } = useUser()
-  const { postWithErrHandle } = useApi()
+  const { fetchWithErrHandle } = useApi()
   const router = useRouter()
 
   const {
@@ -26,12 +27,13 @@ const useLogin = () => {
   } = useDisclosure()
 
   const performLogin = async (loginDto: LoginDto) => {
-    return postWithErrHandle<LoginResponse>({
-      params: {
-        url: `${API}${Endpoints.login}`,
-        data: loginDto,
-        credentials: 'include',
-      },
+    return fetchWithErrHandle<LoginResponse>({
+      fn: () =>
+        postJSON({
+          url: `${API}${Endpoints.login}`,
+          data: loginDto,
+          credentials: 'include',
+        }),
       onSuccess: (res) => {
         showSuccess({ text: t.successFullLogin })
         setUser(res.user)

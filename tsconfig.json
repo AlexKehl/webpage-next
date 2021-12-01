@@ -1,29 +1,28 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "CommonJS",
-    "jsx": "preserve",
-    "outDir": "./dist",
-    "strict": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "moduleResolution": "node",
     "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "allowJs": true,
     "useUnknownInCatchVariables": false,
+    "jsx": "preserve",
     "types": [
       "cypress",
       "@testing-library/cypress",
       "jest",
       "@testing-library/jest-dom"
-    ],
-    "incremental": true
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

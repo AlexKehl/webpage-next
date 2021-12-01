@@ -4,7 +4,6 @@ import {
   IconButton,
   Stack,
   Collapse,
-  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
@@ -12,6 +11,7 @@ import React from 'react'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
 import ProfileMenu from '../ProfileMenu'
+import CartIcon from './CartIcon'
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
@@ -53,9 +53,11 @@ export default function WithSubnavigation() {
           flex={{ base: 1, md: 0 }}
           mr={{ base: 'none', md: 10 }}
           justify={'flex-end'}
+          alignItems="center"
           direction={'row'}
           spacing={6}
         >
+          <CartIcon />
           <ProfileMenu />
         </Stack>
       </Flex>

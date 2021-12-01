@@ -1,19 +1,24 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { cartActions } from '../../redux/slices/cartSlice'
 import { Cart, CartItem } from '../../types'
+import useI18n from './useI18n'
+import useToasts from './useToasts'
 
 interface Props {
   cartFromLocalStorage?: Cart
   setCartInLocalStorage: (cart: Cart) => void
 }
 
-const useCart = ({ cartFromLocalStorage, setCartInLocalStorage }: Props) => {
-  const emptyCart: Cart = { items: [] }
-  const [cart, setCartState] = useState<Cart>(cartFromLocalStorage || emptyCart)
+const useCart = ({ setCartInLocalStorage }: Props) => {
+  const { cart } = useAppSelector((state) => state.cart)
+  const dispatch = useAppDispatch()
+  const { showSuccess } = useToasts()
+  const { t } = useI18n()
 
-  const setCart = (cart: Cart) => {
+  useEffect(() => {
     setCartInLocalStorage(cart)
-    setCartState(cart)
-  }
+  }, [cart])
 
   const hasItem = (item: CartItem) => {
     return Boolean(cart.items.find(({ id }) => id === item.id))
@@ -23,23 +28,18 @@ const useCart = ({ cartFromLocalStorage, setCartInLocalStorage }: Props) => {
     if (hasItem(item)) {
       return
     }
-    setCart({
-      ...cart,
-      items: [...cart.items, item],
-    })
+    dispatch(cartActions.addCartItem(item))
+    showSuccess({ text: t.cartItemAdded })
   }
 
-  const deleteItem = (item: CartItem): void => {
-    setCart({
-      ...cart,
-      items: cart.items.filter(({ id }) => id !== item.id),
-    })
+  const deleteItem = (id: CartItem['id']): void => {
+    dispatch(cartActions.deleteCartItem(id))
+    showSuccess({ text: t.cartItemRemoved })
   }
 
   return {
     addItem,
     cart,
-    setCart,
     deleteItem,
   }
 }
