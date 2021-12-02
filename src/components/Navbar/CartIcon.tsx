@@ -1,6 +1,6 @@
-import { Avatar, AvatarBadge, IconButton, Text } from '@chakra-ui/react'
+import { Avatar, AvatarBadge, Text } from '@chakra-ui/react'
 import router from 'next/router'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import useCart from '../../lib/hooks/useCart'
 import { getItem, setItem } from '../../lib/utils/LocalStorage'
@@ -14,18 +14,22 @@ const CartIcon = () => {
     cartFromLocalStorage,
   })
   return (
-    <Avatar
-      as="button"
-      aria-label="notifications"
-      icon={<AiOutlineShoppingCart />}
-      size="sm"
-      onClick={() => router.push('/cart')}
-      bg="gray.100"
-    >
-      <AvatarBadge boxSize="1.1rem" bg="red.400">
-        <Text fontSize="xs">{cart.items.length}</Text>
-      </AvatarBadge>
-    </Avatar>
+    <Fragment>
+      <Avatar
+        as="button"
+        aria-label="notifications"
+        icon={<AiOutlineShoppingCart />}
+        size="sm"
+        onClick={() => router.push('/cart')}
+        bg="gray.100"
+      >
+        {cart.items.length > 0 && (
+          <AvatarBadge boxSize="1.1rem" bg="red.200">
+            <Text fontSize="xs">{cart.items.length}</Text>
+          </AvatarBadge>
+        )}
+      </Avatar>
+    </Fragment>
   )
 }
 

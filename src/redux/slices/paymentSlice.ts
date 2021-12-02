@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ContactInformationDto } from '../../../common/interface/Dto'
+import { User } from '../../../common/interface/ConsumerResponses'
 
 export interface PaymentState {
-  contact?: ContactInformationDto
+  user?: User
 }
 
 const initialState: PaymentState = {}
@@ -11,8 +11,8 @@ export const paymentSlice = createSlice({
   name: 'paymentPage',
   initialState,
   reducers: {
-    setContactData: (state, action: PayloadAction<PaymentState['contact']>) => {
-      state.contact = action.payload
+    setUserDara: (state, action: PayloadAction<PaymentState['user']>) => {
+      state.user = action.payload
     },
   },
 })

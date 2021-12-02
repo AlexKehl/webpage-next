@@ -70,6 +70,12 @@ const en = {
   payment: 'Payment',
   cartItemAdded: 'Item has been successfully added to your cart',
   cartItemRemoved: 'Item has been successfully removed from your cart',
+  fullName: 'Full name',
+  street: 'Street',
+  streetNumber: 'Number',
+  city: 'City',
+  state: 'State',
+  zip: 'Zip',
 } as const
 
 export default en

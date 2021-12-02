@@ -11,7 +11,6 @@ import { render } from '@testing-library/react'
 import axios from 'axios'
 import { Provider } from 'react-redux'
 import { store as defaultStore } from '../../src/redux/store'
-import { configureStore } from '@reduxjs/toolkit'
 
 interface MockRouterOpts {
   query?: Record<string, string>

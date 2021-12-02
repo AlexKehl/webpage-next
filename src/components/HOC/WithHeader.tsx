@@ -1,5 +1,4 @@
 import React from 'react'
-import { HOC } from '../../types'
 import Navbar from '../Navbar'
 
 function HOC<T>(Component: (props: T) => JSX.Element) {

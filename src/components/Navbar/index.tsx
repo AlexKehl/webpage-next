@@ -12,8 +12,9 @@ import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
 import ProfileMenu from '../ProfileMenu'
 import CartIcon from './CartIcon'
+import WithClientRender from '../HOC/WithClientRender'
 
-export default function WithSubnavigation() {
+const NavBar = () => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -68,3 +69,5 @@ export default function WithSubnavigation() {
     </Box>
   )
 }
+
+export default WithClientRender(NavBar)
