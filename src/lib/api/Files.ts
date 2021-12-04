@@ -13,7 +13,7 @@ import {
 import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
 import { API } from '../../constants/EnvProxy'
 import { FileWithMeta } from '../../types/GalleryImages'
-import { attemptProtectedRequest } from './Auth'
+import { postJSON } from './Utils'
 
 async function getBlobFromUrl(url: string): Promise<Blob> {
   const { data } = await axios({
@@ -81,10 +81,11 @@ const uploadImage = async (
     image,
   }
 
-  return attemptProtectedRequest({
+  return postJSON({
     url: `${API}${Endpoints.galleryUpload}`,
     method: 'post',
-    data,
+    data: data! as GalleryImageDto,
+    credentials: 'include',
   })
 }
 
@@ -93,10 +94,11 @@ const deleteImage = async (category: Category, id: GalleryImageMeta['id']) => {
     category,
     id,
   }
-  return attemptProtectedRequest({
+  return postJSON({
     url: `${API}${Endpoints.galleryDelete}`,
     method: 'post',
     data,
+    credentials: 'include',
   })
 }
 

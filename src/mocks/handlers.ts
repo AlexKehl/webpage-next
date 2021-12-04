@@ -14,10 +14,6 @@ export const handlers = [
         }
       ),
 
-      ctx.cookie('refreshToken', 'someEncodedJWT', {
-        httpOnly: true,
-        secure: true,
-      }),
       ctx.status(HttpStatus.OK)
     )
   }),
