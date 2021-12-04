@@ -49,7 +49,7 @@ export const State = ({ ...rest }: InputProps) => {
       placeholder={t.state}
       error={formState.errors['state']}
       errorText={t.fieldRequired}
-      hookFormRegister={register('state', { required: true })}
+      hookFormRegister={register('state')}
       {...rest}
     />
   )
@@ -71,16 +71,19 @@ export const Zip = ({ ...rest }: InputProps) => {
   )
 }
 
-export const Country = () => {
+export const Country = ({ withPhone }: { withPhone?: boolean }) => {
   const { t, locale } = useI18n()
   const { formState, register } = useFormContext()
 
-  const options = Countries.map((country) => ({
-    value: country.code,
-    label: `${country.label[locale as Language] || country.label.en} (${
-      country.phone
-    })`,
-  }))
+  const options = Countries.map((country) => {
+    const phoneLabel = withPhone ? `(${country.phone})` : ''
+    return {
+      value: country.code,
+      label: `${
+        country.label[locale as Language] || country.label.en
+      } ${phoneLabel}`,
+    }
+  })
   return (
     <Select
       hookFormRegister={register('countryCode', { required: true })}

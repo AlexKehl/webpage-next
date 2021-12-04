@@ -7,15 +7,23 @@ interface Props {
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
   src: string
   onInfoClick?: React.MouseEventHandler<SVGElement>
+  width?: Record<string, any>
+  height?: Record<string, any>
 }
 
-const ImagePresenter = ({ onClick, src, onInfoClick }: Props) => {
+const ImagePresenter = ({
+  onClick,
+  src,
+  onInfoClick,
+  width,
+  height,
+}: Props) => {
   return (
     <Box
       p="1"
       m="2"
-      width={{ base: '90vw', sm: '60' }}
-      height={{ base: '60', sm: '60' }}
+      width={width || { base: '90vw', sm: '60' }}
+      height={height || { base: '60', sm: '60' }}
       bgColor="gray.200"
     >
       {onInfoClick && (

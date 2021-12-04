@@ -21,11 +21,9 @@ const ContactInformation = ({ onNext, user }: Props) => {
 
   useEffect(() => {
     formData.reset({
-      countryCode: user?.contact?.countryCode || 'DE',
+      ...user?.contact,
       email: user?.email || '',
-      phone: user?.contact?.phone || '',
-      lastName: user?.contact?.lastName || '',
-      firstName: user?.contact?.firstName || '',
+      countryCode: user?.contact?.countryCode || 'DE',
     })
   }, [user])
   const { t } = useI18n()
@@ -56,7 +54,7 @@ const ContactInformation = ({ onNext, user }: Props) => {
             <LastName />
           </GridItem>
           <GridItem colSpan={12}>
-            <Country />
+            <Country withPhone />
           </GridItem>
           <GridItem colSpan={12}>
             <Phone />

@@ -17,7 +17,6 @@ import {
   StreetNumber,
   Zip,
 } from '../Form/FormFields'
-import FormCard from '../Layout/FormCard'
 
 interface Props {
   onNext: () => void
@@ -33,7 +32,7 @@ const AddressInformation = ({ onPrevious, user, onNext }: Props) => {
   const { showError } = useToasts()
 
   useEffect(() => {
-    formData.reset({})
+    formData.reset(user?.address)
   }, [user])
 
   const onSubmit = (data: AddressInformationDto) => {

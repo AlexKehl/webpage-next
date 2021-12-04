@@ -1,4 +1,4 @@
-import { Button, Center } from '@chakra-ui/react'
+import { Button, Center, Flex, Stack, VStack } from '@chakra-ui/react'
 import router from 'next/router'
 import React, { Fragment } from 'react'
 import useCart from '../../lib/hooks/useCart'
@@ -22,12 +22,20 @@ const Cart = (props: Props) => {
   const onCheckout = () => router.push('/payments')
 
   return (
-    <Fragment>
-      {cart.items.map((item, idx) => (
-        <CartItem key={idx} {...item} onDelete={deleteItem} />
-      ))}
-      <Button onClick={onCheckout}>{t.checkout}</Button>
-    </Fragment>
+    <Center m={{ base: 3, sm: 5 }}>
+      <span>
+        <Stack direction="column" spacing="2">
+          {cart.items.map((item, idx) => (
+            <CartItem key={idx} {...item} onDelete={deleteItem} />
+          ))}
+        </Stack>
+        <Flex direction="row-reverse">
+          <Button m="2" onClick={onCheckout}>
+            {t.checkout}
+          </Button>
+        </Flex>
+      </span>
+    </Center>
   )
 }
 
