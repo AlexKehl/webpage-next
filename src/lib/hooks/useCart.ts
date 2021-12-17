@@ -13,7 +13,7 @@ interface Props {
 const useCart = ({ setCartInLocalStorage }: Props) => {
   const { cart } = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
-  const { showSuccess } = useToasts()
+  // const { showSuccess } = useToasts()
   const { t } = useI18n()
 
   useEffect(() => {
@@ -29,12 +29,12 @@ const useCart = ({ setCartInLocalStorage }: Props) => {
       return
     }
     dispatch(cartActions.addCartItem(item))
-    showSuccess({ text: t.cartItemAdded })
+    // showSuccess({ text: t.cartItemAdded })
   }
 
   const deleteItem = (id: CartItem['id']): void => {
     dispatch(cartActions.deleteCartItem(id))
-    showSuccess({ text: t.cartItemRemoved })
+    // showSuccess({ text: t.cartItemRemoved })
   }
 
   return {

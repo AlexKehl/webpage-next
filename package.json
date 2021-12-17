@@ -52,6 +52,7 @@
     "@types/react-image-gallery": "^1.0.2",
     "@types/uuid": "^8.3.1",
     "autoprefixer": "^10.2.6",
+    "cross-fetch": "^3.1.4",
     "cypress": "^8.2.0",
     "cypress-file-upload": "^5.0.8",
     "eslint": "^7.32.0",
@@ -60,6 +61,7 @@
     "jest": "^27.3.1",
     "jest-watch-typeahead": "^1.0.0",
     "msw": "^0.34.0",
+    "riteway": "^6.3.1",
     "typescript": "^4.4.3"
   },
   "msw": {

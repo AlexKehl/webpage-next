@@ -1,13 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import cartSlice from './slices/cartSlice'
-import paymentSlice from './slices/paymentSlice'
 import { serverApi } from './services/serverApi'
+import stepperSlice from './slices/stepperSlice'
+import toastSlice from './slices/toastSlice'
 
 export const store = configureStore({
   reducer: {
     [serverApi.reducerPath]: serverApi.reducer,
-    payment: paymentSlice,
     cart: cartSlice,
+    stepper: stepperSlice,
+    toast: toastSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(serverApi.middleware),

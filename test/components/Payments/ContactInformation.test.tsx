@@ -30,7 +30,7 @@ const setup = (
   }
 }
 
-it('sets germany as default country', async () => {
+it.only('sets germany as default country', async () => {
   const { germanyOption } = setup()
 
   await waitFor(() => {

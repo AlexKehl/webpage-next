@@ -1,12 +1,13 @@
 import { Center, Stack } from '@chakra-ui/react'
-import { Step, Steps, useSteps } from 'chakra-ui-steps'
+import { Step, Steps } from 'chakra-ui-steps'
 import React from 'react'
 import { User } from '../../../common/interface/ConsumerResponses'
 import useI18n from '../../lib/hooks/useI18n'
-import { useUserInfoQuery } from '../../redux/services/serverApi'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useUserQuery } from '../../redux/services/serverApi'
+import { stepperActions } from '../../redux/slices/stepperSlice'
 import AddressInformation from './AddressInformation'
 import ContactInformation from './ContactInformation'
-import PaymentInformation from './PaymentInformation'
 
 interface Props {
   user?: User
@@ -14,35 +15,23 @@ interface Props {
 
 const Stepper = ({ user }: Props) => {
   const { t } = useI18n()
-  const { nextStep, prevStep, activeStep, setStep } = useSteps({
-    initialStep: 0,
-  })
-  const { data } = useUserInfoQuery(user?.email || '')
+  const { activeStep } = useAppSelector((store) => store.stepper)
+  const dispatch = useAppDispatch()
+  useUserQuery(user?.email || '')
 
   return (
     <Center my="auto">
       <Stack p="10" w="xl">
         <Steps
-          onClickStep={(stepIdx) => {
-            if (stepIdx < activeStep) {
-              setStep(stepIdx)
-            }
-          }}
+          onClickStep={(idx) => dispatch(stepperActions.setActiveStep(idx))}
           activeStep={activeStep}
           orientation="vertical"
         >
           <Step label={t.yourContactInformation}>
-            <ContactInformation onNext={nextStep} user={data} />
+            <ContactInformation />
           </Step>
           <Step label={t.deliveryAndBillingAddress}>
-            <AddressInformation
-              onNext={nextStep}
-              onPrevious={prevStep}
-              user={data}
-            />
-          </Step>
-          <Step label={t.payment}>
-            <PaymentInformation />
+            <AddressInformation />
           </Step>
         </Steps>
       </Stack>

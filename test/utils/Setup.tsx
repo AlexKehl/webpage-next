@@ -44,7 +44,7 @@ export const setupMswServer = () => {
 }
 
 export const setupTests = () => {
-  mockRouter()
+  // mockRouter()
   setupMswServer()
 }
 

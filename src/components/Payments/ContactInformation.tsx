@@ -1,47 +1,35 @@
 import { Button, GridItem, SimpleGrid } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import HttpStatus from '../../../common/constants/HttpStatus'
-import { User } from '../../../common/interface/ConsumerResponses'
 import { ContactInformationDto } from '../../../common/interface/Dto'
-import { updateContactInformation } from '../../lib/api/User'
-import useApi from '../../lib/hooks/useApi'
 import useI18n from '../../lib/hooks/useI18n'
+import useLoader from '../../lib/hooks/useLoader'
 import useToasts from '../../lib/hooks/useToasts'
+import { useAppSelector } from '../../redux/hooks'
+import { useContactInformationMutation } from '../../redux/services/serverApi'
+import { stepperSelector } from '../../redux/slices/stepperSlice'
 import EmailField from '../EmailField'
 import { FirstName, LastName, Country, Phone } from '../Form/FormFields'
 
-interface Props {
-  onNext: () => void
-  user?: User
-}
-
-const ContactInformation = ({ onNext, user }: Props) => {
+const ContactInformation = () => {
+  const stepperState = useAppSelector(stepperSelector)
   const formData = useForm<ContactInformationDto>()
+  const { t } = useI18n()
+  const [updateContactInformation] = useContactInformationMutation()
+
+  useToasts(stepperSelector)
+  useLoader(stepperSelector)
 
   useEffect(() => {
     formData.reset({
-      ...user?.contact,
-      email: user?.email || '',
-      countryCode: user?.contact?.countryCode || 'DE',
+      ...stepperState.user?.contact,
+      email: stepperState.user?.email || '',
+      countryCode: stepperState.user?.contact?.countryCode || 'DE',
     })
-  }, [user])
-  const { t } = useI18n()
-  const { fetchWithErrHandle } = useApi()
-  const { showError } = useToasts()
-
-  const onSubmit = (data: ContactInformationDto) => {
-    return fetchWithErrHandle({
-      fn: () => updateContactInformation(data),
-      onSuccess: onNext,
-      [HttpStatus.NOT_FOUND]: () => showError({ text: t.userNotRegistered }),
-      [HttpStatus.UNAUTHORIZED]: () => showError({ text: t.sessionExpired }),
-      default: () => showError({ text: t.unexpectedError }),
-    })
-  }
+  }, [stepperState.user])
 
   return (
-    <form onSubmit={formData.handleSubmit(onSubmit)} noValidate>
+    <form onSubmit={formData.handleSubmit(updateContactInformation)} noValidate>
       <FormProvider {...formData}>
         <SimpleGrid columns={12} spacing={2}>
           <GridItem colSpan={12}>
