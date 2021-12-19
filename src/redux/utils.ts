@@ -31,3 +31,7 @@ export const addLoadingMatcher = <T extends WithLoader>(
     state.isLoading = true
   })
 }
+
+export interface WithRedirect {
+  redirectUrl?: string
+}

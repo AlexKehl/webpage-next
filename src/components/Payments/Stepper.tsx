@@ -5,7 +5,10 @@ import { User } from '../../../common/interface/ConsumerResponses'
 import useI18n from '../../lib/hooks/useI18n'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { useUserQuery } from '../../redux/services/serverApi'
-import { stepperActions } from '../../redux/slices/stepperSlice'
+import {
+  stepperActions,
+  stepperSelector,
+} from '../../redux/slices/stepperSlice'
 import AddressInformation from './AddressInformation'
 import ContactInformation from './ContactInformation'
 
@@ -15,7 +18,7 @@ interface Props {
 
 const Stepper = ({ user }: Props) => {
   const { t } = useI18n()
-  const { activeStep } = useAppSelector((store) => store.stepper)
+  const { activeStep } = useAppSelector(stepperSelector)
   const dispatch = useAppDispatch()
   useUserQuery(user?.email || '')
 

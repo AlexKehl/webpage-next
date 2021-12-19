@@ -20,12 +20,30 @@ export const fulfilledQuery = ({
   }
 }
 
+export const fulfilledMutation = ({
+  endpoint,
+  payload,
+}: {
+  endpoint: keyof typeof Endpoints
+  payload?: Record<string, any>
+}) => {
+  return {
+    type: 'api/executeMutation/fulfilled',
+    payload,
+    meta: {
+      arg: {
+        endpointName: endpoint,
+      },
+    },
+  }
+}
+
 export const rejectedMutation = ({
   endpoint,
   payload,
 }: {
   endpoint: keyof typeof Endpoints
-  payload: {
+  payload?: {
     status: ValueOf<typeof HttpStatus>
     data?: Record<string, any>
   }

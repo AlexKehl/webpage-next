@@ -18,6 +18,9 @@ const useToasts = <
 >(
   selector: T
 ) => {
+  const { t } = useI18n()
+  const chakraToast = useToast()
+
   if (!selector) {
     const showSuccess = ({
       text,
@@ -54,9 +57,6 @@ const useToasts = <
       showError,
     }
   }
-  console.log(selector)
-  const { t } = useI18n()
-  const chakraToast = useToast()
   const { toast } = useAppSelector(selector)
 
   useEffect(() => {

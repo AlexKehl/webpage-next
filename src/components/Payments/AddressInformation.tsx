@@ -1,17 +1,20 @@
 import { Button, GridItem, SimpleGrid } from '@chakra-ui/react'
-import router from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import HttpStatus from '../../../common/constants/HttpStatus'
-import { User } from '../../../common/interface/ConsumerResponses'
 import { AddressInformationDto } from '../../../common/interface/Dto'
-import { updateAddressInformation } from '../../lib/api/User'
-import useApi from '../../lib/hooks/useApi'
 import useI18n from '../../lib/hooks/useI18n'
-import usePayments from '../../lib/hooks/usePayments'
+import useLoader from '../../lib/hooks/useLoader'
+import useRedirect from '../../lib/hooks/useRedirect'
 import useToasts from '../../lib/hooks/useToasts'
-import { useAppDispatch } from '../../redux/hooks'
-import { stepperActions } from '../../redux/slices/stepperSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import {
+  useAddressInformationMutation,
+  useCheckoutMutation,
+} from '../../redux/services/serverApi'
+import {
+  stepperActions,
+  stepperSelector,
+} from '../../redux/slices/stepperSlice'
 import {
   City,
   Country,
@@ -26,19 +29,18 @@ const AddressInformation = () => {
   const { t } = useI18n()
   const formData = useForm<AddressInformationDto>()
   const dispatch = useAppDispatch()
+  const { cart } = useAppSelector((store) => store.cart)
 
-  const { fetchWithErrHandle } = useApi()
-  const { showError } = useToasts()
-  const { buyImages } = usePayments({ onRedirect: router.push })
+  const [updateAddressInformation] = useAddressInformationMutation()
+  const [checkout] = useCheckoutMutation()
 
-  const onSubmit = (data: AddressInformationDto) => {
-    return fetchWithErrHandle({
-      fn: () => updateAddressInformation(data),
-      onSuccess: () => buyImages(),
-      [HttpStatus.NOT_FOUND]: () => showError({ text: t.userNotRegistered }),
-      [HttpStatus.UNAUTHORIZED]: () => showError({ text: t.sessionExpired }),
-      default: () => showError({ text: t.unexpectedError }),
-    })
+  useToasts(stepperSelector)
+  useLoader(stepperSelector)
+  useRedirect(stepperSelector)
+
+  const onSubmit = async (addressDto: AddressInformationDto) => {
+    await updateAddressInformation(addressDto)
+    await checkout(cart)
   }
 
   return (
