@@ -1,5 +1,4 @@
-import { useToast } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { useToast, useUpdateEffect } from '@chakra-ui/react'
 import { useAppSelector } from '../../redux/hooks'
 import { store } from '../../redux/store'
 import { WithToast } from '../../redux/utils'
@@ -59,10 +58,10 @@ const useToasts = <
   }
   const { toast } = useAppSelector(selector)
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (toast) {
       chakraToast({
-        title: t.error,
+        title: toast.type,
         description: t[toast.text],
         status: toast.type,
         duration: 6000,

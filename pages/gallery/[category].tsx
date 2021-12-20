@@ -4,23 +4,13 @@ import { Category } from '../../common/interface/Constants'
 import { generateCategoryPaths } from '../../src/utils/PathsGenerator'
 import Gallery from '../../src/components/Gallery'
 import WithHeader from '../../src/components/HOC/WithHeader'
-import { getItem, setItem } from '../../src/lib/utils/LocalStorage'
-import { Cart } from '../../src/types'
 
 interface Props {
   category: Category
 }
 
-const GalleryPage = (props: Props) => {
-  const cart = getItem('cart')
-  const setCart = (cart: Cart) => setItem('cart', cart)
-  return (
-    <Gallery
-      {...props}
-      setCartInLocalStorage={setCart}
-      cartFromLocalStorage={cart}
-    />
-  )
+const GalleryPage = ({ category }: Props) => {
+  return <Gallery category={category} />
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => ({

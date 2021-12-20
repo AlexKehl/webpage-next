@@ -7,35 +7,28 @@ import { hasRole } from '../../common/utils/User'
 import ImagePresenter from './ImagePresenter'
 import useUser from '../lib/hooks/useUser'
 import useI18n from '../lib/hooks/useI18n'
-import useGallery from '../lib/hooks/useGallery'
 import GalleryImageInfo from './GalleryImageInfo'
 import { EditIcon } from '@chakra-ui/icons'
 import { API } from '../constants/EnvProxy'
-import { Cart } from '../types'
+import { useImagesQuery } from '../redux/services/serverApi'
+import {
+  currentImageSelector,
+  galleryActions,
+  gallerySelector,
+} from '../redux/slices/gallerySlice'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
 
 interface Props {
   category: Category
-  cartFromLocalStorage?: Cart
-  setCartInLocalStorage: (cart: Cart) => void
 }
 
-const Gallery = ({
-  category,
-  setCartInLocalStorage,
-  cartFromLocalStorage,
-}: Props) => {
+const Gallery = ({ category }: Props) => {
   const { t } = useI18n()
   const router = useRouter()
-  const { getUser } = useUser()
-  const {
-    state,
-    dispatch,
-    nextImageUrl,
-    prevImageUrl,
-    currentImageUrl,
-    currentImage,
-  } = useGallery(category)
-  const { isViewerOpen, isModalOpen } = state
+  const { getUser } = useUser() // TODO move to redux
+  const state = useAppSelector(gallerySelector)
+  const dispatch = useAppDispatch()
+  useImagesQuery(category)
 
   return (
     <VStack my="3" mx="auto" maxW={{ base: '1', sm: '7xl' }}>
@@ -54,49 +47,23 @@ const Gallery = ({
           <ImagePresenter
             key={index}
             src={`${API}${image.url}`}
-            onClick={() =>
-              dispatch({
-                type: 'OPEN_LIGHTBOX',
-                payload: { currentImageIdx: index },
-              })
-            }
-            onInfoClick={() =>
-              dispatch({
-                type: 'OPEN_MODAL',
-                payload: { currentImageIdx: index },
-              })
-            }
+            onClick={() => dispatch(galleryActions.openLightBox(index))}
+            onInfoClick={() => dispatch(galleryActions.openInfoModal(index))}
           />
         ))}
       </Flex>
-      {isViewerOpen && (
+      {state.isViewerOpen && (
         <Lightbox
           imagePadding={0}
-          mainSrc={currentImageUrl || ''}
-          nextSrc={nextImageUrl}
-          prevSrc={prevImageUrl}
-          onCloseRequest={() => dispatch({ type: 'CLOSE_LIGHTBOX' })}
-          onMovePrevRequest={() =>
-            dispatch({
-              type: 'OPEN_PREV_IMAGE',
-            })
-          }
-          onMoveNextRequest={() =>
-            dispatch({
-              type: 'OPEN_NEXT_IMAGE',
-            })
-          }
+          mainSrc={currentImageSelector(state).currentImageUrl || ''}
+          nextSrc={currentImageSelector(state).nextImageUrl}
+          prevSrc={currentImageSelector(state).prevImageUrl}
+          onCloseRequest={() => dispatch(galleryActions.closeLightBox())}
+          onMovePrevRequest={() => dispatch(galleryActions.openPrevImage())}
+          onMoveNextRequest={() => dispatch(galleryActions.openNextImage())}
         />
       )}
-      {state.images.length > 0 && (
-        <GalleryImageInfo
-          {...currentImage!}
-          isOpen={isModalOpen}
-          onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
-          setCartInLocalStorage={setCartInLocalStorage}
-          cartFromLocalStorage={cartFromLocalStorage}
-        />
-      )}
+      {state.images.length > 0 && <GalleryImageInfo />}
     </VStack>
   )
 }

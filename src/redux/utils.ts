@@ -32,6 +32,18 @@ export const addLoadingMatcher = <T extends WithLoader>(
   })
 }
 
+export const addGenericToasts = <T extends WithToast>(
+  builder: ActionReducerMapBuilder<any>,
+  matcher: ValueOf<typeof serverApi.endpoints>
+) => {
+  builder.addMatcher(matcher.matchFulfilled, (state: T) => {
+    state.toast = { text: 'successfullySubmitted', type: 'success' }
+  })
+  builder.addMatcher(matcher.matchRejected, (state) => {
+    state.toast = { text: 'unexpectedError', type: 'error' }
+  })
+}
+
 export interface WithRedirect {
   redirectUrl?: string
 }

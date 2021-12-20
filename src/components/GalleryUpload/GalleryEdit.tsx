@@ -1,13 +1,16 @@
 import { Button, Flex, VStack } from '@chakra-ui/react'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../../common/interface/Constants'
-import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
-import { getInitialGalleryFiles } from '../../lib/api/Files'
-import useApi from '../../lib/hooks/useApi'
 import useI18n from '../../lib/hooks/useI18n'
-import WithHeader from '../HOC/WithHeader'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useImagesQuery } from '../../redux/services/serverApi'
+import {
+  galleryActions,
+  gallerySelector,
+} from '../../redux/slices/gallerySlice'
 import GalleryUploadPreview from './GalleryUploadPreview'
+import useToasts from '../../lib/hooks/useToasts'
 
 interface Props {
   category: Category
@@ -15,43 +18,31 @@ interface Props {
 
 const GalleryEdit = ({ category }: Props) => {
   const { t } = useI18n()
-  const [filesList, setFilesList] = useState<
-    ({ file: File } & Partial<GalleryImageMeta>)[]
-  >([])
-  const { fetchWithProgress } = useApi()
+  useImagesQuery(category)
+  const dispatch = useAppDispatch()
+  const { images } = useAppSelector(gallerySelector)
 
-  useEffect(() => {
-    fetchWithProgress(getInitialGalleryFiles)(category).then(setFilesList)
-  }, [category])
-
-  const onAddFiles = (acceptedFiles: File[]) => {
-    setFilesList([...filesList, ...acceptedFiles.map((file) => ({ file }))])
-  }
-
-  const onRemoveFile = (fileName: string) => {
-    setFilesList(
-      filesList.filter((file) => (file.name || file.file.name) !== fileName)
-    )
-  }
+  useToasts(gallerySelector)
 
   return (
     <VStack>
       <Flex wrap="wrap" justifyContent="center">
-        {filesList?.map((fileWithMeta, idx) => {
-          const { file, ...fileMeta } = fileWithMeta
+        {images?.map((fileWithMeta, idx) => {
           return (
             <GalleryUploadPreview
               key={idx}
               category={category}
-              fileMeta={fileMeta}
-              file={file}
-              onRemoveFile={onRemoveFile}
-              imageUrl={URL.createObjectURL(file)}
+              fileWithMeta={fileWithMeta}
             />
           )
         })}
       </Flex>
-      <Dropzone accept="image/*" onDrop={onAddFiles}>
+      <Dropzone
+        accept="image/*"
+        onDrop={(files: File[]) =>
+          dispatch(galleryActions.addFiles({ files, category }))
+        }
+      >
         {({ getRootProps, getInputProps }) => (
           <Fragment>
             <div {...getRootProps()}>
@@ -65,4 +56,4 @@ const GalleryEdit = ({ category }: Props) => {
   )
 }
 
-export default WithHeader(GalleryEdit)
+export default GalleryEdit

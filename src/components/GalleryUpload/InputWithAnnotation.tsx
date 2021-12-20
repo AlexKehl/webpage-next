@@ -1,31 +1,32 @@
-import { Stack, FormLabel, Flex, Input, Text } from '@chakra-ui/react'
-import React, { ChangeEventHandler } from 'react'
+import { Stack, FormLabel, Flex, Text } from '@chakra-ui/react'
+import React from 'react'
+import { FieldValues, useFormContext, UseFormRegister } from 'react-hook-form'
+import useI18n from '../../lib/hooks/useI18n'
+import InputField from '../InputField'
 
 interface Props {
-  id: string
   label: string
-  defaultValue?: number | string
-  onChange: ChangeEventHandler<any>
   annotation: string
+  hookFormRegister: ReturnType<UseFormRegister<FieldValues>>
 }
 
 const InputWithAnnotation = ({
-  id,
   label,
-  defaultValue,
-  onChange,
   annotation,
+  hookFormRegister,
 }: Props) => {
+  const { t } = useI18n()
+  const { formState } = useFormContext()
   return (
     <Stack>
       <FormLabel m="0">{label}</FormLabel>
       <Flex m="0">
-        <Input
-          id={id}
+        <InputField
+          error={formState.errors[hookFormRegister.name]}
+          errorText={t.fieldRequired}
+          hookFormRegister={hookFormRegister}
           width={16}
           type="number"
-          defaultValue={defaultValue}
-          onChange={onChange}
           mx="1"
           mb="1"
         />

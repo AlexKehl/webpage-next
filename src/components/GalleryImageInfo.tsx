@@ -13,36 +13,30 @@ import {
   Button,
 } from '@chakra-ui/react'
 import React from 'react'
-import { GalleryImageMeta } from '../../common/interface/GalleryImages'
-import useCart from '../lib/hooks/useCart'
 import useI18n from '../lib/hooks/useI18n'
-import { Cart } from '../types'
-import { omit } from 'remeda'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import {
+  currentImageSelector,
+  galleryActions,
+  gallerySelector,
+} from '../redux/slices/gallerySlice'
+import { cartActions, cartSelector } from '../redux/slices/cartSlice'
+import useToasts from '../lib/hooks/useToasts'
 
-type Props = {
-  isOpen: boolean
-  onClose: () => void
-  cartFromLocalStorage?: Cart
-  setCartInLocalStorage: (cart: Cart) => void
-} & GalleryImageMeta
-
-const GalleryImageInfo = (props: Props) => {
-  const {
-    name,
-    width,
-    height,
-    isForSell,
-    description,
-    price,
-    isOpen,
-    onClose,
-    setCartInLocalStorage,
-    cartFromLocalStorage,
-  } = props
+const GalleryImageInfo = () => {
   const { t } = useI18n()
-  const { addItem } = useCart({ setCartInLocalStorage, cartFromLocalStorage })
+  const state = useAppSelector(gallerySelector)
+  const dispatch = useAppDispatch()
+  const image = currentImageSelector(state).currentImage!
+
+  useToasts(cartSelector)
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="md">
+    <Modal
+      isOpen={state.isInfoModalOpen}
+      onClose={() => dispatch(galleryActions.closeInfoModal())}
+      size="md"
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Info</ModalHeader>
@@ -52,46 +46,36 @@ const GalleryImageInfo = (props: Props) => {
             <Tbody>
               <Tr>
                 <Td>{t.imageName}</Td>
-                <Td>{name}</Td>
+                <Td>{image.name}</Td>
               </Tr>
               <Tr>
                 <Td>{t.width}</Td>
-                <Td>{width} cm</Td>
+                <Td>{image.width} cm</Td>
               </Tr>
               <Tr>
                 <Td>{t.height}</Td>
-                <Td>{height} cm</Td>
+                <Td>{image.height} cm</Td>
               </Tr>
               <Tr>
                 <Td>{t.isForSell}</Td>
                 <Td>
-                  {isForSell ? (
+                  {image.isForSell ? (
                     <CheckIcon color="green.500" />
                   ) : (
                     <CloseIcon color="red.500" />
                   )}
                 </Td>
               </Tr>
-              {isForSell && (
+              {image.isForSell && (
                 <>
                   <Tr>
                     <Td>{t.price}</Td>
                     <Td>
-                      {price} {t.euro}
+                      {image.price} {t.euro}
                       <Button
                         mx="2"
                         color="green.500"
-                        onClick={() =>
-                          addItem(
-                            omit(props, [
-                              'onClose',
-                              'isOpen',
-                              'onClose',
-                              'cartFromLocalStorage',
-                              'setCartInLocalStorage',
-                            ])
-                          )
-                        }
+                        onClick={() => dispatch(cartActions.addCartItem(image))}
                       >
                         {t.buy}
                       </Button>
@@ -99,10 +83,10 @@ const GalleryImageInfo = (props: Props) => {
                   </Tr>
                 </>
               )}
-              {description && (
+              {image.description && (
                 <Tr>
                   <Td>{t.description}</Td>
-                  <Td>{description}</Td>
+                  <Td>{image.description}</Td>
                 </Tr>
               )}
             </Tbody>

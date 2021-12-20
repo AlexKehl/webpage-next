@@ -3,6 +3,7 @@ import cartSlice from './slices/cartSlice'
 import { serverApi } from './services/serverApi'
 import stepperSlice from './slices/stepperSlice'
 import toastSlice from './slices/toastSlice'
+import gallerySlice from './slices/gallerySlice'
 
 export const store = configureStore({
   reducer: {
@@ -10,9 +11,12 @@ export const store = configureStore({
     cart: cartSlice,
     stepper: stepperSlice,
     toast: toastSlice,
+    gallery: gallerySlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(serverApi.middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      serverApi.middleware
+    ),
 })
 
 export type AppDispatch = typeof store.dispatch
