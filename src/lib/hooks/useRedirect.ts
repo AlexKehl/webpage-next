@@ -1,5 +1,5 @@
+import { useUpdateEffect } from '@chakra-ui/react'
 import router from 'next/router'
-import { useEffect } from 'react'
 import { useAppSelector } from '../../redux/hooks'
 import { store } from '../../redux/store'
 import { WithRedirect } from '../../redux/utils'
@@ -12,7 +12,7 @@ const useRedirect = <
 ) => {
   const { redirectUrl } = useAppSelector(selector)
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (redirectUrl) {
       router.push(redirectUrl)
     }

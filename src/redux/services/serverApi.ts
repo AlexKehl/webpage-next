@@ -5,6 +5,7 @@ import {
 } from '../../../common/constants/Endpoints'
 import {
   GalleryImagePaymentResponse,
+  LoginResponse,
   User,
 } from '../../../common/interface/ConsumerResponses'
 import { API } from '../../constants/EnvProxy'
@@ -15,6 +16,8 @@ import {
   ContactInformationDto,
   DeleteGalleryImageDto,
   GalleryImageDto,
+  LoginDto,
+  RegisterDto,
 } from '../../../common/interface/Dto'
 import { Cart } from '../../types'
 import { FileWithMeta } from '../../types/GalleryImages'
@@ -85,6 +88,22 @@ export const serverApi = createApi({
       }),
       invalidatesTags: ['GalleryImages'],
     }),
+    login: builder.query<LoginResponse, LoginDto>({
+      query: (body) => ({
+        url: Endpoints.login,
+        method: 'POST',
+        credentials: 'include',
+        body,
+      }),
+    }),
+    register: builder.mutation<unknown, RegisterDto>({
+      query: (body) => ({
+        url: Endpoints.register,
+        method: 'POST',
+        credentials: 'include',
+        body,
+      }),
+    }),
   }),
 })
 
@@ -96,4 +115,6 @@ export const {
   useImagesQuery,
   useGalleryUploadMutation,
   useGalleryDeleteMutation,
+  useLazyLoginQuery,
+  useRegisterMutation,
 } = serverApi

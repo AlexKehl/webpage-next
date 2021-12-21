@@ -8,14 +8,18 @@ import {
 import router from 'next/router'
 import React from 'react'
 import useI18n from '../lib/hooks/useI18n'
-import useLogin from '../lib/hooks/useLogin'
+import useRedirect from '../lib/hooks/useRedirect'
 import useUser from '../lib/hooks/useUser'
+import { useAppDispatch } from '../redux/hooks'
+import { userActions, userSelector } from '../redux/slices/userSlice'
 import DesktopSubNav from './Navbar/DesktopSubNav'
 
 const ProfileMenu = () => {
   const { t } = useI18n()
   const { isLoggedIn, user } = useUser()
-  const { performLogout } = useLogin()
+  const dispatch = useAppDispatch()
+
+  useRedirect(userSelector)
   return (
     <Popover trigger={'hover'} placement={'bottom'}>
       <PopoverTrigger>
@@ -55,7 +59,10 @@ const ProfileMenu = () => {
           )}
 
           {isLoggedIn && (
-            <DesktopSubNav label={t.logout} onClick={performLogout} />
+            <DesktopSubNav
+              label={t.logout}
+              onClick={() => dispatch(userActions.logout())}
+            />
           )}
         </Stack>
       </PopoverContent>

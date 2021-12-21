@@ -8,15 +8,19 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useDisclosure,
 } from '@chakra-ui/react'
 import React from 'react'
 import ConfirmEmail from './ConfirmEmailDialog'
 import EmailField from './EmailField'
 import PasswordField from './PasswordField'
-import useRegister from '../lib/hooks/useRegister'
 import RepeatPasswordField from './RepeatPasswordField'
 import useI18n from '../lib/hooks/useI18n'
-import { FormProvider } from 'react-hook-form'
+import useToasts from '../lib/hooks/useToasts'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useRegisterMutation } from '../redux/services/serverApi'
+import { RegisterDto } from '../../common/interface/Dto'
+import { userSelector } from '../redux/slices/userSlice'
 
 interface Props {
   isOpen: boolean
@@ -25,20 +29,27 @@ interface Props {
 
 const Register = ({ isOpen, onClose }: Props) => {
   const { t } = useI18n()
-  const {
-    onSubmit,
-    arePasswordsMatching,
-    onConfirmEmailClose,
-    isConfirmEmailOpen,
-    formData,
-  } = useRegister({ onClose })
+  const formData = useForm()
+  const [registerMutation] = useRegisterMutation()
+  useToasts(userSelector)
+
+  const { isOpen: isConfirmEmailOpen, onClose: onConfirmEmailClose } =
+    useDisclosure()
+
+  const arePasswordsMatching = (passwordRepeat: string) => {
+    return passwordRepeat === formData.getValues()['password']
+  }
+
+  const register = (data: RegisterDto) => {
+    registerMutation(data)
+  }
 
   return (
     <div>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent px="5">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={formData.handleSubmit(register)}>
             <ModalHeader>
               <Center>{t.createAccount}</Center>
             </ModalHeader>

@@ -4,6 +4,7 @@ import { serverApi } from './services/serverApi'
 import stepperSlice from './slices/stepperSlice'
 import toastSlice from './slices/toastSlice'
 import gallerySlice from './slices/gallerySlice'
+import userSlice from './slices/userSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     stepper: stepperSlice,
     toast: toastSlice,
     gallery: gallerySlice,
+    user: userSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(

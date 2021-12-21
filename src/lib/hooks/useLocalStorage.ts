@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useUpdateEffect } from '@chakra-ui/react'
 import { useAppSelector } from '../../redux/hooks'
 import { store } from '../../redux/store'
 import { LocalStorageData, setItem } from '../utils/LocalStorage'
@@ -12,7 +12,7 @@ const useLocalStorage = <
 ) => {
   const localStorageItem = useAppSelector(selector)
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (localStorageItem) {
       setItem(watchProp, localStorageItem[watchProp])
     }

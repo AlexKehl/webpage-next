@@ -40,7 +40,6 @@ export const cartSlice = createSlice({
     },
   },
 })
-// TODO write tests for this
 
 export const cartSelector = (state: RootState) => state.cart
 export const cartActions = cartSlice.actions

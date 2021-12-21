@@ -5,13 +5,6 @@ import { WithToast } from '../../redux/utils'
 import { capitalize } from '../../utils/Functions'
 import useI18n from './useI18n'
 
-interface ToastOptionsOld {
-  text: string
-  title?: string
-  duration?: number
-  isClosable?: boolean
-}
-
 const useToasts = <
   U extends WithToast,
   T extends (arg: ReturnType<typeof store['getState']>) => U
@@ -21,42 +14,6 @@ const useToasts = <
   const { t } = useI18n()
   const chakraToast = useToast()
 
-  if (!selector) {
-    const showSuccess = ({
-      text,
-      title = t.success,
-      isClosable = true,
-      duration = defaultDuration,
-    }: ToastOptionsOld) => {
-      chakraToast({
-        title: title,
-        description: text,
-        status: 'success',
-        duration: duration,
-        isClosable: isClosable,
-      })
-    }
-
-    const showError = ({
-      text,
-      title = t.error,
-      isClosable = true,
-      duration = defaultDuration,
-    }: ToastOptionsOld) => {
-      chakraToast({
-        title: title,
-        description: text,
-        status: 'error',
-        duration: duration,
-        isClosable: isClosable,
-      })
-    }
-
-    return {
-      showSuccess,
-      showError,
-    }
-  }
   const { toast } = useAppSelector(selector)
 
   useUpdateEffect(() => {
@@ -70,43 +27,6 @@ const useToasts = <
       })
     }
   }, [toast])
-
-  const defaultDuration = 9000
-
-  const showSuccess = ({
-    text,
-    title = t.success,
-    isClosable = true,
-    duration = defaultDuration,
-  }: ToastOptionsOld) => {
-    chakraToast({
-      title: title,
-      description: text,
-      status: 'success',
-      duration: duration,
-      isClosable: isClosable,
-    })
-  }
-
-  const showError = ({
-    text,
-    title = t.error,
-    isClosable = true,
-    duration = defaultDuration,
-  }: ToastOptionsOld) => {
-    chakraToast({
-      title: title,
-      description: text,
-      status: 'error',
-      duration: duration,
-      isClosable: isClosable,
-    })
-  }
-
-  return {
-    showSuccess,
-    showError,
-  }
 }
 
 export default useToasts

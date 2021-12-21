@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useUpdateEffect } from '@chakra-ui/react'
 import { useAppSelector } from '../../redux/hooks'
 import { store } from '../../redux/store'
 import { WithLoader } from '../../redux/utils'
@@ -13,7 +13,7 @@ const useLoader = <
   const { setIsLoading } = useLoaderContext()
   const { isLoading } = useAppSelector(selector)
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setIsLoading(isLoading)
   }, [isLoading])
 }

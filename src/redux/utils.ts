@@ -6,8 +6,12 @@ import { serverApi } from './services/serverApi'
 export interface WithLoader {
   isLoading: boolean
 }
-export const withLoader = {
+export const withLoader: WithLoader = {
   isLoading: false,
+}
+
+export interface WithRedirect {
+  redirectUrl?: string
 }
 
 export interface WithToast {
@@ -42,8 +46,4 @@ export const addGenericToasts = <T extends WithToast>(
   builder.addMatcher(matcher.matchRejected, (state) => {
     state.toast = { text: 'unexpectedError', type: 'error' }
   })
-}
-
-export interface WithRedirect {
-  redirectUrl?: string
 }
