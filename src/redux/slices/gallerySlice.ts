@@ -97,4 +97,4 @@ export const imageSelector = (state: GalleryState) => {
   }
 }
 export const galleryActions = gallerySlice.actions
-export default gallerySlice.reduce
+export default gallerySlice.reducer

@@ -1,9 +1,9 @@
-import faker from 'faker'
 import {
   galleryImageDto,
   generateGalleryImageDto,
 } from '../../common/fixtures/GalleryImages'
 import { FileWithMeta } from '../../src/types/GalleryImages'
+import { v4 as uuid } from 'uuid'
 
 export const fileWithMeta: FileWithMeta = {
   ...galleryImageDto,
@@ -12,5 +12,5 @@ export const fileWithMeta: FileWithMeta = {
 
 export const generateFileWithMeta = (): FileWithMeta => ({
   ...generateGalleryImageDto(),
-  file: faker.datatype.string(10) as unknown as File,
+  file: uuid() as unknown as File,
 })
