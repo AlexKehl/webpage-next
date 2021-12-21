@@ -5,7 +5,6 @@ import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
 import { hasRole } from '../../common/utils/User'
 import ImagePresenter from './ImagePresenter'
-import useUser from '../lib/hooks/useUser'
 import useI18n from '../lib/hooks/useI18n'
 import GalleryImageInfo from './GalleryImageInfo'
 import { EditIcon } from '@chakra-ui/icons'
@@ -17,6 +16,7 @@ import {
   gallerySelector,
 } from '../redux/slices/gallerySlice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { userSelector } from '../redux/slices/userSlice'
 
 interface Props {
   category: Category
@@ -25,14 +25,14 @@ interface Props {
 const Gallery = ({ category }: Props) => {
   const { t } = useI18n()
   const router = useRouter()
-  const { getUser } = useUser() // TODO move to redux
   const state = useAppSelector(gallerySelector)
+  const { user } = useAppSelector(userSelector)
   const dispatch = useAppDispatch()
   useImagesQuery(category)
 
   return (
     <VStack my="3" mx="auto" maxW={{ base: '1', sm: '7xl' }}>
-      {hasRole({ user: getUser(), role: 'Admin' }) && (
+      {hasRole({ user, role: 'Admin' }) && (
         <Button
           w="full"
           variant="ghost"

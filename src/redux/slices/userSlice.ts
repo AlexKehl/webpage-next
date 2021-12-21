@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { User } from '../../../common/interface/ConsumerResponses'
+import { getItem } from '../../lib/utils/LocalStorage'
 import { serverApi } from '../services/serverApi'
 import { RootState } from '../store'
 import {
@@ -17,6 +18,7 @@ export interface UserState extends WithLoader, WithToast, WithRedirect {
 
 export const initialState: UserState = {
   ...withLoader,
+  user: getItem('user'),
 }
 
 export const userSlice = createSlice({
@@ -70,5 +72,6 @@ export const userSlice = createSlice({
 })
 
 export const userSelector = (state: RootState) => state.user
+export const isLoggedIn = (state: UserState) => Boolean(state.user)
 export const userActions = userSlice.actions
 export default userSlice.reducer

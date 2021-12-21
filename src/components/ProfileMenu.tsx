@@ -8,18 +8,23 @@ import {
 import router from 'next/router'
 import React from 'react'
 import useI18n from '../lib/hooks/useI18n'
+import useLocalStorage from '../lib/hooks/useLocalStorage'
 import useRedirect from '../lib/hooks/useRedirect'
-import useUser from '../lib/hooks/useUser'
-import { useAppDispatch } from '../redux/hooks'
-import { userActions, userSelector } from '../redux/slices/userSlice'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import {
+  isLoggedIn,
+  userActions,
+  userSelector,
+} from '../redux/slices/userSlice'
 import DesktopSubNav from './Navbar/DesktopSubNav'
 
 const ProfileMenu = () => {
   const { t } = useI18n()
-  const { isLoggedIn, user } = useUser()
   const dispatch = useAppDispatch()
+  const userState = useAppSelector(userSelector)
 
   useRedirect(userSelector)
+  useLocalStorage(userSelector, 'user')
   return (
     <Popover trigger={'hover'} placement={'bottom'}>
       <PopoverTrigger>
@@ -34,7 +39,7 @@ const ProfileMenu = () => {
             color: 'gray.800',
           }}
         >
-          {user?.email || t.profile}
+          {userState.user?.email || t.profile}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -46,7 +51,7 @@ const ProfileMenu = () => {
         maxW="min"
       >
         <Stack>
-          {isLoggedIn ? (
+          {isLoggedIn(userState) ? (
             <DesktopSubNav
               label={t.profile}
               onClick={() => router.push('/profile')}
@@ -58,7 +63,7 @@ const ProfileMenu = () => {
             />
           )}
 
-          {isLoggedIn && (
+          {isLoggedIn(userState) && (
             <DesktopSubNav
               label={t.logout}
               onClick={() => dispatch(userActions.logout())}

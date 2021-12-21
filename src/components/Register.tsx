@@ -16,11 +16,9 @@ import EmailField from './EmailField'
 import PasswordField from './PasswordField'
 import RepeatPasswordField from './RepeatPasswordField'
 import useI18n from '../lib/hooks/useI18n'
-import useToasts from '../lib/hooks/useToasts'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useRegisterMutation } from '../redux/services/serverApi'
 import { RegisterDto } from '../../common/interface/Dto'
-import { userSelector } from '../redux/slices/userSlice'
 
 interface Props {
   isOpen: boolean
@@ -31,7 +29,6 @@ const Register = ({ isOpen, onClose }: Props) => {
   const { t } = useI18n()
   const formData = useForm()
   const [registerMutation] = useRegisterMutation()
-  useToasts(userSelector)
 
   const { isOpen: isConfirmEmailOpen, onClose: onConfirmEmailClose } =
     useDisclosure()

@@ -23,14 +23,6 @@ import PasswordField from './PasswordField'
 import Register from './Register'
 
 export const Login = () => {
-  // const {
-  //   performLogin,
-  //   onRegisterClose,
-  //   onRegisterOpen,
-  //   isRegisterOpen,
-  //   formData,
-  // } = useLogin()
-
   const formData = useForm()
   const { t } = useI18n()
 

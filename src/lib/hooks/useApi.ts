@@ -1,10 +1,8 @@
-import axios from 'axios'
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { AsyncReturnType, ValueOf } from '../../../common/types'
 import { useLoaderContext } from '../contexts/FullPageLoaderContext'
 import FetchError from '../errors/exceptions/FetchError'
 import useI18n from './useI18n'
-import useToasts from './useToasts'
 
 const useApi = () => {
   const { setIsLoading } = useLoaderContext()
@@ -23,28 +21,6 @@ const useApi = () => {
         throw e
       }
     }
-
-  // const validatedRequest = async <T>(
-  //   requestFn: () => Promise<T>
-  // ): Promise<T | undefined> => {
-  //   try {
-  //     const res = await fetchWithProgress(requestFn)()
-  //
-  //     showSuccess({ text: t.successfullySubmitted })
-  //     return res
-  //   } catch (e: any) {
-  //     if (!axios.isAxiosError(e)) {
-  //       showError({ text: t.serverError })
-  //       return
-  //     }
-  //     if (e.response?.status === HttpStatus.BAD_REQUEST) {
-  //       showError({ text: t.verifyData })
-  //       return
-  //     }
-  //
-  //     showError({ text: t.serverError })
-  //   }
-  // }
 
   const fetchWithErrHandle = async <T>({
     fn,

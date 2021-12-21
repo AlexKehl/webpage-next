@@ -35,5 +35,5 @@ export const setItem = <T extends keyof LocalStorageData>(
   if (_.isObject(value)) {
     return localStorage.setItem(key, JSON.stringify(value))
   }
-  // return localStorage.setItem(key, value!)
+  return localStorage.setItem(key, value as any)
 }

@@ -13,10 +13,8 @@ const useLocalStorage = <
   const localStorageItem = useAppSelector(selector)
 
   useUpdateEffect(() => {
-    if (localStorageItem) {
-      setItem(watchProp, localStorageItem[watchProp])
-    }
-  }, [localStorageItem])
+    setItem(watchProp, localStorageItem[watchProp])
+  }, [localStorageItem[watchProp]])
 }
 
 export default useLocalStorage
