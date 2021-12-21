@@ -5,7 +5,6 @@ import ImagePresenter from '../ImagePresenter'
 import { Endpoints } from '../../../common/constants/Endpoints'
 import { API } from '../../constants/EnvProxy'
 import { DeleteIcon } from '@chakra-ui/icons'
-import TestIds from '../../constants/TestIds'
 import useI18n from '../../lib/hooks/useI18n'
 
 interface Props extends CartItem {
@@ -54,7 +53,6 @@ const CartItemComponent = (props: Props) => {
       <GridItem colStart={12}>
         <IconButton
           onClick={() => onDelete(props.id)}
-          data-testid={TestIds.deleteCartItem}
           icon={<DeleteIcon w={5} h={5} />}
           variant={'ghost'}
           aria-label={'Delete cart item'}

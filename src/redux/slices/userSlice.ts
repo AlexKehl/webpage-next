@@ -6,6 +6,7 @@ import { serverApi } from '../services/serverApi'
 import { RootState } from '../store'
 import {
   addLoadingMatcher,
+  toastByError,
   withLoader,
   WithLoader,
   WithRedirect,
@@ -43,30 +44,18 @@ export const userSlice = createSlice({
     )
     builder.addMatcher(
       serverApi.endpoints.login.matchRejected,
-      (state, action) => {
-        switch (action.payload?.status) {
-          case HttpStatus.UNAUTHORIZED:
-            state.toast = { text: 'wrongCredentials', type: 'error' }
-            return
-          case HttpStatus.NOT_FOUND:
-            state.toast = { text: 'userNotRegistered', type: 'error' }
-            return
-          default:
-            state.toast = { text: 'unexpectedError', type: 'error' }
-        }
-      }
+      toastByError<UserState>({
+        [HttpStatus.UNAUTHORIZED]: 'wrongCredentials',
+        [HttpStatus.NOT_FOUND]: 'userNotRegistered',
+        default: 'unexpectedError',
+      })
     )
     builder.addMatcher(
       serverApi.endpoints.register.matchRejected,
-      (state, action) => {
-        switch (action.payload?.status) {
-          case HttpStatus.CONFLICT:
-            state.toast = { text: 'emailAlreadyTaken', type: 'error' }
-            return
-          default:
-            state.toast = { text: 'unexpectedError', type: 'error' }
-        }
-      }
+      toastByError<UserState>({
+        [HttpStatus.CONFLICT]: 'emailAlreadyTaken',
+        default: 'unexpectedError',
+      })
     )
   },
 })

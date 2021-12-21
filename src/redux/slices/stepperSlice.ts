@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query'
 import HttpStatus from '../../../common/constants/HttpStatus'
 import { User } from '../../../common/interface/ConsumerResponses'
 import { serverApi } from '../services/serverApi'
@@ -10,6 +9,7 @@ import {
   withLoader,
   addLoadingMatcher,
   WithRedirect,
+  toastByError,
 } from '../utils'
 
 export interface StepperState extends WithToast, WithLoader, WithRedirect {
@@ -22,19 +22,11 @@ export const initialState: StepperState = {
   ...withLoader,
 }
 
-export const handleStepperError = (
-  state: StepperState,
-  action: PayloadAction<FetchBaseQueryError>
-): StepperState => {
-  switch (action.payload?.status) {
-    case HttpStatus.NOT_FOUND:
-      return { ...state, toast: { type: 'error', text: 'userNotRegistered' } }
-    case HttpStatus.UNAUTHORIZED:
-      return { ...state, toast: { type: 'error', text: 'sessionExpired' } }
-    default:
-      return { ...state, toast: { type: 'error', text: 'unexpectedError' } }
-  }
-}
+export const handleStepperError = toastByError<StepperState>({
+  [HttpStatus.NOT_FOUND]: 'userNotRegistered',
+  [HttpStatus.UNAUTHORIZED]: 'sessionExpired',
+  default: 'unexpectedError',
+})
 
 const nextStep = (state: StepperState): StepperState => {
   return { ...state, activeStep: state.activeStep + 1 }

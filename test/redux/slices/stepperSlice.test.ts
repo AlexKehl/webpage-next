@@ -154,7 +154,10 @@ describe('checkout', () => {
   it('handles generic error', () => {
     const res = stepperSlice(
       initialState,
-      rejectedMutation({ endpoint: 'checkout' })
+      rejectedMutation({
+        endpoint: 'checkout',
+        payload: { status: HttpStatus.INTERNAL_SERVER_ERROR },
+      })
     )
 
     expect(res.redirectUrl).toBe(undefined)
