@@ -1,21 +1,21 @@
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
-import { Input, Textarea, Flex, Checkbox, Box, Button } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
-import { Category } from '../../../common/interface/Constants'
+import { Flex, Box, Input, Textarea, Checkbox, Button } from '@chakra-ui/react'
+import React, { useMemo } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
 import useI18n from '../../lib/hooks/useI18n'
+import useLoader from '../../lib/hooks/useLoader'
+import {
+  useGalleryUploadMutation,
+  useGalleryDeleteMutation,
+} from '../../redux/services/serverApi'
+import { gallerySelector } from '../../redux/slices/gallerySlice'
+import { FileWithMeta } from '../../types/GalleryImages'
 import ImagePresenter from '../ImagePresenter'
 import InputWithAnnotation from './InputWithAnnotation'
-import { FormProvider, useForm } from 'react-hook-form'
 import { v4 as uuid } from 'uuid'
-import {
-  useGalleryDeleteMutation,
-  useGalleryUploadMutation,
-} from '../../redux/services/serverApi'
-import useLoader from '../../lib/hooks/useLoader'
-import { gallerySelector } from '../../redux/slices/gallerySlice'
 import { fileToBase64 } from '../../redux/services/transformers/files'
-import { FileWithMeta } from '../../types/GalleryImages'
+import { Category } from '../../../common/interface/Constants'
 
 interface Props {
   fileWithMeta: FileWithMeta
@@ -24,22 +24,23 @@ interface Props {
 
 const GalleryUploadPreview = ({ fileWithMeta, category }: Props) => {
   const { t } = useI18n()
-  const formData = useForm()
   const { file, ...fileMeta } = fileWithMeta
 
-  useEffect(() => {
-    formData.reset({
+  const formData = useForm({
+    defaultValues: {
       ...fileMeta,
       name: fileMeta?.name || file.name,
-    })
-  }, [])
+    },
+  })
 
   const [uploadImage] = useGalleryUploadMutation()
   const [deleteImage] = useGalleryDeleteMutation()
 
   useLoader(gallerySelector)
 
-  const handleSubmit = async (data: GalleryImageMeta) => {
+  const imageSrc = useMemo(() => URL.createObjectURL(file), [file.name])
+
+  const onSubmit = async (data: GalleryImageMeta) => {
     uploadImage({
       ...data,
       category,
@@ -49,7 +50,7 @@ const GalleryUploadPreview = ({ fileWithMeta, category }: Props) => {
   }
 
   return (
-    <form onSubmit={formData.handleSubmit(handleSubmit)}>
+    <form onSubmit={formData.handleSubmit(onSubmit)}>
       <FormProvider {...formData}>
         <Flex
           border="1px"
@@ -61,12 +62,12 @@ const GalleryUploadPreview = ({ fileWithMeta, category }: Props) => {
           backgroundColor="gray.50"
           justifyContent={{ base: 'center', md: 'flex-start' }}
         >
-          <ImagePresenter src={URL.createObjectURL(file)} />
+          <ImagePresenter src={imageSrc} />
           <Box id="imageinfo">
             <Input
               id="name"
               my="1"
-              placeholder="Name"
+              placeholder={t.name}
               {...formData.register('name')}
             />
             <Textarea

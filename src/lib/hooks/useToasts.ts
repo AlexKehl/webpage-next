@@ -2,6 +2,7 @@ import { useToast, useUpdateEffect } from '@chakra-ui/react'
 import { useAppSelector } from '../../redux/hooks'
 import { store } from '../../redux/store'
 import { WithToast } from '../../redux/utils'
+import { capitalize } from '../../utils/Functions'
 import useI18n from './useI18n'
 
 interface ToastOptionsOld {
@@ -61,7 +62,7 @@ const useToasts = <
   useUpdateEffect(() => {
     if (toast) {
       chakraToast({
-        title: toast.type,
+        title: capitalize(toast.type),
         description: t[toast.text],
         status: toast.type,
         duration: 6000,

@@ -12,7 +12,7 @@ import { EditIcon } from '@chakra-ui/icons'
 import { API } from '../constants/EnvProxy'
 import { useImagesQuery } from '../redux/services/serverApi'
 import {
-  currentImageSelector,
+  imageSelector,
   galleryActions,
   gallerySelector,
 } from '../redux/slices/gallerySlice'
@@ -55,9 +55,9 @@ const Gallery = ({ category }: Props) => {
       {state.isViewerOpen && (
         <Lightbox
           imagePadding={0}
-          mainSrc={currentImageSelector(state).currentImageUrl || ''}
-          nextSrc={currentImageSelector(state).nextImageUrl}
-          prevSrc={currentImageSelector(state).prevImageUrl}
+          mainSrc={imageSelector(state).currentImageUrl || ''}
+          nextSrc={imageSelector(state).nextImageUrl}
+          prevSrc={imageSelector(state).prevImageUrl}
           onCloseRequest={() => dispatch(galleryActions.closeLightBox())}
           onMovePrevRequest={() => dispatch(galleryActions.openPrevImage())}
           onMoveNextRequest={() => dispatch(galleryActions.openNextImage())}

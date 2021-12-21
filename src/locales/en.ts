@@ -76,6 +76,7 @@ const en = {
   city: 'City',
   state: 'State',
   zip: 'Zip',
+  name: 'Name',
 } as const
 
 export default en

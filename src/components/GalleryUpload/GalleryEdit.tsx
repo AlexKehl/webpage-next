@@ -1,16 +1,16 @@
-import { Button, Flex, VStack } from '@chakra-ui/react'
+import { VStack, Flex, Button } from '@chakra-ui/react'
 import React, { Fragment } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../../common/interface/Constants'
 import useI18n from '../../lib/hooks/useI18n'
+import useToasts from '../../lib/hooks/useToasts'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { useImagesQuery } from '../../redux/services/serverApi'
 import {
-  galleryActions,
   gallerySelector,
+  galleryActions,
 } from '../../redux/slices/gallerySlice'
 import GalleryUploadPreview from './GalleryUploadPreview'
-import useToasts from '../../lib/hooks/useToasts'
 
 interface Props {
   category: Category
@@ -18,11 +18,15 @@ interface Props {
 
 const GalleryEdit = ({ category }: Props) => {
   const { t } = useI18n()
-  useImagesQuery(category)
   const dispatch = useAppDispatch()
   const { images } = useAppSelector(gallerySelector)
 
+  useImagesQuery(category)
   useToasts(gallerySelector)
+
+  const onFileDropHandler = (files: File[]) => {
+    dispatch(galleryActions.addFiles({ files, category }))
+  }
 
   return (
     <VStack>
@@ -37,12 +41,7 @@ const GalleryEdit = ({ category }: Props) => {
           )
         })}
       </Flex>
-      <Dropzone
-        accept="image/*"
-        onDrop={(files: File[]) =>
-          dispatch(galleryActions.addFiles({ files, category }))
-        }
-      >
+      <Dropzone accept="image/*" onDrop={onFileDropHandler}>
         {({ getRootProps, getInputProps }) => (
           <Fragment>
             <div {...getRootProps()}>

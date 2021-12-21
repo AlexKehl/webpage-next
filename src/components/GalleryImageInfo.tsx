@@ -16,7 +16,7 @@ import React from 'react'
 import useI18n from '../lib/hooks/useI18n'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import {
-  currentImageSelector,
+  imageSelector,
   galleryActions,
   gallerySelector,
 } from '../redux/slices/gallerySlice'
@@ -27,7 +27,7 @@ const GalleryImageInfo = () => {
   const { t } = useI18n()
   const state = useAppSelector(gallerySelector)
   const dispatch = useAppDispatch()
-  const image = currentImageSelector(state).currentImage!
+  const image = imageSelector(state).currentImage!
 
   useToasts(cartSelector)
 

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Category } from '../../../common/interface/Constants'
 import { API } from '../../constants/EnvProxy'
 import { FileWithMeta } from '../../types/GalleryImages'
+import { getCyclic } from '../../utils/Functions'
 import { serverApi } from '../services/serverApi'
 import { RootState } from '../store'
 import {
@@ -18,7 +19,7 @@ export interface GalleryState extends WithLoader, WithToast {
   isInfoModalOpen: boolean
 }
 
-const initialState: GalleryState = {
+export const initialState: GalleryState = {
   images: [],
   isLoading: false,
   currentImageIdx: 0,
@@ -72,11 +73,6 @@ export const gallerySlice = createSlice({
       }))
       state.images = [...state.images, ...newFiles]
     },
-    removeFile: (state, action: PayloadAction<string>) => {
-      state.images = state.images.filter(
-        (image) => (image.name || image.file.name) !== action.payload
-      )
-    },
   },
   extraReducers: (builder) => {
     addLoadingMatcher<GalleryState>(builder, images)
@@ -89,17 +85,16 @@ export const gallerySlice = createSlice({
     })
   },
 })
-// TODO write tests for this
 
 export const gallerySelector = (state: RootState) => state.gallery
-export const currentImageSelector = (state: GalleryState) => {
+export const imageSelector = (state: GalleryState) => {
   const imageUrls = state.images.map((image) => `${API}${image.url}`)
   return {
-    nextImageUrl: imageUrls[(state.currentImageIdx + 1) % imageUrls.length],
-    prevImageUrl: imageUrls[(state.currentImageIdx - 1) % imageUrls.length],
+    nextImageUrl: getCyclic(imageUrls, state.currentImageIdx + 1),
+    prevImageUrl: getCyclic(imageUrls, state.currentImageIdx - 1),
     currentImage: state.images[state.currentImageIdx],
     currentImageUrl: imageUrls[state.currentImageIdx],
   }
 }
 export const galleryActions = gallerySlice.actions
-export default gallerySlice.reducer
+export default gallerySlice.reduce
