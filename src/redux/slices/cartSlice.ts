@@ -2,13 +2,24 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getItem } from '../../lib/utils/LocalStorage'
 import { Cart, CartItem } from '../../types'
 import { RootState } from '../store'
-import { withRedirect, WithRedirect, WithToast, withToasts } from '../utils'
+import {
+  withLocalStorage,
+  WithLocalStorage,
+  withRedirect,
+  WithRedirect,
+  WithToast,
+  withToasts,
+} from '../utils'
 
-export interface CartState extends WithRedirect, WithToast {
+export interface CartState
+  extends WithRedirect,
+    WithToast,
+    WithLocalStorage<'cart'> {
   cart: Cart
 }
 
 const initialState: CartState = {
+  ...withLocalStorage,
   ...withRedirect,
   ...withToasts,
   cart: getItem('cart') || { items: [] },
@@ -24,14 +35,18 @@ export const cartSlice = createSlice({
   reducers: {
     addCartItem: (state, action: PayloadAction<CartItem>) => {
       if (!hasItem(state.cart, action.payload)) {
-        state.cart.items = [...state.cart.items, action.payload]
+        const newItems = [...state.cart.items, action.payload]
+        state.cart.items = newItems
         state.toast = { text: 'cartItemAdded', type: 'success' }
+        state.localStorage = { key: 'cart', value: { items: newItems } }
       }
     },
     deleteCartItem: (state, action: PayloadAction<CartItem['id']>) => {
-      state.cart.items = state.cart.items.filter(
+      const newItems = state.cart.items.filter(
         ({ id }) => id !== action.payload
       )
+      state.cart.items = newItems
+      state.localStorage = { key: 'cart', value: { items: newItems } }
       state.toast = { text: 'cartItemRemoved', type: 'success' }
     },
     setCart: (state, action: PayloadAction<CartState['cart'] | undefined>) => {

@@ -3,10 +3,8 @@ import { Center, Spinner, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import useI18n from '../lib/hooks/useI18n'
-import useApi from '../lib/hooks/useApi'
 import { API } from '../constants/EnvProxy'
 import { Endpoints } from '../../common/constants/Endpoints'
-import { postJSON } from '../lib/api/Utils'
 
 type ConfirmationState = 'CONFIRMED' | 'NOT_CONFIRMED' | 'PENDING'
 
@@ -15,21 +13,21 @@ const ConfirmEmail = (): JSX.Element => {
   const router = useRouter()
   const [confirmationState, setConfirmationState] =
     useState<ConfirmationState>('PENDING')
-  const { fetchWithErrHandle } = useApi()
+  // const { fetchWithErrHandle } = useApi()
 
-  useEffect(() => {
-    fetchWithErrHandle({
-      fn: () =>
-        postJSON({
-          url: `${API}${Endpoints.emailConfirm}`,
-          data: {
-            token: router.query['token'] as string,
-          },
-        }),
-      onSuccess: () => setConfirmationState('CONFIRMED'),
-      default: () => setConfirmationState('NOT_CONFIRMED'),
-    })
-  }, [router.query])
+  // useEffect(() => {
+  //   fetchWithErrHandle({
+  //     fn: () =>
+  //       postJSON({
+  //         url: `${API}${Endpoints.emailConfirm}`,
+  //         data: {
+  //           token: router.query['token'] as string,
+  //         },
+  //       }),
+  //     onSuccess: () => setConfirmationState('CONFIRMED'),
+  //     default: () => setConfirmationState('NOT_CONFIRMED'),
+  //   })
+  // }, [router.query])
 
   return (
     <div>

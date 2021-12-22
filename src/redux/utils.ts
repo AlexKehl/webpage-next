@@ -2,6 +2,7 @@ import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query'
 import HttpStatus from '../../common/constants/HttpStatus'
 import { ValueOf } from '../../common/types'
+import { LocalStorageData } from '../lib/utils/LocalStorage'
 import en from '../locales/en'
 import { serverApi } from './services/serverApi'
 
@@ -33,6 +34,18 @@ export interface WithToast {
 
 export const withToasts: WithToast = {
   hasToasts: true,
+}
+
+export interface WithLocalStorage<T extends keyof LocalStorageData> {
+  hasLocalStorage: boolean
+  localStorage?: {
+    key: T
+    value: LocalStorageData[T]
+  }
+}
+
+export const withLocalStorage: WithLocalStorage<any> = {
+  hasLocalStorage: true,
 }
 
 export const addLoadingMatcher = <T extends WithLoader>(

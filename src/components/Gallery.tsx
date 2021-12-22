@@ -1,6 +1,6 @@
 import { Button, Flex, useUpdateEffect, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Lightbox from 'react-image-lightbox'
 import { Category } from '../../common/interface/Constants'
 import { hasRole } from '../../common/utils/User'
@@ -30,7 +30,7 @@ const Gallery = ({ category }: Props) => {
   const dispatch = useAppDispatch()
   const { data } = useImagesQuery(category)
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     dispatch(galleryActions.setImages(data))
   }, [data])
 

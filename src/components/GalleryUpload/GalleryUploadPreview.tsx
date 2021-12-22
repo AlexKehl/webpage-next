@@ -33,7 +33,6 @@ const GalleryUploadPreview = ({ fileWithMeta, category }: Props) => {
 
   const [uploadImage] = useGalleryUploadMutation()
   const [deleteImage] = useGalleryDeleteMutation()
-
   const imageSrc = useMemo(() => URL.createObjectURL(file), [file.name])
 
   const onSubmit = async (data: GalleryImageMeta) => {

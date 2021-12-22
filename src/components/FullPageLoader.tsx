@@ -1,6 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
-import { Box, Center } from '@chakra-ui/react'
+import { Box, Center, Spinner } from '@chakra-ui/react'
 
 const FullPageLoader = () => {
   return (
@@ -18,12 +17,7 @@ const FullPageLoader = () => {
       right="0"
     >
       <Center h="100vh">
-        <Image
-          width="200px"
-          height="200px"
-          src={'/assets/spinner.gif'}
-          alt="loading"
-        />
+        <Spinner display="block" mx="auto" w={48} h={48} />
       </Center>
     </Box>
   )

@@ -1,5 +1,5 @@
 import { VStack, Flex, Button, useUpdateEffect } from '@chakra-ui/react'
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../../common/interface/Constants'
 import useI18n from '../../lib/hooks/useI18n'
@@ -19,10 +19,9 @@ const GalleryEdit = ({ category }: Props) => {
   const { t } = useI18n()
   const dispatch = useAppDispatch()
   const { images } = useAppSelector(gallerySelector)
-
   const { data } = useImagesQuery(category)
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     dispatch(galleryActions.setImages(data))
   }, [data])
 

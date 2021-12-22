@@ -1,5 +1,6 @@
 import React, { createContext } from 'react'
 import useLoader from '../hooks/useLoader'
+import useLocalStorage from '../hooks/useLocalStorage'
 import useRedirect from '../hooks/useRedirect'
 import useToasts from '../hooks/useToasts'
 
@@ -13,5 +14,6 @@ export const GlobalContextProvider = ({
   useToasts()
   useLoader()
   useRedirect()
+  useLocalStorage()
   return <GlobalContext.Provider value={{}}>{children}</GlobalContext.Provider>
 }

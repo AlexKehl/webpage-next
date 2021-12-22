@@ -20,16 +20,13 @@ import {
   galleryActions,
   gallerySelector,
 } from '../redux/slices/gallerySlice'
-import { cartActions, cartSelector } from '../redux/slices/cartSlice'
-import useLocalStorage from '../lib/hooks/useLocalStorage'
+import { cartActions } from '../redux/slices/cartSlice'
 
 const GalleryImageInfo = () => {
   const { t } = useI18n()
   const state = useAppSelector(gallerySelector)
   const dispatch = useAppDispatch()
-  const image = imageSelector(state).currentImage!
-
-  useLocalStorage(cartSelector, 'cart')
+  const image = imageSelector(state).currentImage
 
   return (
     <Modal
@@ -46,32 +43,32 @@ const GalleryImageInfo = () => {
             <Tbody>
               <Tr>
                 <Td>{t.imageName}</Td>
-                <Td>{image.name}</Td>
+                <Td>{image?.name}</Td>
               </Tr>
               <Tr>
                 <Td>{t.width}</Td>
-                <Td>{image.width} cm</Td>
+                <Td>{image?.width} cm</Td>
               </Tr>
               <Tr>
                 <Td>{t.height}</Td>
-                <Td>{image.height} cm</Td>
+                <Td>{image?.height} cm</Td>
               </Tr>
               <Tr>
                 <Td>{t.isForSell}</Td>
                 <Td>
-                  {image.isForSell ? (
+                  {image?.isForSell ? (
                     <CheckIcon color="green.500" />
                   ) : (
                     <CloseIcon color="red.500" />
                   )}
                 </Td>
               </Tr>
-              {image.isForSell && (
+              {image?.isForSell && (
                 <>
                   <Tr>
                     <Td>{t.price}</Td>
                     <Td>
-                      {image.price} {t.euro}
+                      {image?.price} {t.euro}
                       <Button
                         mx="2"
                         color="green.500"
@@ -83,7 +80,7 @@ const GalleryImageInfo = () => {
                   </Tr>
                 </>
               )}
-              {image.description && (
+              {image?.description && (
                 <Tr>
                   <Td>{t.description}</Td>
                   <Td>{image.description}</Td>

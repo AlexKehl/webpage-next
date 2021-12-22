@@ -3,12 +3,17 @@ import cartSlice, {
   cartActions,
   CartState,
 } from '../../../src/redux/slices/cartSlice'
-import { withRedirect, withToasts } from '../../../src/redux/utils'
+import {
+  withLocalStorage,
+  withRedirect,
+  withToasts,
+} from '../../../src/redux/utils'
 
 describe('addCartItem', () => {
   const initialState: CartState = {
     ...withRedirect,
     ...withToasts,
+    ...withLocalStorage,
     cart: {
       items: [],
     },
@@ -27,6 +32,7 @@ describe('deleteCartItem', () => {
   const initialState: CartState = {
     ...withRedirect,
     ...withToasts,
+    ...withLocalStorage,
     cart: {
       items: [galleryImageDto],
     },

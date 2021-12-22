@@ -1,17 +1,5 @@
-import {
-  Button,
-  Center,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Button, Center, Heading, Stack, Image } from '@chakra-ui/react'
 import React from 'react'
-import ConfirmEmail from './ConfirmEmailDialog'
 import EmailField from './EmailField'
 import PasswordField from './PasswordField'
 import RepeatPasswordField from './RepeatPasswordField'
@@ -20,18 +8,10 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useRegisterMutation } from '../redux/services/serverApi'
 import { RegisterDto } from '../../common/interface/Dto'
 
-interface Props {
-  isOpen: boolean
-  onClose: () => void
-}
-
-const Register = ({ isOpen, onClose }: Props) => {
+const Register = () => {
   const { t } = useI18n()
   const formData = useForm()
   const [registerMutation] = useRegisterMutation()
-
-  const { isOpen: isConfirmEmailOpen, onClose: onConfirmEmailClose } =
-    useDisclosure()
 
   const arePasswordsMatching = (passwordRepeat: string) => {
     return passwordRepeat === formData.getValues()['password']
@@ -42,39 +22,31 @@ const Register = ({ isOpen, onClose }: Props) => {
   }
 
   return (
-    <div>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent px="5">
-          <form onSubmit={formData.handleSubmit(register)}>
-            <ModalHeader>
-              <Center>{t.createAccount}</Center>
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <FormProvider {...formData}>
-                <EmailField my="1" />
-                <PasswordField my="1" />
-                <RepeatPasswordField
-                  my="1"
-                  arePasswordsMatching={arePasswordsMatching}
-                />
-              </FormProvider>
-            </ModalBody>
+    <Center my="auto">
+      <Stack p={{ base: 10, sm: 20 }} rounded="md" w="xl">
+        <Image alt="" src="/logo.jpg" maxW="170px" mb="8" mx="auto"></Image>
+        <Heading as="h1">{t.createAccount}</Heading>
+        <form onSubmit={formData.handleSubmit(register)}>
+          <Stack my="4" spacing="2">
+            <FormProvider {...formData}>
+              <EmailField my="1" />
+              <PasswordField my="1" />
+              <RepeatPasswordField
+                my="1"
+                arePasswordsMatching={arePasswordsMatching}
+              />
+            </FormProvider>
 
-            <ModalFooter>
-              <Center w="100%">
-                <Button variant="ghost" type="submit">
-                  {t.create}
-                </Button>
-              </Center>
-            </ModalFooter>
-          </form>
-        </ModalContent>
-      </Modal>
-      <ConfirmEmail onClose={onConfirmEmailClose} isOpen={isConfirmEmailOpen} />
-    </div>
+            <Button colorScheme="purple" size="lg" type="submit">
+              {t.create}
+            </Button>
+          </Stack>
+        </form>
+      </Stack>
+    </Center>
   )
 }
+
+// <ConfirmEmail onClose={onConfirmEmailClose} isOpen={isConfirmEmailOpen} /> TODO do this
 
 export default Register

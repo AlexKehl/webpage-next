@@ -21,6 +21,27 @@ export const fulfilledQuery = ({
   }
 }
 
+export const rejectedQuery = ({
+  endpoint,
+  payload,
+}: {
+  endpoint: keyof typeof Endpoints
+  payload?: {
+    status: ValueOf<typeof HttpStatus>
+    data?: Record<string, any>
+  }
+}) => {
+  return {
+    type: 'api/executeQuery/rejected',
+    payload,
+    meta: {
+      arg: {
+        endpointName: endpoint,
+      },
+    },
+  }
+}
+
 export const fulfilledMutation = ({
   endpoint,
   payload,

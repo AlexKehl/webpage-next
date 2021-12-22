@@ -9,7 +9,6 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import React from 'react'
-import WithHeader from './HOC/WithHeader'
 import useI18n from '../lib/hooks/useI18n'
 import { useAppSelector } from '../redux/hooks'
 import { userSelector } from '../redux/slices/userSlice'
@@ -44,4 +43,4 @@ const ProfilePage = () => {
   )
 }
 
-export default WithHeader(ProfilePage)
+export default ProfilePage

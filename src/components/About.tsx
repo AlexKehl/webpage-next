@@ -1,5 +1,4 @@
 import React from 'react'
-import WithHeader from './HOC/WithHeader'
 import AboutText from '../constants/AboutText'
 import Image from 'next/image'
 import AboutPicture from '../../public/photo_2021-01-14 02.52.26.jpeg'
@@ -15,4 +14,4 @@ export const AboutPage = () => (
   </Center>
 )
 
-export default WithHeader(AboutPage)
+export default AboutPage

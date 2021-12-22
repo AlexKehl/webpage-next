@@ -6,34 +6,22 @@ import {
   Image,
   Stack,
   Text,
-  useDisclosure,
 } from '@chakra-ui/react'
+import router from 'next/router'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { LoginDto } from '../../common/interface/Dto'
 import useI18n from '../lib/hooks/useI18n'
-import useLocalStorage from '../lib/hooks/useLocalStorage'
 import { useLazyLoginQuery } from '../redux/services/serverApi'
-import { userSelector } from '../redux/slices/userSlice'
 import EmailField from './EmailField'
 import PasswordField from './PasswordField'
-import Register from './Register'
 
 export const Login = () => {
   const formData = useForm()
   const { t } = useI18n()
-
-  const {
-    isOpen: isRegisterOpen,
-    onOpen: onRegisterOpen,
-    onClose: onRegisterClose,
-  } = useDisclosure()
-
   const [loginQuery] = useLazyLoginQuery()
 
-  useLocalStorage(userSelector, 'user')
-
-  const performLogin = (data: LoginDto) => {
+  const onLoginHandler = (data: LoginDto) => {
     return loginQuery(data)
   }
 
@@ -46,8 +34,8 @@ export const Login = () => {
           {t.pleaseLogIn}
         </Text>
 
-        <form onSubmit={formData.handleSubmit(performLogin)}>
-          <Stack my="4" spacing="6">
+        <form onSubmit={formData.handleSubmit(onLoginHandler)}>
+          <Stack my="4" spacing="4">
             <FormProvider {...formData}>
               <EmailField />
               <PasswordField />
@@ -65,14 +53,13 @@ export const Login = () => {
             <Button
               colorScheme="purple"
               variant="link"
-              onClick={onRegisterOpen}
+              onClick={() => router.push('/register')}
             >
               {t.signUp}
             </Button>
           </Text>
         </Stack>
       </Stack>
-      <Register isOpen={isRegisterOpen} onClose={onRegisterClose} />
     </Center>
   )
 }

@@ -1,20 +1,19 @@
 import { useUpdateEffect } from '@chakra-ui/react'
 import { useAppSelector } from '../../redux/hooks'
-import { store } from '../../redux/store'
-import { LocalStorageData, setItem } from '../utils/LocalStorage'
+import { setItem } from '../utils/LocalStorage'
 
-const useLocalStorage = <
-  T extends (arg: ReturnType<typeof store['getState']>) => any,
-  S extends keyof LocalStorageData
->(
-  selector: T,
-  watchProp: S
-) => {
-  const localStorageItem = useAppSelector(selector)
+const useLocalStorage = () => {
+  const store = useAppSelector((store) => store)
+  const slicesWithLocalStorage = Object.values(store).filter(
+    (store) => (store as any).hasLocalStorage
+  )
 
-  useUpdateEffect(() => {
-    setItem(watchProp, localStorageItem[watchProp])
-  }, [localStorageItem[watchProp]])
+  slicesWithLocalStorage.forEach(({ localStorage }: any) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useUpdateEffect(() => {
+      setItem(localStorage.key, localStorage.value)
+    }, [localStorage])
+  })
 }
 
 export default useLocalStorage
