@@ -6,7 +6,6 @@ import useI18n from '../../lib/hooks/useI18n'
 import { useAppSelector } from '../../redux/hooks'
 import { useContactInformationMutation } from '../../redux/services/serverApi'
 import { stepperSelector } from '../../redux/slices/stepperSlice'
-import EmailField from '../EmailField'
 import { FirstName, LastName, Country, Phone } from '../Form/FormFields'
 
 const ContactInformation = () => {
@@ -18,7 +17,6 @@ const ContactInformation = () => {
   useEffect(() => {
     formData.reset({
       ...stepperState.user?.contact,
-      email: stepperState.user?.email || '',
       countryCode: stepperState.user?.contact?.countryCode || 'DE',
     })
   }, [stepperState.user])
@@ -27,9 +25,6 @@ const ContactInformation = () => {
     <form onSubmit={formData.handleSubmit(updateContactInformation)} noValidate>
       <FormProvider {...formData}>
         <SimpleGrid columns={12} spacing={2}>
-          <GridItem colSpan={12}>
-            <EmailField />
-          </GridItem>
           <GridItem colSpan={{ base: 12, sm: 8 }}>
             <FirstName />
           </GridItem>
