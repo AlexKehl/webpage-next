@@ -3,9 +3,12 @@ import cartSlice, {
   cartActions,
   CartState,
 } from '../../../src/redux/slices/cartSlice'
+import { withRedirect, withToasts } from '../../../src/redux/utils'
 
 describe('addCartItem', () => {
   const initialState: CartState = {
+    ...withRedirect,
+    ...withToasts,
     cart: {
       items: [],
     },
@@ -22,6 +25,8 @@ describe('addCartItem', () => {
 
 describe('deleteCartItem', () => {
   const initialState: CartState = {
+    ...withRedirect,
+    ...withToasts,
     cart: {
       items: [galleryImageDto],
     },

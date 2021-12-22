@@ -21,7 +21,7 @@ import {
   gallerySelector,
 } from '../redux/slices/gallerySlice'
 import { cartActions, cartSelector } from '../redux/slices/cartSlice'
-import useToasts from '../lib/hooks/useToasts'
+import useLocalStorage from '../lib/hooks/useLocalStorage'
 
 const GalleryImageInfo = () => {
   const { t } = useI18n()
@@ -29,7 +29,7 @@ const GalleryImageInfo = () => {
   const dispatch = useAppDispatch()
   const image = imageSelector(state).currentImage!
 
-  useToasts(cartSelector)
+  useLocalStorage(cartSelector, 'cart')
 
   return (
     <Modal

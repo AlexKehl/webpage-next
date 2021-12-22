@@ -10,6 +10,8 @@ import {
   addLoadingMatcher,
   WithRedirect,
   toastByError,
+  withToasts,
+  withRedirect,
 } from '../utils'
 
 export interface StepperState extends WithToast, WithLoader, WithRedirect {
@@ -18,8 +20,10 @@ export interface StepperState extends WithToast, WithLoader, WithRedirect {
 }
 
 export const initialState: StepperState = {
-  activeStep: 0,
+  ...withRedirect,
+  ...withToasts,
   ...withLoader,
+  activeStep: 0,
 }
 
 export const handleStepperError = toastByError<StepperState>({

@@ -12,10 +12,7 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { LoginDto } from '../../common/interface/Dto'
 import useI18n from '../lib/hooks/useI18n'
-import useLoader from '../lib/hooks/useLoader'
 import useLocalStorage from '../lib/hooks/useLocalStorage'
-import useRedirect from '../lib/hooks/useRedirect'
-import useToasts from '../lib/hooks/useToasts'
 import { useLazyLoginQuery } from '../redux/services/serverApi'
 import { userSelector } from '../redux/slices/userSlice'
 import EmailField from './EmailField'
@@ -34,10 +31,7 @@ export const Login = () => {
 
   const [loginQuery] = useLazyLoginQuery()
 
-  useToasts(userSelector)
-  useLoader(userSelector)
   useLocalStorage(userSelector, 'user')
-  useRedirect(userSelector)
 
   const performLogin = (data: LoginDto) => {
     return loginQuery(data)

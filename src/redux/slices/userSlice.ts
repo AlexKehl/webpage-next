@@ -9,8 +9,10 @@ import {
   toastByError,
   withLoader,
   WithLoader,
+  withRedirect,
   WithRedirect,
   WithToast,
+  withToasts,
 } from '../utils'
 
 export interface UserState extends WithLoader, WithToast, WithRedirect {
@@ -18,7 +20,9 @@ export interface UserState extends WithLoader, WithToast, WithRedirect {
 }
 
 export const initialState: UserState = {
+  ...withRedirect,
   ...withLoader,
+  ...withToasts,
   user: getItem('user'),
 }
 

@@ -3,18 +3,12 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { AddressInformationDto } from '../../../common/interface/Dto'
 import useI18n from '../../lib/hooks/useI18n'
-import useLoader from '../../lib/hooks/useLoader'
-import useRedirect from '../../lib/hooks/useRedirect'
-import useToasts from '../../lib/hooks/useToasts'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import {
   useAddressInformationMutation,
   useCheckoutMutation,
 } from '../../redux/services/serverApi'
-import {
-  stepperActions,
-  stepperSelector,
-} from '../../redux/slices/stepperSlice'
+import { stepperActions } from '../../redux/slices/stepperSlice'
 import {
   City,
   Country,
@@ -33,10 +27,6 @@ const AddressInformation = () => {
 
   const [updateAddressInformation] = useAddressInformationMutation()
   const [checkout] = useCheckoutMutation()
-
-  useToasts(stepperSelector)
-  useLoader(stepperSelector)
-  useRedirect(stepperSelector)
 
   const onSubmit = async (addressDto: AddressInformationDto) => {
     await updateAddressInformation(addressDto)

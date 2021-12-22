@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   IconButton,
-  Stack,
   Collapse,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -50,17 +49,15 @@ const NavBar = () => {
           </Flex>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
+        <Flex
+          w="36"
           mr={{ base: 'none', md: 10 }}
-          justify={'flex-end'}
+          justifyContent={'space-between'}
           alignItems="center"
-          direction={'row'}
-          spacing={6}
         >
           <CartIcon />
           <ProfileMenu />
-        </Stack>
+        </Flex>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>

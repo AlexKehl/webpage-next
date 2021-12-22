@@ -3,8 +3,6 @@ import React, { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ContactInformationDto } from '../../../common/interface/Dto'
 import useI18n from '../../lib/hooks/useI18n'
-import useLoader from '../../lib/hooks/useLoader'
-import useToasts from '../../lib/hooks/useToasts'
 import { useAppSelector } from '../../redux/hooks'
 import { useContactInformationMutation } from '../../redux/services/serverApi'
 import { stepperSelector } from '../../redux/slices/stepperSlice'
@@ -16,9 +14,6 @@ const ContactInformation = () => {
   const formData = useForm<ContactInformationDto>()
   const { t } = useI18n()
   const [updateContactInformation] = useContactInformationMutation()
-
-  useToasts(stepperSelector)
-  useLoader(stepperSelector)
 
   useEffect(() => {
     formData.reset({

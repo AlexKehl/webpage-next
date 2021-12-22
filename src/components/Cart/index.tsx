@@ -2,8 +2,6 @@ import { Button, Center, Flex, Stack } from '@chakra-ui/react'
 import React from 'react'
 import useI18n from '../../lib/hooks/useI18n'
 import useLocalStorage from '../../lib/hooks/useLocalStorage'
-import useRedirect from '../../lib/hooks/useRedirect'
-import useToasts from '../../lib/hooks/useToasts'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { cartActions, cartSelector } from '../../redux/slices/cartSlice'
 import { Cart } from '../../types'
@@ -14,9 +12,7 @@ const Cart = () => {
   const dispatch = useAppDispatch()
   const { cart } = useAppSelector(cartSelector)
 
-  useToasts(cartSelector)
   useLocalStorage(cartSelector, 'cart')
-  useRedirect(cartSelector)
 
   if (cart.items.length === 0) {
     return <Center my="auto">{t.yourCartIsEmpty}</Center>

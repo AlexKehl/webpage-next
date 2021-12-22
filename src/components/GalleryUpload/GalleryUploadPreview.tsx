@@ -4,12 +4,10 @@ import React, { useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
 import useI18n from '../../lib/hooks/useI18n'
-import useLoader from '../../lib/hooks/useLoader'
 import {
   useGalleryUploadMutation,
   useGalleryDeleteMutation,
 } from '../../redux/services/serverApi'
-import { gallerySelector } from '../../redux/slices/gallerySlice'
 import { FileWithMeta } from '../../types/GalleryImages'
 import ImagePresenter from '../ImagePresenter'
 import InputWithAnnotation from './InputWithAnnotation'
@@ -35,8 +33,6 @@ const GalleryUploadPreview = ({ fileWithMeta, category }: Props) => {
 
   const [uploadImage] = useGalleryUploadMutation()
   const [deleteImage] = useGalleryDeleteMutation()
-
-  useLoader(gallerySelector)
 
   const imageSrc = useMemo(() => URL.createObjectURL(file), [file.name])
 

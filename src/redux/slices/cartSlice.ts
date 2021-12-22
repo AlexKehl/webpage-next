@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getItem } from '../../lib/utils/LocalStorage'
 import { Cart, CartItem } from '../../types'
 import { RootState } from '../store'
-import { WithRedirect, WithToast } from '../utils'
+import { withRedirect, WithRedirect, WithToast, withToasts } from '../utils'
 
 export interface CartState extends WithRedirect, WithToast {
   cart: Cart
 }
 
 const initialState: CartState = {
+  ...withRedirect,
+  ...withToasts,
   cart: getItem('cart') || { items: [] },
 }
 

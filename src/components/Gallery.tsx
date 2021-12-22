@@ -1,4 +1,4 @@
-import { Button, Flex, VStack } from '@chakra-ui/react'
+import { Button, Flex, useUpdateEffect, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Lightbox from 'react-image-lightbox'
@@ -28,7 +28,11 @@ const Gallery = ({ category }: Props) => {
   const state = useAppSelector(gallerySelector)
   const { user } = useAppSelector(userSelector)
   const dispatch = useAppDispatch()
-  useImagesQuery(category)
+  const { data } = useImagesQuery(category)
+
+  useUpdateEffect(() => {
+    dispatch(galleryActions.setImages(data))
+  }, [data])
 
   return (
     <VStack my="3" mx="auto" maxW={{ base: '1', sm: '7xl' }}>

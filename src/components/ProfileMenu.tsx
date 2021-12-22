@@ -9,7 +9,6 @@ import router from 'next/router'
 import React from 'react'
 import useI18n from '../lib/hooks/useI18n'
 import useLocalStorage from '../lib/hooks/useLocalStorage'
-import useRedirect from '../lib/hooks/useRedirect'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import {
   isLoggedIn,
@@ -23,8 +22,8 @@ const ProfileMenu = () => {
   const dispatch = useAppDispatch()
   const userState = useAppSelector(userSelector)
 
-  useRedirect(userSelector)
   useLocalStorage(userSelector, 'user')
+
   return (
     <Popover trigger={'hover'} placement={'bottom'}>
       <PopoverTrigger>

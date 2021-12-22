@@ -8,8 +8,10 @@ import { RootState } from '../store'
 import {
   addGenericToasts,
   addLoadingMatcher,
+  withLoader,
   WithLoader,
   WithToast,
+  withToasts,
 } from '../utils'
 
 export interface GalleryState extends WithLoader, WithToast {
@@ -20,8 +22,9 @@ export interface GalleryState extends WithLoader, WithToast {
 }
 
 export const initialState: GalleryState = {
+  ...withLoader,
+  ...withToasts,
   images: [],
-  isLoading: false,
   currentImageIdx: 0,
   isInfoModalOpen: false,
   isViewerOpen: false,
@@ -35,6 +38,9 @@ export const gallerySlice = createSlice({
   name: 'gallery',
   initialState,
   reducers: {
+    setImages: (state, action: PayloadAction<FileWithMeta[] | undefined>) => {
+      state.images = action.payload || []
+    },
     openLightBox: (state, action: PayloadAction<number>) => {
       state.currentImageIdx = action.payload
       state.isViewerOpen = true
@@ -80,9 +86,6 @@ export const gallerySlice = createSlice({
     addLoadingMatcher<GalleryState>(builder, galleryDelete)
     addGenericToasts<GalleryState>(builder, galleryUpload)
     addGenericToasts<GalleryState>(builder, galleryDelete)
-    builder.addMatcher(images.matchFulfilled, (state, action) => {
-      state.images = action.payload
-    })
   },
 })
 

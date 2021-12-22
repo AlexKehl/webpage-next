@@ -5,6 +5,7 @@ import stepperSlice, {
   stepperActions,
   StepperState,
 } from '../../../src/redux/slices/stepperSlice'
+import { withLoader, withRedirect, withToasts } from '../../../src/redux/utils'
 import {
   fulfilledMutation,
   fulfilledQuery,
@@ -14,6 +15,9 @@ import {
 describe('setActiveStep', () => {
   it('sets active step only if previous step is selected', () => {
     const initialState: StepperState = {
+      ...withLoader,
+      ...withRedirect,
+      ...withToasts,
       isLoading: false,
       activeStep: 1,
     }

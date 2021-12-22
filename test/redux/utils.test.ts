@@ -1,5 +1,5 @@
 import HttpStatus from '../../common/constants/HttpStatus'
-import { toastByError, WithToast } from '../../src/redux/utils'
+import { toastByError, WithToast, withToasts } from '../../src/redux/utils'
 import { rejectedMutation } from '../utils/Redux'
 
 describe('toastByError', () => {
@@ -10,7 +10,7 @@ describe('toastByError', () => {
   } as any
   it('sets state toast according to errortype', () => {
     const res = toastByError(handlers)(
-      {},
+      { ...withToasts },
       rejectedMutation({
         endpoint: 'user',
         payload: { status: HttpStatus.UNAUTHORIZED },
@@ -18,6 +18,7 @@ describe('toastByError', () => {
     )
 
     const expected: WithToast = {
+      ...withToasts,
       toast: { text: 'wrongCredentials', type: 'error' },
     }
 
@@ -26,7 +27,7 @@ describe('toastByError', () => {
 
   it('sets default text if status handler is not there', () => {
     const res = toastByError(handlers)(
-      {},
+      { ...withToasts },
       rejectedMutation({
         endpoint: 'user',
         payload: { status: HttpStatus.INTERNAL_SERVER_ERROR },
@@ -34,6 +35,7 @@ describe('toastByError', () => {
     )
 
     const expected: WithToast = {
+      ...withToasts,
       toast: { text: 'unexpectedError', type: 'error' },
     }
 
