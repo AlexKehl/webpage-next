@@ -9,9 +9,9 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import React from 'react'
-import useI18n from '../../src/lib/hooks/useI18n'
-import { useAppSelector } from '../../src/redux/hooks'
-import { userSelector } from '../../src/redux/slices/userSlice'
+import useI18n from 'src/lib/hooks/useI18n'
+import { useAppSelector } from 'src/redux/hooks'
+import { userSelector } from 'src/redux/slices/userSlice'
 
 const ProfilePage = () => {
   const { t } = useI18n()

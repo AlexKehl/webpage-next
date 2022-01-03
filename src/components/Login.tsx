@@ -10,7 +10,7 @@ import {
 import router from 'next/router'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { LoginDto } from '../../common/interface/Dto'
+import { LoginDto } from 'common/interface/Dto'
 import useI18n from '../lib/hooks/useI18n'
 import { useLazyLoginQuery } from '../redux/services/serverApi'
 import EmailField from './EmailField'

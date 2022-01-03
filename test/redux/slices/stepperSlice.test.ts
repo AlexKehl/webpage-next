@@ -1,11 +1,11 @@
-import HttpStatus from '../../../common/constants/HttpStatus'
-import { userResponse } from '../../../common/fixtures/User'
+import HttpStatus from 'common/constants/HttpStatus'
+import { userResponse } from 'common/fixtures/User'
 import stepperSlice, {
   initialState,
   stepperActions,
   StepperState,
-} from '../../../src/redux/slices/stepperSlice'
-import { withLoader, withRedirect, withToasts } from '../../../src/redux/utils'
+} from 'src/redux/slices/stepperSlice'
+import { withLoader, withRedirect, withToasts } from 'src/redux/utils'
 import {
   fulfilledMutation,
   fulfilledQuery,

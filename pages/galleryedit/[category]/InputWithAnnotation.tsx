@@ -1,8 +1,8 @@
 import { Stack, FormLabel, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import { FieldValues, useFormContext, UseFormRegister } from 'react-hook-form'
-import InputField from '../../../src/components/InputField'
-import useI18n from '../../../src/lib/hooks/useI18n'
+import InputField from 'src/components/InputField'
+import useI18n from 'src/lib/hooks/useI18n'
 
 interface Props {
   label: string

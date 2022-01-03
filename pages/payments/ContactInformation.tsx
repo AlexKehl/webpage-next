@@ -1,17 +1,17 @@
 import { Button, GridItem, SimpleGrid } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { ContactInformationDto } from '../../common/interface/Dto'
+import { ContactInformationDto } from 'common/interface/Dto'
 import {
   FirstName,
   LastName,
   Country,
   Phone,
-} from '../../src/components/Form/FormFields'
-import useI18n from '../../src/lib/hooks/useI18n'
-import { useAppSelector } from '../../src/redux/hooks'
-import { useContactInformationMutation } from '../../src/redux/services/serverApi'
-import { stepperSelector } from '../../src/redux/slices/stepperSlice'
+} from 'src/components/Form/FormFields'
+import useI18n from 'src/lib/hooks/useI18n'
+import { useAppSelector } from 'src/redux/hooks'
+import { useContactInformationMutation } from 'src/redux/services/serverApi'
+import { stepperSelector } from 'src/redux/slices/stepperSlice'
 
 const ContactInformation = () => {
   const stepperState = useAppSelector(stepperSelector)

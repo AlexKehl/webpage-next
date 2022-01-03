@@ -1,5 +1,5 @@
-import HttpStatus from '../../common/constants/HttpStatus'
-import { toastByError, WithToast, withToasts } from '../../src/redux/utils'
+import HttpStatus from 'common/constants/HttpStatus'
+import { toastByError, WithToast, withToasts } from 'src/redux/utils'
 import { rejectedMutation } from '../utils/Redux'
 
 describe('toastByError', () => {

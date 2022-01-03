@@ -1,6 +1,6 @@
 import useI18n from '../../lib/hooks/useI18n'
-import Languages from '../../../common/constants/Languages'
-import Categories from '../../../common/constants/Categories'
+import Languages from 'common/constants/Languages'
+import Categories from 'common/constants/Categories'
 
 export interface NavItem {
   label: string

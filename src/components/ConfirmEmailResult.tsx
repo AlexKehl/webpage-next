@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import useI18n from '../lib/hooks/useI18n'
 import { API } from '../constants/EnvProxy'
-import { Endpoints } from '../../common/constants/Endpoints'
+import { Endpoints } from 'common/constants/Endpoints'
 
 type ConfirmationState = 'CONFIRMED' | 'NOT_CONFIRMED' | 'PENDING'
 

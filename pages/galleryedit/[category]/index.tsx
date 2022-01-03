@@ -1,8 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import Categories from '../../../common/constants/Categories'
-import { Category } from '../../../common/interface/Constants'
-import { generateCategoryPaths } from '../../../src/utils/PathsGenerator'
+import Categories from 'common/constants/Categories'
+import { Category } from 'common/interface/Constants'
+import { generateCategoryPaths } from 'src/utils/PathsGenerator'
 import GalleryEdit from './GalleryEdit'
 
 interface Props {

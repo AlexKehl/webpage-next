@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Category } from '../../../common/interface/Constants'
+import { Category } from 'common/interface/Constants'
 import { API } from '../../constants/EnvProxy'
 import { FileWithMeta } from '../../types/GalleryImages'
 import { getCyclic } from '../../utils/Functions'

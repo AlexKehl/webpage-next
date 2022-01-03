@@ -1,5 +1,5 @@
-import HttpStatus from '../../../../common/constants/HttpStatus'
-import { ValueOf } from '../../../../common/types'
+import HttpStatus from 'common/constants/HttpStatus'
+import { ValueOf } from 'common/types'
 
 interface ConstructorOpts {
   status: ValueOf<typeof HttpStatus>

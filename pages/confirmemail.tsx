@@ -1,3 +1,3 @@
-import ConfirmEmail from '../src/components/ConfirmEmailResult'
+import ConfirmEmail from 'src/components/ConfirmEmailResult'
 
 export default ConfirmEmail

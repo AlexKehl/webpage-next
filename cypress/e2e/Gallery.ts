@@ -1,9 +1,9 @@
 import {
   AdminUserWithPassword,
   UserWithPassword,
-} from '../../common/fixtures/User'
-import { BASE_URL } from '../../src/constants/EnvProxy'
-import en from '../../src/locales/en'
+} from 'common/fixtures/User'
+import { BASE_URL } from 'src/constants/EnvProxy'
+import en from 'src/locales/en'
 
 describe('gallery', () => {
   it('can see edit button when admin', () => {

@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
-import en from '../../locales/en'
-import de from '../../locales/de'
-import ru from '../../locales/ru'
-import { Language } from '../../../common/constants/Languages'
+import { Language } from 'common/constants/Languages'
+import de from 'src/locales/de'
+import en from 'src/locales/en'
+import ru from 'src/locales/ru'
 
 const getTranslated = (locale?: Language) => {
   switch (locale) {

@@ -1,6 +1,6 @@
-import HttpStatus from '../../../common/constants/HttpStatus'
-import { userResponse } from '../../../common/fixtures/User'
-import userSlice from '../../../src/redux/slices/userSlice'
+import HttpStatus from 'common/constants/HttpStatus'
+import { userResponse } from 'common/fixtures/User'
+import userSlice from 'src/redux/slices/userSlice'
 import { fulfilledQuery, rejectedQuery } from '../../utils/Redux'
 
 describe('login', () => {

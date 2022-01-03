@@ -13,14 +13,14 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import React from 'react'
-import useI18n from '../../../src/lib/hooks/useI18n'
-import { useAppSelector, useAppDispatch } from '../../../src/redux/hooks'
-import { cartActions } from '../../../src/redux/slices/cartSlice'
+import useI18n from 'src/lib/hooks/useI18n'
+import { useAppSelector, useAppDispatch } from 'src/redux/hooks'
+import { cartActions } from 'src/redux/slices/cartSlice'
 import {
   gallerySelector,
   imageSelector,
   galleryActions,
-} from '../../../src/redux/slices/gallerySlice'
+} from 'src/redux/slices/gallerySlice'
 
 const GalleryImageInfo = () => {
   const { t } = useI18n()

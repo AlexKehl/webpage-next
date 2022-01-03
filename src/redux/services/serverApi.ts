@@ -2,12 +2,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   Endpoints,
   staticEndPointPart,
-} from '../../../common/constants/Endpoints'
+} from 'common/constants/Endpoints'
 import {
   GalleryImagePaymentResponse,
   LoginResponse,
   User,
-} from '../../../common/interface/ConsumerResponses'
+} from 'common/interface/ConsumerResponses'
 import { API } from '../../constants/EnvProxy'
 //@ts-ignore
 import fetch from 'node-fetch'
@@ -19,7 +19,7 @@ import {
   GalleryImageDto,
   LoginDto,
   RegisterDto,
-} from '../../../common/interface/Dto'
+} from 'common/interface/Dto'
 import { Cart } from '../../types'
 import { FileWithMeta } from '../../types/GalleryImages'
 import { serializeFilesWithMeta } from './transformers/files'

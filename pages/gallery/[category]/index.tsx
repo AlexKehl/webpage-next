@@ -4,21 +4,21 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Lightbox from 'react-image-lightbox'
-import Categories from '../../../common/constants/Categories'
-import { Category } from '../../../common/interface/Constants'
-import { hasRole } from '../../../common/utils/User'
-import ImagePresenter from '../../../src/components/ImagePresenter'
-import { API } from '../../../src/constants/EnvProxy'
-import useI18n from '../../../src/lib/hooks/useI18n'
-import { useAppSelector, useAppDispatch } from '../../../src/redux/hooks'
-import { useImagesQuery } from '../../../src/redux/services/serverApi'
+import Categories from 'common/constants/Categories'
+import { Category } from 'common/interface/Constants'
+import { hasRole } from 'common/utils/User'
+import ImagePresenter from 'src/components/ImagePresenter'
+import { API } from 'src/constants/EnvProxy'
+import useI18n from 'src/lib/hooks/useI18n'
+import { useAppSelector, useAppDispatch } from 'src/redux/hooks'
+import { useImagesQuery } from 'src/redux/services/serverApi'
 import {
   gallerySelector,
   galleryActions,
   imageSelector,
-} from '../../../src/redux/slices/gallerySlice'
-import { userSelector } from '../../../src/redux/slices/userSlice'
-import { generateCategoryPaths } from '../../../src/utils/PathsGenerator'
+} from 'src/redux/slices/gallerySlice'
+import { userSelector } from 'src/redux/slices/userSlice'
+import { generateCategoryPaths } from 'src/utils/PathsGenerator'
 import GalleryImageInfo from './GalleryImageInfo'
 
 interface Props {

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { User } from '../../../common/interface/ConsumerResponses'
+import { User } from 'common/interface/ConsumerResponses'
 import { Cart } from '../../types'
 
 export interface LocalStorageData {

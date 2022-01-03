@@ -1,6 +1,6 @@
-import { UserWithPassword } from '../../common/fixtures/User'
-import { BASE_URL } from '../../src/constants/EnvProxy'
-import en from '../../src/locales/en'
+import { UserWithPassword } from 'common/fixtures/User'
+import { BASE_URL } from 'src/constants/EnvProxy'
+import en from 'src/locales/en'
 
 describe('auth', () => {
   const { password, email } = UserWithPassword

@@ -1,4 +1,4 @@
-import { Category } from '../../common/interface/Constants'
+import { Category } from 'common/interface/Constants'
 
 const generateCategoryForLocale = ({
   locale,

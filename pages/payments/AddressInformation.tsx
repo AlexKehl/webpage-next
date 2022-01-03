@@ -1,16 +1,16 @@
 import { Button, GridItem, SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { AddressInformationDto } from '../../common/interface/Dto'
-import useI18n from '../../src/lib/hooks/useI18n'
-import { useAppDispatch, useAppSelector } from '../../src/redux/hooks'
+import { AddressInformationDto } from 'common/interface/Dto'
+import useI18n from 'src/lib/hooks/useI18n'
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
 import {
   useAddressInformationMutation,
   useCheckoutMutation,
-} from '../../src/redux/services/serverApi'
-import { stepperActions } from '../../src/redux/slices/stepperSlice'
-import { userSelector } from '../../src/redux/slices/userSlice'
-import { cartItemIdsSelector } from '../../src/redux/slices/cartSlice'
+} from 'src/redux/services/serverApi'
+import { stepperActions } from 'src/redux/slices/stepperSlice'
+import { userSelector } from 'src/redux/slices/userSlice'
+import { cartItemIdsSelector } from 'src/redux/slices/cartSlice'
 import {
   FullName,
   Street,
@@ -19,7 +19,7 @@ import {
   State,
   Zip,
   Country,
-} from '../../src/components/Form/FormFields'
+} from 'src/components/Form/FormFields'
 
 const AddressInformation = () => {
   const { t } = useI18n()

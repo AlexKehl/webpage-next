@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Dto } from '../../common/interface/Dto'
+import { Dto } from 'common/interface/Dto'
 
 export type HOC = <T>(component: FC<T>) => FC<T>
 

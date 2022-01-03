@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import HttpStatus from '../../../common/constants/HttpStatus'
-import { User } from '../../../common/interface/ConsumerResponses'
+import HttpStatus from 'common/constants/HttpStatus'
+import { User } from 'common/interface/ConsumerResponses'
 import { getItem } from '../../lib/utils/LocalStorage'
 import { serverApi } from '../services/serverApi'
 import { RootState } from '../store'

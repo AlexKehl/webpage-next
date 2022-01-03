@@ -6,7 +6,7 @@ import RepeatPasswordField from './RepeatPasswordField'
 import useI18n from '../lib/hooks/useI18n'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useRegisterMutation } from '../redux/services/serverApi'
-import { RegisterDto } from '../../common/interface/Dto'
+import { RegisterDto } from 'common/interface/Dto'
 
 const Register = () => {
   const { t } = useI18n()

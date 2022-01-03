@@ -2,16 +2,16 @@ import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import { Flex, Box, Input, Textarea, Checkbox, Button } from '@chakra-ui/react'
 import React, { useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
-import { Category } from '../../../common/interface/Constants'
-import ImagePresenter from '../../../src/components/ImagePresenter'
-import useI18n from '../../../src/lib/hooks/useI18n'
+import { GalleryImageMeta } from 'common/interface/GalleryImages'
+import { Category } from 'common/interface/Constants'
+import ImagePresenter from 'src/components/ImagePresenter'
+import useI18n from 'src/lib/hooks/useI18n'
 import {
   useGalleryUploadMutation,
   useGalleryDeleteMutation,
-} from '../../../src/redux/services/serverApi'
-import { fileToBase64 } from '../../../src/redux/services/transformers/files'
-import { FileWithMeta } from '../../../src/types/GalleryImages'
+} from 'src/redux/services/serverApi'
+import { fileToBase64 } from 'src/redux/services/transformers/files'
+import { FileWithMeta } from 'src/types/GalleryImages'
 import InputWithAnnotation from './InputWithAnnotation'
 import { v4 as uuid } from 'uuid'
 

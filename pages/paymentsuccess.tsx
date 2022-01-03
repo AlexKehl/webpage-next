@@ -1,9 +1,9 @@
 import { CheckIcon } from '@chakra-ui/icons'
 import { Center, Stack, Text } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import useI18n from '../src/lib/hooks/useI18n'
-import { useAppDispatch } from '../src/redux/hooks'
-import { cartActions } from '../src/redux/slices/cartSlice'
+import useI18n from 'src/lib/hooks/useI18n'
+import { useAppDispatch } from 'src/redux/hooks'
+import { cartActions } from 'src/redux/slices/cartSlice'
 
 const PaymentSuccess = () => {
   const { t } = useI18n()

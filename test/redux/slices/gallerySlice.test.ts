@@ -1,10 +1,10 @@
-import { API } from '../../../src/constants/EnvProxy'
+import { API } from 'src/constants/EnvProxy'
 import gallerySlice, {
   galleryActions,
   GalleryState,
   imageSelector,
   initialState,
-} from '../../../src/redux/slices/gallerySlice'
+} from 'src/redux/slices/gallerySlice'
 import {
   fileWithMeta,
   generateFileWithMeta,

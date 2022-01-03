@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GalleryCategoryResponse } from '../../../../common/interface/ConsumerResponses'
+import { GalleryCategoryResponse } from 'common/interface/ConsumerResponses'
 import { API } from '../../../constants/EnvProxy'
 import { FileWithMeta } from '../../../types/GalleryImages'
 
