@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { User } from 'common/interface/ConsumerResponses'
-import { Cart } from '../../types'
+import { Cart } from 'src/types'
 
 export interface LocalStorageData {
   user?: User

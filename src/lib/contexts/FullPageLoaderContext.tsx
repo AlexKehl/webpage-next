@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import FullPageLoader from '../../components/FullPageLoader'
+import FullPageLoader from 'src/components/FullPageLoader'
 
 interface FullPageLoaderContext {
   isLoading: boolean

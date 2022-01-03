@@ -7,13 +7,13 @@ import {
 } from '@chakra-ui/react'
 import router from 'next/router'
 import React from 'react'
-import useI18n from '../../lib/hooks/useI18n'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import useI18n from 'src/lib/hooks/useI18n'
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
 import {
   userSelector,
   isLoggedIn,
   userActions,
-} from '../../redux/slices/userSlice'
+} from 'src/redux/slices/userSlice'
 import DesktopSubNav from './DesktopSubNav'
 
 const ProfileMenu = () => {
