@@ -23,7 +23,3 @@ export const getCyclic = <T>(arr: T[], idx: number): T => {
   }
   return arr[idx]!
 }
-
-export const randomNumber = (max: number) => {
-  return Math.random() * max
-}

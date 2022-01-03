@@ -1,36 +1,39 @@
 import { Button, GridItem, SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { AddressInformationDto } from '../../../common/interface/Dto'
-import useI18n from '../../lib/hooks/useI18n'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { AddressInformationDto } from '../../common/interface/Dto'
+import useI18n from '../../src/lib/hooks/useI18n'
+import { useAppDispatch, useAppSelector } from '../../src/redux/hooks'
 import {
   useAddressInformationMutation,
   useCheckoutMutation,
-} from '../../redux/services/serverApi'
-import { stepperActions } from '../../redux/slices/stepperSlice'
+} from '../../src/redux/services/serverApi'
+import { stepperActions } from '../../src/redux/slices/stepperSlice'
+import { userSelector } from '../../src/redux/slices/userSlice'
+import { cartItemIdsSelector } from '../../src/redux/slices/cartSlice'
 import {
-  City,
-  Country,
   FullName,
-  State,
   Street,
   StreetNumber,
+  City,
+  State,
   Zip,
-} from '../Form/FormFields'
+  Country,
+} from '../../src/components/Form/FormFields'
 
 const AddressInformation = () => {
   const { t } = useI18n()
   const formData = useForm<AddressInformationDto>()
   const dispatch = useAppDispatch()
-  const { cart } = useAppSelector((store) => store.cart)
+  const cartItemIds = useAppSelector(cartItemIdsSelector)
+  const { user } = useAppSelector(userSelector)
 
   const [updateAddressInformation] = useAddressInformationMutation()
   const [checkout] = useCheckoutMutation()
 
   const onSubmit = async (addressDto: AddressInformationDto) => {
     await updateAddressInformation(addressDto)
-    await checkout(cart)
+    await checkout({ ids: cartItemIds, email: user!.email })
   }
 
   return (

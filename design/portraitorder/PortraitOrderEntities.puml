@@ -1,0 +1,27 @@
+@startuml
+
+enum PortraitStatus {
+  REQUESTED
+  IN_PROGRESS
+  REJECTED
+  DONE
+}
+
+enum PortraitLevel {
+  1
+  2
+  3
+  4
+  5
+}
+
+
+object PortraitOrder {
+  status: PortraitStatus
+  level: PortraitLevel
+  statusComment: string
+  customerComment: string
+}
+
+
+@enduml

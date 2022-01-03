@@ -78,6 +78,7 @@ const en = {
   zip: 'Zip',
   name: 'Name',
   register: 'Register',
+  paymentsuccess: 'Your payment was successfull.',
 } as const
 
 export default en

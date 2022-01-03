@@ -9,9 +9,9 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import React from 'react'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
-import ProfileMenu from '../ProfileMenu'
 import CartIcon from './CartIcon'
 import WithClientRender from '../HOC/WithClientRender'
+import ProfileMenu from './ProfileMenu'
 
 const NavBar = () => {
   const { isOpen, onToggle } = useDisclosure()

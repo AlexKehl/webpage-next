@@ -1,0 +1,7 @@
+@startuml
+
+Client->Server : Send portrait request
+Server->DB : Create initial model
+Server->DB : Create initial model
+
+@enduml

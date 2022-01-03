@@ -1,14 +1,14 @@
-import { VStack, Flex, Button, useUpdateEffect } from '@chakra-ui/react'
+import { Button, Flex, VStack } from '@chakra-ui/react'
 import React, { Fragment, useEffect } from 'react'
 import Dropzone from 'react-dropzone'
 import { Category } from '../../../common/interface/Constants'
-import useI18n from '../../lib/hooks/useI18n'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { useImagesQuery } from '../../redux/services/serverApi'
+import useI18n from '../../../src/lib/hooks/useI18n'
+import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks'
+import { useImagesQuery } from '../../../src/redux/services/serverApi'
 import {
   gallerySelector,
   galleryActions,
-} from '../../redux/slices/gallerySlice'
+} from '../../../src/redux/slices/gallerySlice'
 import GalleryUploadPreview from './GalleryUploadPreview'
 
 interface Props {

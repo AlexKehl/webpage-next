@@ -13,6 +13,7 @@ import { API } from '../../constants/EnvProxy'
 import fetch from 'node-fetch'
 import {
   AddressInformationDto,
+  BuyImageDto,
   ContactInformationDto,
   DeleteGalleryImageDto,
   GalleryImageDto,
@@ -51,13 +52,14 @@ export const serverApi = createApi({
         credentials: 'include',
       }),
     }),
-    checkout: builder.mutation<GalleryImagePaymentResponse, Cart>({
-      query: (cart) => ({
+    checkout: builder.mutation<GalleryImagePaymentResponse, BuyImageDto>({
+      query: (body) => ({
         url: Endpoints.checkout,
         method: 'POST',
-        body: {
-          ids: cart.items.map((i) => i.id),
-        },
+        // body: {
+        //   ids: cart.items.map((i) => i.id),
+        // },
+        body,
         credentials: 'include',
       }),
     }),

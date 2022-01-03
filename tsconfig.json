@@ -17,7 +17,13 @@
     "isolatedModules": true,
     "useUnknownInCatchVariables": false,
     "jsx": "preserve",
-    "types": ["cypress", "@testing-library/cypress", "jest"]
+    "types": ["cypress", "@testing-library/cypress", "jest"],
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "test/*": ["./test/*"],
+      "common/*": ["./common/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

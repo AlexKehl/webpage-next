@@ -16,6 +16,6 @@ Content-Type: application/json
 
 POST /login
 {
-  "email": "test@test.com",
+  "email": "testtest.com",
   "password": "12345678"
 }

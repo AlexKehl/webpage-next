@@ -3,17 +3,17 @@ import { Flex, Box, Input, Textarea, Checkbox, Button } from '@chakra-ui/react'
 import React, { useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { GalleryImageMeta } from '../../../common/interface/GalleryImages'
-import useI18n from '../../lib/hooks/useI18n'
+import { Category } from '../../../common/interface/Constants'
+import ImagePresenter from '../../../src/components/ImagePresenter'
+import useI18n from '../../../src/lib/hooks/useI18n'
 import {
   useGalleryUploadMutation,
   useGalleryDeleteMutation,
-} from '../../redux/services/serverApi'
-import { FileWithMeta } from '../../types/GalleryImages'
-import ImagePresenter from '../ImagePresenter'
+} from '../../../src/redux/services/serverApi'
+import { fileToBase64 } from '../../../src/redux/services/transformers/files'
+import { FileWithMeta } from '../../../src/types/GalleryImages'
 import InputWithAnnotation from './InputWithAnnotation'
 import { v4 as uuid } from 'uuid'
-import { fileToBase64 } from '../../redux/services/transformers/files'
-import { Category } from '../../../common/interface/Constants'
 
 interface Props {
   fileWithMeta: FileWithMeta

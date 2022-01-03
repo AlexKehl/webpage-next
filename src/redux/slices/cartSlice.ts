@@ -55,9 +55,14 @@ export const cartSlice = createSlice({
     checkout: (state) => {
       state.redirectUrl = '/payments'
     },
+    clearCart: (state) => {
+      state.cart.items = []
+    },
   },
 })
 
 export const cartSelector = (state: RootState) => state.cart
+export const cartItemIdsSelector = (state: RootState) =>
+  state.cart.cart.items.map((item) => item.id)
 export const cartActions = cartSlice.actions
 export default cartSlice.reducer

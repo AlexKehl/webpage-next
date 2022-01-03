@@ -1,13 +1,6 @@
-import { galleryImageDto } from '../../../common/fixtures/GalleryImages'
-import cartSlice, {
-  cartActions,
-  CartState,
-} from '../../../src/redux/slices/cartSlice'
-import {
-  withLocalStorage,
-  withRedirect,
-  withToasts,
-} from '../../../src/redux/utils'
+import { galleryImageDto } from 'common/fixtures/GalleryImages'
+import cartSlice, { cartActions, CartState } from 'src/redux/slices/cartSlice'
+import { withLocalStorage, withRedirect, withToasts } from 'src/redux/utils'
 
 describe('addCartItem', () => {
   const initialState: CartState = {

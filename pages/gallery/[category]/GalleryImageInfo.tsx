@@ -1,26 +1,26 @@
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import {
+  Button,
   Modal,
-  ModalOverlay,
+  ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
-  ModalBody,
+  ModalOverlay,
   Table,
   Tbody,
-  Tr,
   Td,
-  Button,
+  Tr,
 } from '@chakra-ui/react'
 import React from 'react'
-import useI18n from '../lib/hooks/useI18n'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import useI18n from '../../../src/lib/hooks/useI18n'
+import { useAppSelector, useAppDispatch } from '../../../src/redux/hooks'
+import { cartActions } from '../../../src/redux/slices/cartSlice'
 import {
+  gallerySelector,
   imageSelector,
   galleryActions,
-  gallerySelector,
-} from '../redux/slices/gallerySlice'
-import { cartActions } from '../redux/slices/cartSlice'
+} from '../../../src/redux/slices/gallerySlice'
 
 const GalleryImageInfo = () => {
   const { t } = useI18n()

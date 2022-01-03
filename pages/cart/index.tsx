@@ -1,10 +1,9 @@
 import { Button, Center, Flex, Stack } from '@chakra-ui/react'
 import React from 'react'
-import useI18n from '../../lib/hooks/useI18n'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { cartActions, cartSelector } from '../../redux/slices/cartSlice'
-import { Cart } from '../../types'
-import CartItem from './CartItem'
+import CartItem from '../../src/components/Cart/CartItem'
+import useI18n from '../../src/lib/hooks/useI18n'
+import { useAppDispatch, useAppSelector } from '../../src/redux/hooks'
+import { cartSelector, cartActions } from '../../src/redux/slices/cartSlice'
 
 const Cart = () => {
   const { t } = useI18n()
