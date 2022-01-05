@@ -4,8 +4,8 @@ import { Endpoints } from 'common/constants/Endpoints'
 import React from 'react'
 import ImagePresenter from 'src/components/ImagePresenter'
 import { API } from 'src/constants/EnvProxy'
+import { CartItem } from 'src/features/cart/types'
 import useI18n from 'src/lib/hooks/useI18n'
-import { CartItem } from 'src/types'
 
 interface Props extends CartItem {
   onDelete: (item: CartItem['id']) => void

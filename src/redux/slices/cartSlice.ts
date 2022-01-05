@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Cart, CartItem } from 'src/features/cart/types'
 import { getItem } from 'src/lib/utils/LocalStorage'
-import { Cart, CartItem } from 'src/types'
 import { RootState } from 'src/redux/store'
 import {
   WithRedirect,
