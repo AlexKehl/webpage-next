@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Category } from 'common/interface/Constants'
-import { API } from '../../constants/EnvProxy'
-import { FileWithMeta } from '../../types/GalleryImages'
-import { getCyclic } from '../../utils/Functions'
-import { serverApi } from '../services/serverApi'
-import { RootState } from '../store'
+import { API } from 'src/constants/EnvProxy'
+import { FileWithMeta } from 'src/features/gallery/types'
+import { serverApi } from 'src/redux/services/serverApi'
+import { RootState } from 'src/redux/store'
 import {
-  addGenericToasts,
-  addLoadingMatcher,
-  withLoader,
   WithLoader,
   WithToast,
   withToasts,
-} from '../utils'
+  addLoadingMatcher,
+  addGenericToasts,
+  withLoader,
+} from 'src/redux/utils'
+import { getCyclic } from 'src/utils/Functions'
 
 export interface GalleryState extends WithLoader, WithToast {
   images: FileWithMeta[]

@@ -2,7 +2,7 @@ import {
   galleryImageDto,
   generateGalleryImageDto,
 } from 'common/fixtures/GalleryImages'
-import { FileWithMeta } from 'src/types/GalleryImages'
+import { FileWithMeta } from 'src/features/gallery/types'
 import { v4 as uuid } from 'uuid'
 
 export const fileWithMeta: FileWithMeta = {

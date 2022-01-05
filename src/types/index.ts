@@ -20,4 +20,4 @@ export interface CountryType {
   zipNote: string
 }
 
-export * from './Cart'
+export * from '../features/cart/types'

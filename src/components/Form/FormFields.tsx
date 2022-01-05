@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form'
 import Countries from '../../constants/Counries'
 import useI18n from '../../lib/hooks/useI18n'
 import { Language } from '../../types'
-import InputField from '../InputField'
+import InputField from './InputField'
 import Select from '../Select'
 
 export const Street = ({ ...rest }: InputProps) => {

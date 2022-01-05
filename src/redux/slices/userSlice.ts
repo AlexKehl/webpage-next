@@ -1,21 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import HttpStatus from 'common/constants/HttpStatus'
 import { User } from 'common/interface/ConsumerResponses'
-import { getItem } from '../../lib/utils/LocalStorage'
-import { serverApi } from '../services/serverApi'
-import { RootState } from '../store'
+import { getItem } from 'src/lib/utils/LocalStorage'
+import { serverApi } from 'src/redux/services/serverApi'
+import { RootState } from 'src/redux/store'
 import {
+  WithLoader,
+  WithToast,
+  WithRedirect,
+  WithLocalStorage,
+  withLocalStorage,
+  withRedirect,
+  withLoader,
+  withToasts,
   addLoadingMatcher,
   toastByError,
-  withLoader,
-  WithLoader,
-  withLocalStorage,
-  WithLocalStorage,
-  withRedirect,
-  WithRedirect,
-  WithToast,
-  withToasts,
-} from '../utils'
+} from 'src/redux/utils'
 
 export interface UserState
   extends WithLoader,

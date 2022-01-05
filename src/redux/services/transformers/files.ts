@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GalleryCategoryResponse } from 'common/interface/ConsumerResponses'
-import { API } from '../../../constants/EnvProxy'
-import { FileWithMeta } from '../../../types/GalleryImages'
+import { API } from 'src/constants/EnvProxy'
+import { FileWithMeta } from 'src/features/gallery/types'
 
 const getBlobFromUrl = async (url: string): Promise<Blob> => {
   const { data } = await axios({

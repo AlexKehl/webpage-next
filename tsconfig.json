@@ -22,7 +22,8 @@
     "paths": {
       "src/*": ["./src/*"],
       "test/*": ["./test/*"],
-      "common/*": ["./common/*"]
+      "common/*": ["./common/*"],
+      "public/*": ["./public/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

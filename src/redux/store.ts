@@ -2,7 +2,6 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import cartSlice from './slices/cartSlice'
 import { serverApi } from './services/serverApi'
 import stepperSlice from './slices/stepperSlice'
-import toastSlice from './slices/toastSlice'
 import gallerySlice from './slices/gallerySlice'
 import userSlice from './slices/userSlice'
 
@@ -11,7 +10,6 @@ export const store = configureStore({
     [serverApi.reducerPath]: serverApi.reducer,
     cart: cartSlice,
     stepper: stepperSlice,
-    toast: toastSlice,
     gallery: gallerySlice,
     user: userSlice,
   },

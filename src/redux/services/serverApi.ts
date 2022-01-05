@@ -1,16 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import {
-  Endpoints,
-  staticEndPointPart,
-} from 'common/constants/Endpoints'
+import { Endpoints, staticEndPointPart } from 'common/constants/Endpoints'
 import {
   GalleryImagePaymentResponse,
   LoginResponse,
   User,
 } from 'common/interface/ConsumerResponses'
-import { API } from '../../constants/EnvProxy'
-//@ts-ignore
-import fetch from 'node-fetch'
 import {
   AddressInformationDto,
   BuyImageDto,
@@ -20,8 +14,10 @@ import {
   LoginDto,
   RegisterDto,
 } from 'common/interface/Dto'
-import { Cart } from '../../types'
-import { FileWithMeta } from '../../types/GalleryImages'
+//@ts-ignore
+import fetch from 'node-fetch'
+import { API } from 'src/constants/EnvProxy'
+import { FileWithMeta } from 'src/features/gallery/types'
 import { serializeFilesWithMeta } from './transformers/files'
 
 export const serverApi = createApi({
@@ -56,9 +52,6 @@ export const serverApi = createApi({
       query: (body) => ({
         url: Endpoints.checkout,
         method: 'POST',
-        // body: {
-        //   ids: cart.items.map((i) => i.id),
-        // },
         body,
         credentials: 'include',
       }),
