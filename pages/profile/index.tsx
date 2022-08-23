@@ -1,4 +1,5 @@
 import {
+  Button,
   Center,
   Stack,
   Table,
@@ -24,6 +25,44 @@ const ProfilePage = () => {
             <Text fontSize="2xl" p="4">
               Profile
             </Text>
+            <br />
+            <a href="http://localhost:3002/auth/steam">login</a>
+            <Button
+              onClick={() => {
+                fetch(
+                  'http://localhost:3002/new-api-key?steamid=76561198019416534',
+                  {
+                    credentials: 'include',
+                  }
+                )
+                  .then((res) => res.json)
+                  .then(console.log)
+              }}
+            >
+              logout
+            </Button>
+            <Button
+              onClick={() => {
+                fetch('http://localhost:3002/auth/logout', {
+                  credentials: 'include',
+                })
+                  .then((res) => res.json)
+                  .then(console.log)
+              }}
+            >
+              logout
+            </Button>
+            <Button
+              onClick={() => {
+                fetch('http://localhost:3002/profile', {
+                  credentials: 'include',
+                })
+                  .then((res) => res.json)
+                  .then(console.log)
+              }}
+            >
+              profile
+            </Button>
           </Thead>
           <Tbody>
             <Tr>

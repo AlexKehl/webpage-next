@@ -1,10 +1,8 @@
 import { EditIcon } from '@chakra-ui/icons'
 import { Button, Flex, VStack } from '@chakra-ui/react'
-import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Lightbox from 'react-image-lightbox'
-import Categories from 'common/constants/Categories'
 import { Category } from 'common/interface/Constants'
 import { hasRole } from 'common/utils/User'
 import ImagePresenter from 'src/components/ImagePresenter'
@@ -18,14 +16,13 @@ import {
   imageSelector,
 } from 'src/redux/slices/gallerySlice'
 import { userSelector } from 'src/redux/slices/userSlice'
-import { generateCategoryPaths } from 'src/utils/PathsGenerator'
 import GalleryImageInfo from './GalleryImageInfo'
 
 interface Props {
   category: Category
 }
 
-const GalleryPage = ({ category }: Props) => {
+const Gallery = ({ category }: Props) => {
   const { t } = useI18n()
   const router = useRouter()
   const state = useAppSelector(gallerySelector)
@@ -75,17 +72,4 @@ const GalleryPage = ({ category }: Props) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => ({
-  paths: generateCategoryPaths({ locales, categories: Categories }),
-  fallback: true,
-})
-
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  return {
-    props: {
-      category: params?.['category'] as Category,
-    },
-  }
-}
-
-export default GalleryPage
+export default Gallery

@@ -1,7 +1,4 @@
-import {
-  AdminUserWithPassword,
-  UserWithPassword,
-} from 'common/fixtures/User'
+import { AdminUserWithPassword, UserWithPassword } from 'common/fixtures/User'
 import { BASE_URL } from 'src/constants/EnvProxy'
 import en from 'src/locales/en'
 
@@ -14,8 +11,8 @@ describe('gallery', () => {
     cy.findByPlaceholderText(en.password).type(password)
     cy.findByRole('button', { name: en.login }).click()
 
-    cy.findByTestId('gallerymenu').click()
-    cy.findAllByTestId('gallerycategory').first().click()
+    cy.findByRole('button', { name: en.gallery }).click()
+    cy.findAllByText(en.acryl).first().click()
 
     cy.findByRole('button', { name: en.edit }).should('exist')
   })

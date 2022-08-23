@@ -17,7 +17,7 @@ export const withLoader: WithLoader = {
 
 export interface WithRedirect {
   hasRedirect: boolean
-  redirectUrl?: string
+  redirect?: { url: string }
 }
 
 export const withRedirect: WithRedirect = {
@@ -81,8 +81,8 @@ export const toastByError =
       default: keyof typeof en
     }
   ) =>
-  (state: T, action: PayloadAction<FetchBaseQueryError>) => {
-    if (!handlers[action.payload.status as ValueOf<typeof HttpStatus>]) {
+  (state: T, action: PayloadAction<FetchBaseQueryError | undefined>) => {
+    if (!handlers[action.payload?.status as ValueOf<typeof HttpStatus>]) {
       return {
         ...state,
         toast: {
@@ -95,7 +95,7 @@ export const toastByError =
       ...state,
       toast: {
         type: 'error',
-        text: handlers[action.payload.status as ValueOf<typeof HttpStatus>],
+        text: handlers[action.payload?.status as ValueOf<typeof HttpStatus>],
       },
     }
   }

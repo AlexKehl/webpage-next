@@ -43,7 +43,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.user = undefined
       state.localStorage = { key: 'user', value: undefined }
-      state.redirectUrl = '/login'
+      state.redirect = { url: '/login' }
       state.toast = { text: 'successFullLogout', type: 'success' }
     },
   },
@@ -53,7 +53,7 @@ export const userSlice = createSlice({
       state.user = action.payload.user
       state.localStorage = { key: 'user', value: action.payload.user }
       state.toast = { text: 'successFullLogin', type: 'success' }
-      state.redirectUrl = '/'
+      state.redirect = { url: '/' }
     })
     builder.addMatcher(
       login.matchRejected,
@@ -64,7 +64,7 @@ export const userSlice = createSlice({
       })
     )
     builder.addMatcher(register.matchFulfilled, (state) => {
-      state.redirectUrl = '/confirmemail'
+      state.redirect = { url: '/confirmemail' }
     })
     builder.addMatcher(
       register.matchRejected,

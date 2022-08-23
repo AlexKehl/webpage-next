@@ -21,10 +21,6 @@ export const Login = () => {
   const { t } = useI18n()
   const [loginQuery] = useLazyLoginQuery()
 
-  const onLoginHandler = (data: LoginDto) => {
-    return loginQuery(data)
-  }
-
   return (
     <Center my="auto">
       <Stack p={{ base: 10, sm: 20 }} rounded="md" w="xl">
@@ -34,7 +30,9 @@ export const Login = () => {
           {t.pleaseLogIn}
         </Text>
 
-        <form onSubmit={formData.handleSubmit(onLoginHandler)}>
+        <form
+          onSubmit={formData.handleSubmit((data: LoginDto) => loginQuery(data))}
+        >
           <Stack my="4" spacing="4">
             <FormProvider {...formData}>
               <EmailField />

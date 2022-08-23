@@ -9,12 +9,14 @@ import {
   Phone,
 } from 'src/components/Form/FormFields'
 import useI18n from 'src/lib/hooks/useI18n'
-import { useAppSelector } from 'src/redux/hooks'
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
 import { useContactInformationMutation } from 'src/redux/services/serverApi'
-import { stepperSelector } from 'src/redux/slices/stepperSlice'
+import { stepperActions, stepperSelector } from 'src/redux/slices/stepperSlice'
+import { User } from 'common/interface/ConsumerResponses'
 
 const ContactInformation = () => {
   const stepperState = useAppSelector(stepperSelector)
+  const dispatch = useAppDispatch()
   const formData = useForm<ContactInformationDto>()
   const { t } = useI18n()
   const [updateContactInformation] = useContactInformationMutation()
@@ -26,8 +28,13 @@ const ContactInformation = () => {
     })
   }, [stepperState.user])
 
+  const onSubmit = (contactData: User['contact']) => {
+    dispatch(stepperActions.setContactData(contactData))
+    updateContactInformation(contactData)
+  }
+
   return (
-    <form onSubmit={formData.handleSubmit(updateContactInformation)} noValidate>
+    <form onSubmit={formData.handleSubmit(onSubmit)} noValidate>
       <FormProvider {...formData}>
         <SimpleGrid columns={12} spacing={2}>
           <GridItem colSpan={{ base: 12, sm: 8 }}>

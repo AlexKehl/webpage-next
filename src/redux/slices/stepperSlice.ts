@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import HttpStatus from 'common/constants/HttpStatus'
 import { User } from 'common/interface/ConsumerResponses'
+import { BuyImageDto } from 'common/interface/Dto'
 import { serverApi } from '../services/serverApi'
 import { RootState } from '../store'
 import {
@@ -17,6 +18,8 @@ import {
 export interface StepperState extends WithToast, WithLoader, WithRedirect {
   activeStep: number
   user?: User
+  address?: BuyImageDto['address']
+  contact?: BuyImageDto['contact']
 }
 
 export const initialState: StepperState = {
@@ -54,6 +57,12 @@ export const stepperSlice = createSlice({
     prevStep: (state) => {
       state.activeStep = state.activeStep - 1
     },
+    setContactData: (state, action: PayloadAction<BuyImageDto['contact']>) => {
+      state.contact = action.payload
+    },
+    setAddressData: (state, action: PayloadAction<BuyImageDto['address']>) => {
+      state.address = action.payload
+    },
   },
   extraReducers: (builder) => {
     addLoadingMatcher<StepperState>(builder, contactInformation)
@@ -69,12 +78,16 @@ export const stepperSlice = createSlice({
     builder.addMatcher(addressInformation.matchFulfilled, nextStep)
     builder.addMatcher(addressInformation.matchRejected, handleStepperError)
     builder.addMatcher(checkout.matchFulfilled, (state, action) => {
-      state.redirectUrl = action.payload.redirect
+      state.redirect = { url: action.payload.redirect }
     })
     builder.addMatcher(checkout.matchRejected, handleStepperError)
   },
 })
 
 export const stepperSelector = (state: RootState) => state.stepper
+export const checkoutDataSelector = (state: RootState) => ({
+  address: state.stepper.address,
+  contact: state.stepper.contact,
+})
 export const stepperActions = stepperSlice.actions
 export default stepperSlice.reducer

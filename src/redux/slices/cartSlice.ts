@@ -34,12 +34,13 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addCartItem: (state, action: PayloadAction<CartItem>) => {
-      if (!hasItem(state.cart, action.payload)) {
-        const newItems = [...state.cart.items, action.payload]
-        state.cart.items = newItems
-        state.toast = { text: 'cartItemAdded', type: 'success' }
-        state.localStorage = { key: 'cart', value: { items: newItems } }
+      if (hasItem(state.cart, action.payload)) {
+        return
       }
+      const newItems = [...state.cart.items, action.payload]
+      state.cart.items = newItems
+      state.toast = { text: 'cartItemAdded', type: 'success' }
+      state.localStorage = { key: 'cart', value: { items: newItems } }
     },
     deleteCartItem: (state, action: PayloadAction<CartItem['id']>) => {
       const newItems = state.cart.items.filter(
@@ -53,7 +54,7 @@ export const cartSlice = createSlice({
       state.cart = action.payload || initialState.cart
     },
     checkout: (state) => {
-      state.redirectUrl = '/payments'
+      state.redirect = { url: '/payments' }
     },
     clearCart: (state) => {
       state.cart.items = []

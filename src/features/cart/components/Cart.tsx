@@ -3,7 +3,7 @@ import React from 'react'
 import CartItem from 'src/features/cart/components/CartItem'
 import useI18n from 'src/lib/hooks/useI18n'
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
-import { cartSelector, cartActions } from 'src/redux/slices/cartSlice'
+import { cartActions, cartSelector } from 'src/redux/slices/cartSlice'
 
 const Cart = () => {
   const { t } = useI18n()

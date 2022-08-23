@@ -1,6 +1,6 @@
 import { useUpdateEffect } from '@chakra-ui/react'
 import router from 'next/router'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from 'src/redux/hooks'
 
 const useRedirect = () => {
   const store = useAppSelector((store) => store)
@@ -8,13 +8,13 @@ const useRedirect = () => {
     (store) => (store as any).hasRedirect
   )
 
-  slicesWithRedirect.forEach(({ redirectUrl }: any) => {
+  slicesWithRedirect.forEach(({ redirect }: any) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useUpdateEffect(() => {
-      if (redirectUrl) {
-        router.push(redirectUrl)
+      if (redirect?.url) {
+        router.push(redirect.url)
       }
-    }, [redirectUrl])
+    }, [redirect])
   })
 }
 

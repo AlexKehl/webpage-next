@@ -22,16 +22,16 @@ const Register = ({ isOpen, onClose }: Props) => {
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent px="5">
+      <ModalContent px='5'>
         <ModalHeader>
-          <Center w="100%">
-            <CheckIcon w={24} h={24} color="green.500" />
+          <Center w='100%'>
+            <CheckIcon w={24} h={24} color='green.500' />
           </Center>
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody pb="6">
+        <ModalBody pb='6'>
           <Center>
-            <Text fontSize="3xl">{t.verifyEmail}</Text>
+            <Text fontSize='3xl'>{t.verifyEmail}</Text>
           </Center>
         </ModalBody>
       </ModalContent>

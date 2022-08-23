@@ -18,7 +18,7 @@ describe('login', () => {
     expect(res.user).toEqual(userResponse)
     expect(res.localStorage).toEqual({ key: 'user', value: userResponse })
     expect(res.toast).toEqual({ text: 'successFullLogin', type: 'success' })
-    expect(res.redirectUrl).toBe('/')
+    expect(res.redirect?.url).toBe('/')
   })
 
   it('handles HttpStatus.UNAUTHORIZED', () => {

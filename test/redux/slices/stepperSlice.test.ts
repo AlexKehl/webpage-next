@@ -152,7 +152,7 @@ describe('checkout', () => {
       })
     )
 
-    expect(res.redirectUrl).toBe('someUrl')
+    expect(res.redirect?.url).toBe('someUrl')
   })
 
   it('handles generic error', () => {
@@ -164,7 +164,7 @@ describe('checkout', () => {
       })
     )
 
-    expect(res.redirectUrl).toBe(undefined)
+    expect(res.redirect?.url).toBe(undefined)
     expect(res.toast).toEqual({ type: 'error', text: 'unexpectedError' })
   })
 })

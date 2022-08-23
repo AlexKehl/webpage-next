@@ -9,8 +9,6 @@ import {
   useCheckoutMutation,
 } from 'src/redux/services/serverApi'
 import { stepperActions } from 'src/redux/slices/stepperSlice'
-import { userSelector } from 'src/redux/slices/userSlice'
-import { cartItemIdsSelector } from 'src/redux/slices/cartSlice'
 import {
   FullName,
   Street,
@@ -20,20 +18,21 @@ import {
   Zip,
   Country,
 } from 'src/components/Form/FormFields'
+import { buyImageSelector } from 'src/redux/store'
 
 const AddressInformation = () => {
   const { t } = useI18n()
   const formData = useForm<AddressInformationDto>()
   const dispatch = useAppDispatch()
-  const cartItemIds = useAppSelector(cartItemIdsSelector)
-  const { user } = useAppSelector(userSelector)
+  const buyImageDto = useAppSelector(buyImageSelector)
 
   const [updateAddressInformation] = useAddressInformationMutation()
   const [checkout] = useCheckoutMutation()
 
   const onSubmit = async (addressDto: AddressInformationDto) => {
+    dispatch(stepperActions.setAddressData(addressDto))
     await updateAddressInformation(addressDto)
-    await checkout({ ids: cartItemIds, email: user!.email })
+    await checkout(buyImageDto)
   }
 
   return (
