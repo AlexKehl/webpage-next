@@ -14,8 +14,6 @@ import {
   LoginDto,
   RegisterDto,
 } from 'common/interface/Dto'
-//@ts-ignore
-import fetch from 'node-fetch'
 import { API } from 'src/constants/EnvProxy'
 import { FileWithMeta } from 'src/features/gallery/types'
 import { serializeFilesWithMeta } from './transformers/files'
