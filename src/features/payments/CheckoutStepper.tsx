@@ -3,18 +3,14 @@ import { Step, Steps } from 'chakra-ui-steps'
 import React from 'react'
 import useI18n from 'src/lib/hooks/useI18n'
 import { useAppSelector, useAppDispatch } from 'src/redux/hooks'
-import { useUserQuery } from 'src/redux/services/serverApi'
 import { stepperSelector, stepperActions } from 'src/redux/slices/stepperSlice'
-import { userSelector } from 'src/redux/slices/userSlice'
 import AddressInformation from './AddressInformation'
 import ContactInformation from './ContactInformation'
 
 const Stepper = () => {
   const { t } = useI18n()
   const { activeStep } = useAppSelector(stepperSelector)
-  const { user } = useAppSelector(userSelector)
   const dispatch = useAppDispatch()
-  useUserQuery(user?.email || '')
 
   return (
     <Center my="auto">

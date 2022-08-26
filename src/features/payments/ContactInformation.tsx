@@ -50,7 +50,7 @@ const ContactInformation = () => {
             <Phone />
           </GridItem>
           <GridItem colStart={9} colSpan={4}>
-            <Button isFullWidth type="submit">
+            <Button width="100%" type="submit">
               {t.next}
             </Button>
           </GridItem>

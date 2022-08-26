@@ -1,21 +1,14 @@
 import { EditIcon } from '@chakra-ui/icons'
 import { Button, Flex, VStack } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import Lightbox from 'react-image-lightbox'
 import { Category } from 'common/interface/Constants'
-import { hasRole } from 'common/utils/User'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import Lightbox from 'react-image-lightbox'
 import ImagePresenter from 'src/components/ImagePresenter'
-import { API } from 'src/constants/EnvProxy'
 import useI18n from 'src/lib/hooks/useI18n'
-import { useAppSelector, useAppDispatch } from 'src/redux/hooks'
-import { useImagesQuery } from 'src/redux/services/serverApi'
-import {
-  gallerySelector,
-  galleryActions,
-  imageSelector,
-} from 'src/redux/slices/gallerySlice'
-import { userSelector } from 'src/redux/slices/userSlice'
+import { getCyclic } from 'src/utils/Functions'
+import { useQuery } from 'src/utils/Trpc'
 import GalleryImageInfo from './GalleryImageInfo'
 
 interface Props {
@@ -25,18 +18,20 @@ interface Props {
 const Gallery = ({ category }: Props) => {
   const { t } = useI18n()
   const router = useRouter()
-  const state = useAppSelector(gallerySelector)
-  const { user } = useAppSelector(userSelector)
-  const dispatch = useAppDispatch()
-  const { data } = useImagesQuery(category)
+  const { data: session } = useSession()
+  const { data: images } = useQuery(['gallery.imagesList', { category }])
+  const [lightBox, setLightBox] = useState({ isOpen: false, idx: 0 })
+  const [infoModal, setInfoModal] = useState({ isOpen: false, idx: 0 })
 
-  useEffect(() => {
-    dispatch(galleryActions.setImages(data))
-  }, [data])
+  const imageUrls = images?.map((i) => i.url)
+
+  if (!images) {
+    return
+  }
 
   return (
     <VStack my="3" mx="auto" maxW={{ base: '1', sm: '7xl' }}>
-      {hasRole({ user, role: 'Admin' }) && (
+      {session?.user.role === 'ADMIN' && (
         <Button
           w="full"
           variant="ghost"
@@ -47,27 +42,41 @@ const Gallery = ({ category }: Props) => {
         </Button>
       )}
       <Flex wrap="wrap">
-        {state.images.map((image, index) => (
+        {images?.map((image, idx) => (
           <ImagePresenter
-            key={index}
-            src={`${API}${image.url}`}
-            onClick={() => dispatch(galleryActions.openLightBox(index))}
-            onInfoClick={() => dispatch(galleryActions.openInfoModal(index))}
+            key={idx}
+            src={image.url}
+            onClick={() => setLightBox({ idx, isOpen: true })}
+            onInfoClick={() => setInfoModal({ idx, isOpen: true })}
           />
         ))}
       </Flex>
-      {state.isViewerOpen && (
+      {lightBox.isOpen && (
         <Lightbox
           imagePadding={0}
-          mainSrc={imageSelector(state).currentImageUrl || ''}
-          nextSrc={imageSelector(state).nextImageUrl}
-          prevSrc={imageSelector(state).prevImageUrl}
-          onCloseRequest={() => dispatch(galleryActions.closeLightBox())}
-          onMovePrevRequest={() => dispatch(galleryActions.openPrevImage())}
-          onMoveNextRequest={() => dispatch(galleryActions.openNextImage())}
+          mainSrc={imageUrls?.[lightBox.idx] || ''}
+          nextSrc={getCyclic(imageUrls!, lightBox.idx + 1)}
+          prevSrc={getCyclic(imageUrls!, lightBox.idx - 1)}
+          onCloseRequest={() => setLightBox({ idx: 0, isOpen: false })}
+          onMovePrevRequest={() =>
+            setLightBox({
+              idx: (lightBox.idx + images!.length + 1) % images!.length,
+              isOpen: true,
+            })
+          }
+          onMoveNextRequest={() =>
+            setLightBox({
+              idx: (lightBox.idx + images!.length - 1) % images!.length,
+              isOpen: true,
+            })
+          }
         />
       )}
-      {state.images.length > 0 && <GalleryImageInfo />}
+      <GalleryImageInfo
+        isInfoModalOpen={infoModal.isOpen}
+        image={images![infoModal.idx]!}
+        onClose={() => setInfoModal({ idx: 0, isOpen: false })}
+      />
     </VStack>
   )
 }

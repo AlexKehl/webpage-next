@@ -41,7 +41,6 @@ const nextStep = (state: StepperState): StepperState => {
 
 const contactInformation = serverApi.endpoints.contactInformation
 const addressInformation = serverApi.endpoints.addressInformation
-const user = serverApi.endpoints.user
 const checkout = serverApi.endpoints.checkout
 
 export const stepperSlice = createSlice({
@@ -66,13 +65,9 @@ export const stepperSlice = createSlice({
   },
   extraReducers: (builder) => {
     addLoadingMatcher<StepperState>(builder, contactInformation)
-    addLoadingMatcher<StepperState>(builder, user)
     addLoadingMatcher<StepperState>(builder, addressInformation)
     addLoadingMatcher<StepperState>(builder, checkout)
 
-    builder.addMatcher(user.matchFulfilled, (state, action) => {
-      state.user = action.payload
-    })
     builder.addMatcher(contactInformation.matchFulfilled, nextStep)
     builder.addMatcher(contactInformation.matchRejected, handleStepperError)
     builder.addMatcher(addressInformation.matchFulfilled, nextStep)

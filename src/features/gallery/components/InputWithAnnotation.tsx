@@ -22,7 +22,7 @@ const InputWithAnnotation = ({
       <FormLabel m="0">{label}</FormLabel>
       <Flex m="0">
         <InputField
-          error={formState.errors[hookFormRegister.name]}
+          error={Boolean(formState.errors[hookFormRegister.name])}
           errorText={t.fieldRequired}
           hookFormRegister={hookFormRegister}
           width={16}

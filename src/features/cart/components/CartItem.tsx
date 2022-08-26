@@ -3,7 +3,7 @@ import { Flex, GridItem, IconButton, SimpleGrid, Text } from '@chakra-ui/react'
 import { Endpoints } from 'common/constants/Endpoints'
 import React from 'react'
 import ImagePresenter from 'src/components/ImagePresenter'
-import { API } from 'src/constants/EnvProxy'
+import Env from 'src/constants/EnvProxy'
 import { CartItem } from 'src/features/cart/types'
 import useI18n from 'src/lib/hooks/useI18n'
 
@@ -26,7 +26,7 @@ const CartItemComponent = (props: Props) => {
         <ImagePresenter
           width={{ base: '50', sm: '60' }}
           height={{ base: '50', sm: '60' }}
-          src={`${API}${Endpoints.galleryGetImage
+          src={`${Env.NEXT_PUBLIC_API}${Endpoints.galleryGetImage
             .replace(':category', category)
             .replace(':name', id)}`}
         />

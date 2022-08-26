@@ -5,21 +5,15 @@ import {
   PopoverTrigger,
   Stack,
 } from '@chakra-ui/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import router from 'next/router'
 import React from 'react'
 import DesktopSubNav from 'src/features/navbar/components/DesktopSubNav'
 import useI18n from 'src/lib/hooks/useI18n'
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
-import {
-  isLoggedIn,
-  userActions,
-  userSelector,
-} from 'src/redux/slices/userSlice'
 
 const ProfileMenu = () => {
   const { t } = useI18n()
-  const dispatch = useAppDispatch()
-  const userState = useAppSelector(userSelector)
+  const { data: session, status } = useSession()
 
   return (
     <Popover trigger={'hover'} placement={'bottom'}>
@@ -35,7 +29,7 @@ const ProfileMenu = () => {
             color: 'gray.800',
           }}
         >
-          {userState.user?.email || t.profile}
+          {session?.user?.email || t.profile}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -47,23 +41,17 @@ const ProfileMenu = () => {
         maxW="min"
       >
         <Stack>
-          {isLoggedIn(userState) ? (
+          {status === 'authenticated' ? (
             <DesktopSubNav
               label={t.profile}
               onClick={() => router.push('/profile')}
             />
           ) : (
-            <DesktopSubNav
-              label={t.signIn}
-              onClick={() => router.push('/login')}
-            />
+            <DesktopSubNav label={t.signIn} onClick={() => signIn('cognito')} />
           )}
 
-          {isLoggedIn(userState) && (
-            <DesktopSubNav
-              label={t.logout}
-              onClick={() => dispatch(userActions.logout())}
-            />
+          {status === 'authenticated' && (
+            <DesktopSubNav label={t.logout} onClick={() => signOut()} />
           )}
         </Stack>
       </PopoverContent>

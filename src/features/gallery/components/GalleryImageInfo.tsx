@@ -12,28 +12,24 @@ import {
   Td,
   Tr,
 } from '@chakra-ui/react'
+import { GalleryImage } from '@prisma/client'
 import React from 'react'
 import useI18n from 'src/lib/hooks/useI18n'
-import { useAppSelector, useAppDispatch } from 'src/redux/hooks'
+import { useAppDispatch } from 'src/redux/hooks'
 import { cartActions } from 'src/redux/slices/cartSlice'
-import {
-  gallerySelector,
-  imageSelector,
-  galleryActions,
-} from 'src/redux/slices/gallerySlice'
 
-const GalleryImageInfo = () => {
+interface Props {
+  isInfoModalOpen: boolean
+  image: GalleryImage
+  onClose: () => void
+}
+
+const GalleryImageInfo = ({ isInfoModalOpen, image, onClose }: Props) => {
   const { t } = useI18n()
-  const state = useAppSelector(gallerySelector)
   const dispatch = useAppDispatch()
-  const image = imageSelector(state).currentImage
 
   return (
-    <Modal
-      isOpen={state.isInfoModalOpen}
-      onClose={() => dispatch(galleryActions.closeInfoModal())}
-      size="md"
-    >
+    <Modal isOpen={isInfoModalOpen} onClose={onClose} size="md">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Info</ModalHeader>

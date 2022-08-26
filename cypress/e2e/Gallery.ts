@@ -1,11 +1,11 @@
 import { AdminUserWithPassword, UserWithPassword } from 'common/fixtures/User'
-import { BASE_URL } from 'src/constants/EnvProxy'
+import Env from 'src/constants/EnvProxy'
 import en from 'src/locales/en'
 
 describe('gallery', () => {
   it('can see edit button when admin', () => {
     const { password, email } = AdminUserWithPassword
-    cy.visit(`${BASE_URL}/login`)
+    cy.visit(`${Env.NEXT_PUBLIC_BASE_URL}/login`)
 
     cy.findByRole('textbox').type(email)
     cy.findByPlaceholderText(en.password).type(password)
@@ -19,7 +19,7 @@ describe('gallery', () => {
 
   it('cannot see edit button as normal user', () => {
     const { password, email } = UserWithPassword
-    cy.visit(`${BASE_URL}/login`)
+    cy.visit(`${Env.NEXT_PUBLIC_BASE_URL}/login`)
 
     cy.findByRole('textbox').type(email)
     cy.findByPlaceholderText(en.password).type(password)

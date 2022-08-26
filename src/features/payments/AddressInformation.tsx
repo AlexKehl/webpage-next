@@ -62,14 +62,14 @@ const AddressInformation = () => {
           </GridItem>
           <GridItem colStart={5} colSpan={4}>
             <Button
-              isFullWidth
+              width="100%"
               onClick={() => dispatch(stepperActions.prevStep())}
             >
               {t.previous}
             </Button>
           </GridItem>
           <GridItem colStart={9} colSpan={4}>
-            <Button isFullWidth type="submit">
+            <Button width="100%" type="submit">
               {t.next}
             </Button>
           </GridItem>

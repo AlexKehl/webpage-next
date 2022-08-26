@@ -1,5 +1,6 @@
-import { GalleryImageMeta } from 'common/interface/GalleryImages'
-export interface CartItem extends GalleryImageMeta {}
+import { GalleryImage } from '@prisma/client'
+
+export interface CartItem extends GalleryImage {}
 
 export interface Cart {
   items: CartItem[]
