@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import Categories from 'common/constants/Categories'
-import { Category } from 'common/interface/Constants'
 import { generateCategoryPaths } from 'src/utils/PathsGenerator'
 import GalleryEdit from 'src/features/gallery/components/GalleryEdit'
+import { Category } from '@prisma/client'
+import { Categories } from 'src/constants'
 
 interface Props {
   category: Category

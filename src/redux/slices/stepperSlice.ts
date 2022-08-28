@@ -1,16 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import HttpStatus from 'common/constants/HttpStatus'
-import { User } from 'common/interface/ConsumerResponses'
-import { BuyImageDto } from 'common/interface/Dto'
 import { serverApi } from '../services/serverApi'
 import { RootState } from '../store'
 import {
   WithToast,
   WithLoader,
   withLoader,
-  addLoadingMatcher,
   WithRedirect,
-  toastByError,
   withToasts,
   withRedirect,
 } from '../utils'
@@ -64,10 +59,6 @@ export const stepperSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    addLoadingMatcher<StepperState>(builder, contactInformation)
-    addLoadingMatcher<StepperState>(builder, addressInformation)
-    addLoadingMatcher<StepperState>(builder, checkout)
-
     builder.addMatcher(contactInformation.matchFulfilled, nextStep)
     builder.addMatcher(contactInformation.matchRejected, handleStepperError)
     builder.addMatcher(addressInformation.matchFulfilled, nextStep)

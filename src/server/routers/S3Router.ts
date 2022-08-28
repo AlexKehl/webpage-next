@@ -5,7 +5,7 @@ import Env from 'src/constants/EnvProxy'
 import { z } from 'zod'
 import { Context } from './CreateContext'
 
-const s3 = new S3({
+export const s3 = new S3({
   region: 'eu-central-1',
   accessKeyId: Env.S3_ACCESS_KEY,
   secretAccessKey: Env.S3_SECRET_KEY,

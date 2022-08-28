@@ -1,5 +1,5 @@
 import { Button, Flex, VStack } from '@chakra-ui/react'
-import { Category } from 'common/interface/Constants'
+import { Category } from '@prisma/client'
 import { Fragment, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import useI18n from 'src/lib/hooks/useI18n'

@@ -1,6 +1,6 @@
-import Categories from 'common/constants/Categories'
-import { Category } from 'common/interface/Constants'
+import { Category } from '@prisma/client'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { Categories } from 'src/constants'
 import Gallery from 'src/features/gallery/components/Gallery'
 import { generateCategoryPaths } from 'src/utils/PathsGenerator'
 

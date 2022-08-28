@@ -1,7 +1,7 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import React from 'react'
-import Languages from 'common/constants/Languages'
+import { Languages } from 'src/constants'
 import useI18n from 'src/lib/hooks/useI18n'
 
 const LanguageSwitch = () => {

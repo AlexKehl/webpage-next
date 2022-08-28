@@ -1,4 +1,4 @@
-import { Category } from 'common/interface/Constants'
+import { Category } from '@prisma/client'
 import { Fragment, useMemo, useState } from 'react'
 import FullPageLoader from 'src/components/FullPageLoader'
 import Env from 'src/constants/EnvProxy'

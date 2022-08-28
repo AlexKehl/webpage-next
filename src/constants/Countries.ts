@@ -1,4 +1,4 @@
-import { Language } from 'common/constants/Languages'
+import { Language } from 'src/types'
 
 export interface CountryType {
   flag: string

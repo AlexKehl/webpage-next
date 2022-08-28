@@ -1,4 +1,4 @@
-import { Category } from 'common/interface/Constants'
+import { Category } from '@prisma/client'
 
 const generateCategoryForLocale = ({
   locale,

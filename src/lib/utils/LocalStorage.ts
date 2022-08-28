@@ -1,9 +1,7 @@
 import _ from 'lodash'
-import { User } from 'common/interface/ConsumerResponses'
 import { Cart } from 'src/features/cart/types'
 
 export interface LocalStorageData {
-  user?: User
   cart: Cart
 }
 

@@ -1,11 +1,11 @@
 import { router } from '@trpc/server'
-import { s3 } from 'pages/api/s3/uploadFile'
 import Env from 'src/constants/EnvProxy'
 import prisma from 'src/lib/prisma'
 import { filterNullValues } from 'src/lib/utils/PrismaUtils'
 import { GalleryImage } from 'src/types/PrismaProxy'
 import { z } from 'zod'
 import { Context } from './CreateContext'
+import { s3 } from './S3Router'
 
 const categoryZod = z.enum(['acryl', 'oil', 'graphics', 'other'])
 
