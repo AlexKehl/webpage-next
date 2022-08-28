@@ -1,4 +1,4 @@
-import { GalleryImage } from '@prisma/client'
+import { GalleryImage } from 'src/types/PrismaProxy'
 
 export interface CartItem extends GalleryImage {}
 

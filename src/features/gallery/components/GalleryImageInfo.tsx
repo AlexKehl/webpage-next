@@ -12,11 +12,11 @@ import {
   Td,
   Tr,
 } from '@chakra-ui/react'
-import { GalleryImage } from '@prisma/client'
 import React from 'react'
 import useI18n from 'src/lib/hooks/useI18n'
 import { useAppDispatch } from 'src/redux/hooks'
 import { cartActions } from 'src/redux/slices/cartSlice'
+import { GalleryImage } from 'src/types/PrismaProxy'
 
 interface Props {
   isInfoModalOpen: boolean

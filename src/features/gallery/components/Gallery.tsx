@@ -26,7 +26,7 @@ const Gallery = ({ category }: Props) => {
   const imageUrls = images?.map((i) => i.url)
 
   if (!images) {
-    return
+    return <div />
   }
 
   return (

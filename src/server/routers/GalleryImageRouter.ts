@@ -1,8 +1,8 @@
-import { GalleryImage } from '@prisma/client'
 import { router } from '@trpc/server'
 import { s3 } from 'pages/api/s3/uploadFile'
 import Env from 'src/constants/EnvProxy'
 import prisma from 'src/lib/prisma'
+import { GalleryImage } from 'src/types/PrismaProxy'
 import { z } from 'zod'
 import { Context } from './CreateContext'
 
@@ -10,12 +10,12 @@ const categoryZod = z.enum(['acryl', 'oil', 'graphics', 'other'])
 
 const imageSaveInput: z.ZodType<Omit<GalleryImage, 'id'>> = z.object({
   name: z.string(),
-  description: z.string().nullable(),
+  description: z.string().optional(),
   width: z.string(),
   height: z.string(),
   category: categoryZod,
-  isForSell: z.boolean().nullable(),
-  price: z.number().nullable(),
+  isForSell: z.boolean(),
+  price: z.number().optional(),
   url: z.string(),
 })
 
@@ -24,6 +24,24 @@ export const galleryImageRouter = router<Context>()
     input: imageSaveInput,
     async resolve({ input }) {
       return prisma.galleryImage.create({
+        data: input,
+      })
+    },
+  })
+  .mutation('update', {
+    input: z.object({
+      id: z.string(),
+      name: z.string().optional(),
+      description: z.string().optional(),
+      width: z.string().optional(),
+      height: z.string().optional(),
+      category: categoryZod.optional(),
+      isForSell: z.boolean().optional(),
+      price: z.number().optional(),
+    }),
+    async resolve({ input }) {
+      return prisma.galleryImage.update({
+        where: { id: input.id },
         data: input,
       })
     },
@@ -50,10 +68,11 @@ export const galleryImageRouter = router<Context>()
       category: categoryZod,
     }),
     async resolve({ input }) {
-      return prisma.galleryImage.findMany({
+      const res = await prisma.galleryImage.findMany({
         where: {
           category: { equals: input.category },
         },
       })
+      return res as GalleryImage[]
     },
   })
