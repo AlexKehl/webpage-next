@@ -1,5 +1,6 @@
 import { router } from '@trpc/server'
 import { S3 } from 'aws-sdk'
+import cuid from 'cuid'
 import Env from 'src/constants/EnvProxy'
 import { z } from 'zod'
 import { Context } from './CreateContext'
@@ -11,20 +12,21 @@ const s3 = new S3({
   signatureVersion: 'v4',
 })
 
-export const s3Router = router<Context>().mutation('getUploadUrl', {
+export const s3Router = router<Context>().query('getUploadUrl', {
   input: z.object({
     name: z.string(),
-    type: z.string(),
+    contentType: z.string(),
   }),
   async resolve({ input }) {
+    const id = cuid()
     const fileParams = {
       Bucket: Env.S3_BUCKET_NAME,
-      Key: input.name,
+      Key: id,
       Expires: 600,
-      ContentType: input.type,
+      ContentType: input.contentType,
     }
 
-    const url = await s3.getSignedUrlPromise('putObject', fileParams)
-    return url
+    const uploadUrl = await s3.getSignedUrlPromise('putObject', fileParams)
+    return { uploadUrl, id }
   },
 })

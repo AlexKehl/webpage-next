@@ -13,11 +13,13 @@ const ServerEnvSchema = z.object({
 const ClientEnvSchema = z.object({
   NEXT_PUBLIC_API: z.string(),
   NEXT_PUBLIC_BASE_URL: z.string(),
+  NEXT_PUBLIC_S3_BUCKET_URL: z.string(),
 })
 
 const ClientEnvObj: z.infer<typeof ClientEnvSchema> = {
   NEXT_PUBLIC_API: process.env['NEXT_PUBLIC_API']!,
   NEXT_PUBLIC_BASE_URL: process.env['NEXT_PUBLIC_BASE_URL']!,
+  NEXT_PUBLIC_S3_BUCKET_URL: process.env['NEXT_PUBLIC_S3_BUCKET_URL']!,
 }
 
 const ServerEnvObj: z.infer<typeof ServerEnvSchema> = {

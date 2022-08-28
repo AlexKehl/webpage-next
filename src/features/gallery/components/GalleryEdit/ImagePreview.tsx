@@ -1,5 +1,5 @@
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
-import { Box, Button, Checkbox, Flex, Input, Textarea } from '@chakra-ui/react'
+import { Box, Button, Checkbox, Flex, Textarea } from '@chakra-ui/react'
 import { FormProvider, useForm } from 'react-hook-form'
 import InputField from 'src/components/Form/InputField'
 import ImagePresenter from 'src/components/ImagePresenter'
@@ -82,6 +82,7 @@ const ImagePreview = (props: Props) => {
                     annotation={t.euro}
                     hookFormRegister={formData.register('price', {
                       required: Boolean(formData.watch()['isForSell']),
+                      setValueAs: (v) => parseInt(v),
                     })}
                   />
                 )}

@@ -1,5 +1,5 @@
 import { Input, InputProps, Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
 type Props = {
@@ -10,14 +10,14 @@ type Props = {
 
 const InputField = ({ error, errorText, hookFormRegister, ...rest }: Props) => {
   return (
-    <div>
+    <Fragment>
       <Input isInvalid={error} {...rest} {...hookFormRegister} />
       {error && (
         <Text mx="2" my="1" textAlign="left" fontSize="small" color="red.500">
           {errorText}
         </Text>
       )}
-    </div>
+    </Fragment>
   )
 }
 

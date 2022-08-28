@@ -1,8 +1,10 @@
 import { Category } from 'common/interface/Constants'
-import { useMemo } from 'react'
+import { Fragment, useMemo, useState } from 'react'
+import FullPageLoader from 'src/components/FullPageLoader'
+import Env from 'src/constants/EnvProxy'
+import useToasts from 'src/lib/hooks/useToasts'
 import { GalleryImage } from 'src/types/PrismaProxy'
 import { useContext, useMutation } from 'src/utils/Trpc'
-import { uploadFile } from '../../api'
 import ImagePreview from './ImagePreview'
 
 interface Props {
@@ -12,23 +14,43 @@ interface Props {
 }
 
 const NewImagePreview = ({ category, file, onRemove }: Props) => {
-  const { invalidateQueries } = useContext()
+  const { invalidateQueries, client } = useContext()
+  const [isUploading, setIsUploading] = useState(false)
+  const { showSuccessToast } = useToasts()
 
   const { mutate: saveImage } = useMutation('gallery.save', {
     onSuccess: () => {
       onRemove()
       invalidateQueries(['gallery.imagesList'])
+      showSuccessToast()
     },
   })
 
   const onSubmitHandler = async (
     data: Omit<GalleryImage, 'url' | 'id' | 'category'>
   ) => {
-    if (!file) {
-      return
-    }
-    const url = await uploadFile(file)
-    saveImage({ ...data, url, category })
+    const { uploadUrl, id } = await client.query('s3.getUploadUrl', {
+      name: file.name,
+      contentType: file.type,
+    })
+
+    setIsUploading(true)
+    await fetch(uploadUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-type': file.type,
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+    setIsUploading(false)
+
+    saveImage({
+      ...data,
+      url: Env.NEXT_PUBLIC_S3_BUCKET_URL + file.name,
+      category,
+      id,
+    })
   }
 
   const imageSrc = useMemo(
@@ -37,12 +59,15 @@ const NewImagePreview = ({ category, file, onRemove }: Props) => {
   )
 
   return (
-    <ImagePreview
-      onSubmit={onSubmitHandler}
-      onDelete={onRemove}
-      url={imageSrc}
-      defaultValues={{ name: file.name }}
-    />
+    <Fragment>
+      <FullPageLoader isLoading={isUploading} />
+      <ImagePreview
+        onSubmit={onSubmitHandler}
+        onDelete={onRemove}
+        url={imageSrc}
+        defaultValues={{ name: file.name }}
+      />
+    </Fragment>
   )
 }
 
