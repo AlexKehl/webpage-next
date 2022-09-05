@@ -6,13 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch",
     "lint": "next lint",
     "cy:install": "cypress install",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "test:e2e": "start-server-and-test start:cli http://localhost:3000/list cy:open",
-    "test:e2e:run": "start-server-and-test serve http://localhost:8811/list cy:run"
+    "test:e2e:run": "start-server-and-test serve http://localhost:8811/list cy:run",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "test": "npm run docker:up && dotenv -e .env.test npx prisma db push && jest --watch",
+    "db": "dotenv -e .env npx prisma studio",
+    "db:test": "dotenv -e .env.test npx prisma studio"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.8",

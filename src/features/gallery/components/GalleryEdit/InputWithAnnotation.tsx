@@ -8,6 +8,7 @@ interface Props {
   label: string
   annotation: string
   hookFormRegister: ReturnType<UseFormRegister<FieldValues>>
+  isNumber?: boolean
 }
 
 const InputWithAnnotation = ({

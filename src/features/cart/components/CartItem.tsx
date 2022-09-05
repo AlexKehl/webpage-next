@@ -4,13 +4,14 @@ import React from 'react'
 import ImagePresenter from 'src/components/ImagePresenter'
 import { CartItem } from 'src/features/cart/types'
 import useI18n from 'src/lib/hooks/useI18n'
+import { GalleryImage } from 'src/types/PrismaProxy'
 
-interface Props extends CartItem {
+interface Props {
+  galleryImage: GalleryImage
   onDelete: (item: CartItem['id']) => void
 }
 
-const CartItemComponent = (props: Props) => {
-  const { onDelete, description, id, name } = props
+const CartItemComponent = ({ galleryImage, onDelete }: Props) => {
   const { t } = useI18n()
   return (
     <SimpleGrid
@@ -24,16 +25,16 @@ const CartItemComponent = (props: Props) => {
         <ImagePresenter
           width={{ base: '50', sm: '60' }}
           height={{ base: '50', sm: '60' }}
-          src={props.url}
+          src={galleryImage.url}
         />
       </GridItem>
       <GridItem colSpan={{ base: 8, sm: 5 }}>
         <Text my="4" fontSize="xl">
-          {name}
+          {galleryImage.name}
         </Text>
-        <Text fontSize="md">{description}</Text>
+        <Text fontSize="md">{galleryImage.description}</Text>
         <Text fontSize="sm">
-          {props.width}cm x {props.height}cm
+          {galleryImage.width}cm x {galleryImage.height}cm
         </Text>
 
         <Flex>
@@ -42,13 +43,13 @@ const CartItemComponent = (props: Props) => {
           </Text>
           <Text my="4" mx="2" fontSize="lg" color="orange.400">
             {' '}
-            {props.price} €
+            {galleryImage.price} €
           </Text>
         </Flex>
       </GridItem>
       <GridItem colStart={12}>
         <IconButton
-          onClick={() => onDelete(props.id)}
+          onClick={() => onDelete(galleryImage.id)}
           icon={<DeleteIcon w={5} h={5} />}
           variant={'ghost'}
           aria-label={'Delete cart item'}

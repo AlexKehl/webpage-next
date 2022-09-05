@@ -47,7 +47,7 @@ const NewImagePreview = ({ category, file, onRemove }: Props) => {
 
     saveImage({
       ...data,
-      url: Env.NEXT_PUBLIC_S3_BUCKET_URL + file.name,
+      url: Env.NEXT_PUBLIC_S3_BUCKET_URL + id,
       category,
       id,
     })

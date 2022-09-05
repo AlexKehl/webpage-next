@@ -19,7 +19,9 @@ const Gallery = ({ category }: Props) => {
   const { t } = useI18n()
   const router = useRouter()
   const { data: session } = useSession()
-  const { data: images } = useQuery(['gallery.imagesList', { category }])
+  const { data: images } = useQuery(['gallery.imagesList', { category }], {
+    refetchOnWindowFocus: false,
+  })
   const [lightBox, setLightBox] = useState({ isOpen: false, idx: 0 })
   const [infoModal, setInfoModal] = useState({ isOpen: false, idx: 0 })
 

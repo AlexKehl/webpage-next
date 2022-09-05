@@ -79,6 +79,7 @@ const en = {
   name: 'Name',
   register: 'Register',
   paymentsuccess: 'Your payment was successfull.',
+  cartItemIsAlreadyPresent: 'This image is already in your cart',
 } as const
 
 export default en

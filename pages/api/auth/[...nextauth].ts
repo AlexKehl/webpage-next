@@ -17,6 +17,7 @@ export default NextAuth({
   callbacks: {
     async session({ session, user }) {
       session.user.role = user['role'] as Role
+      session.user.id = user['id']
       return session
     },
   },

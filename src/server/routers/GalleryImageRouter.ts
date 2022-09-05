@@ -74,6 +74,7 @@ export const galleryImageRouter = router<Context>()
         where: {
           category: { equals: input.category },
         },
+        orderBy: { createDate: 'asc' },
       })
       return res.map(filterNullValues) as GalleryImage[]
     },

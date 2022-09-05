@@ -23,7 +23,8 @@
       "src/*": ["./src/*"],
       "test/*": ["./test/*"],
       "common/*": ["./common/*"],
-      "public/*": ["./public/*"]
+      "public/*": ["./public/*"],
+      "pages/*": ["./pages/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

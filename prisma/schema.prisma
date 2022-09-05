@@ -57,7 +57,7 @@ model User {
   role          Role      @default(ADMIN)
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
+  cart          Cart?
 }
 
 model VerificationToken {
@@ -69,17 +69,8 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Post {
-  id        String  @id @default(cuid())
-  title     String
-  content   String
-  published Boolean @default(false)
-  authorId  String
-  author    User    @relation(fields: [authorId], references: [id])
-}
-
 model GalleryImage {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   name        String
   description String?
   width       String
@@ -88,4 +79,14 @@ model GalleryImage {
   isForSell   Boolean?  @default(false)
   price       Int?
   url         String
+  createDate  DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  carts       Cart[]
+}
+
+model Cart {
+  id            String         @id @default(cuid())
+  galleryImages GalleryImage[]
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String         @unique
 }
