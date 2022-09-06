@@ -80,6 +80,7 @@ const en = {
   register: 'Register',
   paymentsuccess: 'Your payment was successfull.',
   cartItemIsAlreadyPresent: 'This image is already in your cart',
+  loginToViewContent: 'Please login to view content.',
 } as const
 
 export default en

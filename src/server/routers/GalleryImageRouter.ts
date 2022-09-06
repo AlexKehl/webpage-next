@@ -4,6 +4,7 @@ import prisma from 'src/lib/prisma'
 import { filterNullValues } from 'src/lib/utils/PrismaUtils'
 import { GalleryImage } from 'src/types/PrismaProxy'
 import { z } from 'zod'
+import { isAuthorized } from '../middleware/Auth'
 import { Context } from './CreateContext'
 import { s3 } from './S3Router'
 
@@ -34,6 +35,21 @@ const imageUpdateInput: z.ZodType<Partial<GalleryImage>> = z.object({
 })
 
 export const galleryImageRouter = router<Context>()
+  .query('imagesList', {
+    input: z.object({
+      category: categoryZod,
+    }),
+    async resolve({ input }) {
+      const res = await prisma.galleryImage.findMany({
+        where: {
+          category: { equals: input.category },
+        },
+        orderBy: { createDate: 'asc' },
+      })
+      return res.map(filterNullValues) as GalleryImage[]
+    },
+  })
+  .middleware(isAuthorized)
   .mutation('save', {
     input: imageSaveInput,
     async resolve({ input }) {
@@ -63,19 +79,5 @@ export const galleryImageRouter = router<Context>()
       return prisma.galleryImage.delete({
         where: { id: input.id },
       })
-    },
-  })
-  .query('imagesList', {
-    input: z.object({
-      category: categoryZod,
-    }),
-    async resolve({ input }) {
-      const res = await prisma.galleryImage.findMany({
-        where: {
-          category: { equals: input.category },
-        },
-        orderBy: { createDate: 'asc' },
-      })
-      return res.map(filterNullValues) as GalleryImage[]
     },
   })

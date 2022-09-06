@@ -3,13 +3,15 @@ import cuid from 'cuid'
 import prisma from 'src/lib/prisma'
 import { Cart, GalleryImage } from 'src/types/PrismaProxy'
 import { z } from 'zod'
+import { isAuthorized } from '../middleware/Auth'
 import { Context } from './CreateContext'
 
 export const cartRouter = router<Context>()
+  .middleware(isAuthorized)
   .mutation('add', {
     input: z.object({ imageId: z.string() }),
     async resolve({ input, ctx }) {
-      const userId = ctx.user?.id! // TODO add middleware for user validation
+      const userId = ctx.user.id
       const user = await prisma.user.findUnique({
         where: { id: userId },
         include: { cart: true },
@@ -46,7 +48,7 @@ export const cartRouter = router<Context>()
   .query('list', {
     async resolve({ ctx }) {
       const cart = await prisma.cart.findUnique({
-        where: { userId: ctx.user?.id },
+        where: { userId: ctx.user.id },
         include: { galleryImages: true },
       })
 
@@ -57,7 +59,7 @@ export const cartRouter = router<Context>()
     input: z.object({ imageId: z.string() }),
     async resolve({ input, ctx }) {
       return prisma.cart.update({
-        where: { userId: ctx.user?.id },
+        where: { userId: ctx.user.id },
         data: { galleryImages: { disconnect: { id: input.imageId } } },
       })
     },

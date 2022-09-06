@@ -9,8 +9,6 @@ import { store } from 'src/redux/store'
 import { SessionProvider } from 'next-auth/react'
 import { withTRPC } from '@trpc/next'
 import { AppRouter } from './api/trpc/[trpc]'
-import { useIsFetching } from 'react-query'
-import FullPageLoader from 'src/components/FullPageLoader'
 
 const theme = extendTheme({
   components: {
@@ -19,13 +17,11 @@ const theme = extendTheme({
 })
 
 function App({ Component, pageProps }: any) {
-  const isFetching = useIsFetching()
   return (
     <SessionProvider>
       <Provider store={store}>
         <ChakraProvider theme={theme}>
           <Navbar />
-          <FullPageLoader isLoading={Boolean(isFetching)} />
           <Component {...pageProps} />
         </ChakraProvider>
       </Provider>
@@ -61,14 +57,6 @@ export default withTRPC<AppRouter>({
       headers: {
         // optional - inform server that it's an ssr request
         'x-ssr': '1',
-      },
-      queryClientConfig: {
-        defaultOptions: {
-          queries: {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-          },
-        },
       },
     }
   },
