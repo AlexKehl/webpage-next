@@ -5,7 +5,7 @@ module.exports = {
     'jest-watch-typeahead/testname',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  testEnvironment: 'node',
+  testEnvironment: 'jest-environment-jsdom',
   transform: {
     '^.+\\.(t|j)sx?$': ['@swc/jest'],
   },

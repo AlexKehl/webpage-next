@@ -1,3 +1,4 @@
+import useI18n from 'src/lib/hooks/useI18n'
 import useToasts from 'src/lib/hooks/useToasts'
 import { GalleryImage } from 'src/types/PrismaProxy'
 import { useContext, useMutation } from 'src/utils/Trpc'
@@ -8,19 +9,21 @@ interface Props {
 }
 
 const ImageFromDbPreview = ({ image }: Props) => {
+  const { t } = useI18n()
   const { invalidateQueries } = useContext()
   const { showSuccessToast } = useToasts()
 
   const { mutate: deleteImage } = useMutation('gallery.delete', {
     onSuccess: () => {
       invalidateQueries(['gallery.imagesList'])
-      showSuccessToast()
+      invalidateQueries(['cart.list'])
+      showSuccessToast(t.successfullySubmitted)
     },
   })
 
   const { mutate: updateImage } = useMutation('gallery.update', {
     onSuccess: () => {
-      showSuccessToast()
+      showSuccessToast(t.successfullySubmitted)
     },
   })
 

@@ -1,24 +1,20 @@
 import { useToast } from '@chakra-ui/react'
-import useI18n from './useI18n'
 
 const useToasts = () => {
   const toast = useToast()
-  const { t } = useI18n()
 
-  const showSuccessToast = () => {
+  const showSuccessToast = (text: string) => {
     return toast({
-      title: t.success,
-      description: t.successfullySubmitted,
+      description: text,
       status: 'success',
       duration: 6000,
       isClosable: true,
     })
   }
 
-  const showErrorToast = () => {
+  const showErrorToast = (text: string) => {
     return toast({
-      title: t.error,
-      description: t.unexpectedError,
+      description: text,
       status: 'error',
       duration: 6000,
       isClosable: true,

@@ -5,6 +5,8 @@ import {
   GalleryImage as PrismaGalleryImage,
   User as PrismaUser,
   Cart as PrismaCart,
+  ContactInformation as PrismaContactInformation,
+  Address as PrismaAddress,
 } from '@prisma/client'
 import { NonNullable } from 'ts-toolbelt/out/Object/NonNullable'
 import { NullableKeys } from 'ts-toolbelt/out/Object/NullableKeys'
@@ -18,3 +20,5 @@ export type NullToUndefined<T extends Record<string, any>> = Omit<
 export type GalleryImage = NullToUndefined<PrismaGalleryImage>
 export type User = NullToUndefined<PrismaUser>
 export type Cart = NullToUndefined<PrismaCart>
+export type ContactInformation = NullToUndefined<PrismaContactInformation>
+export type Address = NullToUndefined<PrismaAddress>

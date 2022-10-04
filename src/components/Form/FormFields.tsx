@@ -17,7 +17,7 @@ export const Street = ({ ...rest }: InputProps) => {
       placeholder={t.street}
       error={Boolean(formState.errors['street'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('street', { required: true })}
+      hookFormRegister={register('street')}
       {...rest}
     />
   )
@@ -33,7 +33,7 @@ export const City = ({ ...rest }: InputProps) => {
       placeholder={t.city}
       error={Boolean(formState.errors['city'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('city', { required: true })}
+      hookFormRegister={register('city')}
       {...rest}
     />
   )
@@ -65,7 +65,7 @@ export const Zip = ({ ...rest }: InputProps) => {
       placeholder={t.zip}
       error={Boolean(formState.errors['zip'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('zip', { required: true })}
+      hookFormRegister={register('zip')}
       {...rest}
     />
   )
@@ -86,10 +86,10 @@ export const Country = ({ withPhone }: { withPhone?: boolean }) => {
   })
   return (
     <Select
-      hookFormRegister={register('countryCode', { required: true })}
+      hookFormRegister={register('country')}
       onChange={() => alert('changed')}
       options={options}
-      error={Boolean(formState.errors['countryCode'])}
+      error={Boolean(formState.errors['country'])}
       errorText={t.fieldRequired}
     />
   )
@@ -105,7 +105,7 @@ export const StreetNumber = ({ ...rest }: InputProps) => {
       placeholder={t.streetNumber}
       error={Boolean(formState.errors['streetNumber'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('streetNumber', { required: true })}
+      hookFormRegister={register('streetNumber')}
       {...rest}
     />
   )
@@ -121,7 +121,7 @@ export const Phone = ({ ...rest }: InputProps) => {
       placeholder={t.phone}
       error={Boolean(formState.errors['phone'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('phone', { required: true })}
+      hookFormRegister={register('phone')}
       {...rest}
     />
   )
@@ -137,7 +137,7 @@ export const LastName = ({ ...rest }: InputProps) => {
       placeholder={t.lastName}
       error={Boolean(formState.errors['lastName'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('lastName', { required: true })}
+      hookFormRegister={register('lastName')}
       {...rest}
     />
   )
@@ -153,7 +153,7 @@ export const FirstName = ({ ...rest }: InputProps) => {
       placeholder={t.firstName}
       error={Boolean(formState.errors['firstName'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('firstName', { required: true })}
+      hookFormRegister={register('firstName')}
       {...rest}
     />
   )
@@ -169,7 +169,7 @@ export const FullName = ({ ...rest }: InputProps) => {
       placeholder={t.fullName}
       error={Boolean(formState.errors['fullName'])}
       errorText={t.fieldRequired}
-      hookFormRegister={register('fullName', { required: true })}
+      hookFormRegister={register('fullName')}
       {...rest}
     />
   )

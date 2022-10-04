@@ -29,7 +29,7 @@ const ProfileMenu = () => {
             color: 'gray.800',
           }}
         >
-          {session?.user?.email || t.profile}
+          {t.profile}
         </Button>
       </PopoverTrigger>
       <PopoverContent

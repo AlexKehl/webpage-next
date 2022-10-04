@@ -1,6 +1,6 @@
 module.exports = (on, config) => {
   Object.assign(config, {
-    integrationFolder: 'cypress/e2e',
+    specPattern: 'cypress/e2e',
   })
 
   return config

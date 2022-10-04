@@ -1,15 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../store'
-import {
-  WithToast,
-  WithLoader,
-  withLoader,
-  WithRedirect,
-  withToasts,
-  withRedirect,
-} from '../utils'
-
-export interface StepperState extends WithToast, WithLoader, WithRedirect {
+export interface StepperState {
   activeStep: number
   // user?: User
   // address?: BuyImageDto['address']
@@ -17,9 +6,6 @@ export interface StepperState extends WithToast, WithLoader, WithRedirect {
 }
 
 export const initialState: StepperState = {
-  ...withRedirect,
-  ...withToasts,
-  ...withLoader,
   activeStep: 0,
 }
 

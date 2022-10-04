@@ -1,55 +1,36 @@
-import { useToast } from '@chakra-ui/react'
 import useI18n from 'src/lib/hooks/useI18n'
+import useToasts from 'src/lib/hooks/useToasts'
 import { useContext, useMutation, useQuery } from 'src/utils/Trpc'
 
 const useCart = () => {
   const { t } = useI18n()
-  const toast = useToast()
+  const { showSuccessToast, showErrorToast } = useToasts()
   const { invalidateQueries } = useContext()
 
   const { mutate: addToCart, isLoading: isCartAddLoading } = useMutation(
     'cart.add',
     {
       onSuccess: () => {
-        toast({
-          description: t.cartItemAdded,
-          status: 'success',
-          isClosable: true,
-        })
+        invalidateQueries(['cart.list'])
+        showSuccessToast(t.cartItemAdded)
       },
       onError: (err) => {
         if (err.data?.code === 'CONFLICT') {
-          toast({
-            description: t.cartItemIsAlreadyPresent,
-            status: 'error',
-            isClosable: true,
-          })
+          showErrorToast(t.cartItemIsAlreadyPresent)
           return
         }
-        toast({
-          description: t.unexpectedError,
-          status: 'error',
-          isClosable: true,
-        })
+        showErrorToast(t.unexpectedError)
       },
     }
   )
 
   const { data: cart, isLoading: isCartLoading } = useQuery(['cart.list'], {
+    enabled: false,
     onError: (err) => {
-      console.log(err.data?.code)
       if (err.data?.code === 'UNAUTHORIZED') {
-        toast({
-          description: t.loginToViewContent,
-          status: 'error',
-          isClosable: true,
-        })
+        showErrorToast(t.loginToViewContent)
       } else {
-        toast({
-          description: t.unexpectedError,
-          status: 'error',
-          isClosable: true,
-        })
+        showErrorToast(t.unexpectedError)
       }
     },
   })
@@ -63,10 +44,13 @@ const useCart = () => {
     }
   )
 
+  const { mutate: clearCart } = useMutation('cart.clear')
+
   return {
     addToCart,
     cart,
     deleteFromCart,
+    clearCart,
     isLoading: [isCartAddLoading, isCartLoading, isDeleteLoading].some(Boolean),
   }
 }

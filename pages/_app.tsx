@@ -1,11 +1,9 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps'
 import React from 'react'
-import { Provider } from 'react-redux'
 import Navbar from 'src/features/navbar/components'
 import 'src/globalstyles/gallery.css'
 import 'swagger-ui-react/swagger-ui.css'
-import { store } from 'src/redux/store'
 import { SessionProvider } from 'next-auth/react'
 import { withTRPC } from '@trpc/next'
 import { AppRouter } from './api/trpc/[trpc]'
@@ -19,12 +17,10 @@ const theme = extendTheme({
 function App({ Component, pageProps }: any) {
   return (
     <SessionProvider>
-      <Provider store={store}>
-        <ChakraProvider theme={theme}>
-          <Navbar />
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </Provider>
+      <ChakraProvider theme={theme}>
+        <Navbar />
+        <Component {...pageProps} />
+      </ChakraProvider>
     </SessionProvider>
   )
 }

@@ -1,30 +1,32 @@
 import { Center, Stack } from '@chakra-ui/react'
 import { Step, Steps } from 'chakra-ui-steps'
-import React from 'react'
+import React, { useState } from 'react'
+import WithAuth from 'src/components/HOC/WithAuth'
 import useI18n from 'src/lib/hooks/useI18n'
-import { useAppSelector, useAppDispatch } from 'src/redux/hooks'
-import { stepperSelector, stepperActions } from 'src/redux/slices/stepperSlice'
 import AddressInformation from './AddressInformation'
 import ContactInformation from './ContactInformation'
 
 const Stepper = () => {
   const { t } = useI18n()
-  const { activeStep } = useAppSelector(stepperSelector)
-  const dispatch = useAppDispatch()
+  const [activeStep, setActiveStep] = useState(0)
 
   return (
     <Center my="auto">
       <Stack p="10" w="xl">
         <Steps
-          onClickStep={(idx) => dispatch(stepperActions.setActiveStep(idx))}
+          onClickStep={setActiveStep}
           activeStep={activeStep}
           orientation="vertical"
         >
           <Step label={t.yourContactInformation}>
-            <ContactInformation />
+            <ContactInformation
+              onNextStep={() => setActiveStep(activeStep + 1)}
+            />
           </Step>
           <Step label={t.deliveryAndBillingAddress}>
-            <AddressInformation />
+            <AddressInformation
+              onPrevStep={() => setActiveStep(activeStep - 1)}
+            />
           </Step>
         </Steps>
       </Stack>
@@ -32,4 +34,4 @@ const Stepper = () => {
   )
 }
 
-export default Stepper
+export default WithAuth(Stepper)

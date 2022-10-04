@@ -2,6 +2,7 @@ import { Category } from '@prisma/client'
 import { Fragment, useMemo, useState } from 'react'
 import FullPageLoader from 'src/components/FullPageLoader'
 import Env from 'src/constants/EnvProxy'
+import useI18n from 'src/lib/hooks/useI18n'
 import useToasts from 'src/lib/hooks/useToasts'
 import { GalleryImage } from 'src/types/PrismaProxy'
 import { useContext, useMutation } from 'src/utils/Trpc'
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const NewImagePreview = ({ category, file, onRemove }: Props) => {
+  const { t } = useI18n()
   const { invalidateQueries, client } = useContext()
   const [isUploading, setIsUploading] = useState(false)
   const { showSuccessToast } = useToasts()
@@ -22,7 +24,7 @@ const NewImagePreview = ({ category, file, onRemove }: Props) => {
     onSuccess: () => {
       onRemove()
       invalidateQueries(['gallery.imagesList'])
-      showSuccessToast()
+      showSuccessToast(t.successfullySubmitted)
     },
   })
 

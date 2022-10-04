@@ -64,3 +64,17 @@ export const cartRouter = router<Context>()
       })
     },
   })
+  .mutation('clear', {
+    async resolve({ ctx }) {
+      const cart = await prisma.cart.findUnique({
+        where: { userId: ctx.user.id },
+        include: { galleryImages: true },
+      })
+      const imagesInCartIds = cart?.galleryImages.map(({ id }) => ({ id }))
+
+      return prisma.cart.update({
+        where: { userId: ctx.user.id },
+        data: { galleryImages: { disconnect: imagesInCartIds } },
+      })
+    },
+  })

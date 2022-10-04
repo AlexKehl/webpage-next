@@ -81,6 +81,7 @@ const en = {
   paymentsuccess: 'Your payment was successfull.',
   cartItemIsAlreadyPresent: 'This image is already in your cart',
   loginToViewContent: 'Please login to view content.',
+  loading: 'Loading...',
 } as const
 
 export default en

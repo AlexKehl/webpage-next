@@ -10,11 +10,12 @@ import React from 'react'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
 import CartIcon from './CartIcon'
-import WithClientRender from '../../../components/HOC/WithClientRender'
 import ProfileMenu from './ProfileMenu'
+import { useSession } from 'next-auth/react'
 
 const NavBar = () => {
   const { isOpen, onToggle } = useDisclosure()
+  const { status } = useSession()
 
   return (
     <Box>
@@ -55,7 +56,7 @@ const NavBar = () => {
           justifyContent={'space-between'}
           alignItems="center"
         >
-          <CartIcon />
+          {status === 'authenticated' && <CartIcon />}
           <ProfileMenu />
         </Flex>
       </Flex>
@@ -67,4 +68,4 @@ const NavBar = () => {
   )
 }
 
-export default WithClientRender(NavBar)
+export default NavBar

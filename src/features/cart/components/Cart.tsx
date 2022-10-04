@@ -2,6 +2,7 @@ import { Button, Center, Flex, Stack } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 import FullPageLoader from 'src/components/FullPageLoader'
+import WithAuth from 'src/components/HOC/WithAuth'
 import CartItem from 'src/features/cart/components/CartItem'
 import useI18n from 'src/lib/hooks/useI18n'
 import useCart from '../hooks/useCart'
@@ -41,4 +42,4 @@ const Cart = () => {
   )
 }
 
-export default Cart
+export default WithAuth(Cart)
