@@ -1,26 +1,29 @@
-import { ContactInformation } from 'src/types/PrismaProxy'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { trpc } from 'src/utils/Trpc'
-import { ContactInformationInput } from '../../validators'
+import { addressInput, ContactInformationInput } from '../validators'
 
 interface Props {
   onNextStep: () => void
-  onContactInformation: (val: ContactInformation) => void
 }
 
-const useContactInformation = ({ onNextStep, onContactInformation }: Props) => {
+const useContactInformation = ({ onNextStep }: Props) => {
+  const formData = useForm<ContactInformationInput>({
+    resolver: zodResolver(addressInput),
+  })
   const { mutate: updateContactInformation } =
     trpc.checkoutRouter.updateContactInformation.useMutation({
       onSuccess: () => onNextStep(),
     })
   trpc.checkoutRouter.getContactInformation.useQuery(undefined, {
-    onSuccess: onContactInformation,
+    onSuccess: formData.reset,
   })
 
   const onSubmit = async (contactData: ContactInformationInput) => {
     updateContactInformation(contactData)
   }
 
-  return { onSubmit }
+  return { onSubmit, formData }
 }
 
 export default useContactInformation

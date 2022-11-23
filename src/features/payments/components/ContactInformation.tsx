@@ -1,5 +1,5 @@
 import { Button, GridItem, SimpleGrid } from '@chakra-ui/react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { FormProvider } from 'react-hook-form'
 import {
   Country,
   FirstName,
@@ -7,21 +7,15 @@ import {
   Phone,
 } from 'src/components/Form/FormFields'
 import useI18n from 'src/lib/hooks/useI18n'
-import {
-  contactInformationInput,
-  ContactInformationInput,
-} from '../../validators'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useContactInformation from './useContactInformation'
+import useContactInformation from '../hooks/useContactInformation'
 
-interface Props extends ReturnType<typeof useContactInformation> {}
+interface Props {
+  onNextStep: () => void
+}
 
-const ContactInformation = ({ onSubmit }: Props) => {
+const ContactInformation = ({ onNextStep }: Props) => {
   const { t } = useI18n()
-
-  const formData = useForm<ContactInformationInput>({
-    resolver: zodResolver(contactInformationInput),
-  })
+  const { formData, onSubmit } = useContactInformation({ onNextStep })
 
   return (
     <form onSubmit={formData.handleSubmit(onSubmit)}>

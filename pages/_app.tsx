@@ -4,6 +4,7 @@ import React from 'react'
 import Navbar from 'src/features/navbar/components'
 import { SessionProvider } from 'next-auth/react'
 import { trpc } from 'src/utils/Trpc'
+import 'react-18-image-lightbox/src/style.css'
 
 const theme = extendTheme({
   components: {
