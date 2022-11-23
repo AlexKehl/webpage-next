@@ -6,9 +6,8 @@ import { ChangeEvent, useState } from 'react'
 const BUCKET_URL = 'https://anatolykehl.s3.eu-central-1.amazonaws.com/'
 
 export const Home = () => {
-  const router = useRouter()
-  const { data } = useSession()
-  console.log({ data })
+  // const router = useRouter()
+  // const { data } = useSession()
   return (
     <div>
       <Button onClick={() => signIn('cognito')}>login</Button>

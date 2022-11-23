@@ -1,8 +1,8 @@
 import * as router from 'next/router'
 import { createContextInner } from 'src/server/routers/CreateContext'
 import prisma from 'src/lib/prisma'
-import { appRouter } from 'pages/api/trpc/[trpc]'
 import { User1 } from 'test/fixtures/User'
+import { appRouter } from 'src/server/routers/_app'
 
 interface MockRouterOpts {
   query?: Record<string, string>

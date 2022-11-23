@@ -1,7 +1,7 @@
 import useI18n from 'src/lib/hooks/useI18n'
 import useToasts from 'src/lib/hooks/useToasts'
 import { GalleryImage } from 'src/types/PrismaProxy'
-import { useContext, useMutation } from 'src/utils/Trpc'
+import { trpc } from 'src/utils/Trpc'
 import ImagePreview from './ImagePreview'
 
 interface Props {
@@ -10,18 +10,18 @@ interface Props {
 
 const ImageFromDbPreview = ({ image }: Props) => {
   const { t } = useI18n()
-  const { invalidateQueries } = useContext()
+  const utils = trpc.useContext()
   const { showSuccessToast } = useToasts()
 
-  const { mutate: deleteImage } = useMutation('gallery.delete', {
+  const { mutate: deleteImage } = trpc.galleryImageRouter.delete.useMutation({
     onSuccess: () => {
-      invalidateQueries(['gallery.imagesList'])
-      invalidateQueries(['cart.list'])
+      utils.galleryImageRouter.imagesList.invalidate()
+      utils.cartRouter.list.invalidate()
       showSuccessToast(t.successfullySubmitted)
     },
   })
 
-  const { mutate: updateImage } = useMutation('gallery.update', {
+  const { mutate: updateImage } = trpc.galleryImageRouter.update.useMutation({
     onSuccess: () => {
       showSuccessToast(t.successfullySubmitted)
     },

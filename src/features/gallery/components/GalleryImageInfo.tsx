@@ -41,36 +41,36 @@ const GalleryImageInfo = ({ isInfoModalOpen, image, onClose }: Props) => {
               <Tbody>
                 <Tr>
                   <Td>{t.imageName}</Td>
-                  <Td>{image?.name}</Td>
+                  <Td>{image?.['name']}</Td>
                 </Tr>
                 <Tr>
                   <Td>{t.width}</Td>
-                  <Td>{image?.width} cm</Td>
+                  <Td>{image?.['width']} cm</Td>
                 </Tr>
                 <Tr>
                   <Td>{t.height}</Td>
-                  <Td>{image?.height} cm</Td>
+                  <Td>{image?.['height']} cm</Td>
                 </Tr>
                 <Tr>
                   <Td>{t.isForSell}</Td>
                   <Td>
-                    {image?.isForSell ? (
+                    {image?.['isForSell'] ? (
                       <CheckIcon color="green.500" />
                     ) : (
                       <CloseIcon color="red.500" />
                     )}
                   </Td>
                 </Tr>
-                {image?.isForSell && (
+                {image?.['isForSell'] && (
                   <>
                     <Tr>
                       <Td>{t.price}</Td>
                       <Td>
-                        {image?.price} {t.euro}
+                        {image?.['price']} {t.euro}
                         <Button
                           mx="2"
                           color="green.500"
-                          onClick={() => addToCart({ imageId: image.id })}
+                          onClick={() => addToCart({ imageId: image['id'] })}
                         >
                           {t.buy}
                         </Button>
@@ -78,10 +78,10 @@ const GalleryImageInfo = ({ isInfoModalOpen, image, onClose }: Props) => {
                     </Tr>
                   </>
                 )}
-                {image?.description && (
+                {image?.['description'] && (
                   <Tr>
                     <Td>{t.description}</Td>
-                    <Td>{image.description}</Td>
+                    <Td>{image['description']}</Td>
                   </Tr>
                 )}
               </Tbody>

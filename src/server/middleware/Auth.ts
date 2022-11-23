@@ -1,12 +1,8 @@
-import { router, TRPCError } from '@trpc/server'
+import { TRPCError } from '@trpc/server'
 import { User } from 'src/types/PrismaProxy'
-import { Context } from '../routers/CreateContext'
+import { middleware } from '../trpc'
 
-type MiddleWareParams = Parameters<
-  Parameters<ReturnType<typeof router<Context>>['middleware']>[0]
->[0]
-
-export const isAuthorized = async ({ ctx, next }: MiddleWareParams) => {
+export const isAuthorized = middleware(async ({ ctx, next }) => {
   if (!ctx.user?.id) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })
   }
@@ -17,4 +13,4 @@ export const isAuthorized = async ({ ctx, next }: MiddleWareParams) => {
       user: ctx.user as User,
     },
   })
-}
+})

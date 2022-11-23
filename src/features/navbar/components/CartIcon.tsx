@@ -2,10 +2,10 @@ import { Avatar, AvatarBadge, Text } from '@chakra-ui/react'
 import router from 'next/router'
 import React, { Fragment } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { useQuery } from 'src/utils/Trpc'
+import { trpc } from 'src/utils/Trpc'
 
 const CartIcon = () => {
-  const { data: cart } = useQuery(['cart.list'])
+  const { data: cart } = trpc.cartRouter.list.useQuery()
   return (
     <Fragment>
       <Avatar

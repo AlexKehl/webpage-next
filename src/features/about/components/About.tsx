@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import AboutPicture from 'public/photo_2021-01-14 02.52.26.jpeg'
 import { Text, Center, VStack } from '@chakra-ui/react'
 import AboutText from 'src/features/about/components/AboutText'

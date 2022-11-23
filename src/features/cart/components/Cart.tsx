@@ -31,9 +31,7 @@ const Cart = () => {
           </Stack>
           <Flex direction="row-reverse">
             <Link href="/payments">
-              <a>
-                <Button m="2">{t.checkout}</Button>
-              </a>
+              <Button m="2">{t.checkout}</Button>
             </Link>
           </Flex>
         </span>

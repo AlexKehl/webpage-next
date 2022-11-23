@@ -1,7 +1,7 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
 import { Box, Center } from '@chakra-ui/layout'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
@@ -28,6 +28,7 @@ const ImagePresenter = ({
     >
       {onInfoClick && (
         <InfoIcon
+          data-testid="info-icon"
           m="1"
           zIndex={500}
           position="absolute"

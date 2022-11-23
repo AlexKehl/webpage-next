@@ -1,17 +1,18 @@
-import { router, TRPCError } from '@trpc/server'
+import { TRPCError } from '@trpc/server'
 import cuid from 'cuid'
+import { publicProcedure, router } from '../trpc'
 import prisma from 'src/lib/prisma'
 import { Cart, GalleryImage } from 'src/types/PrismaProxy'
 import { z } from 'zod'
 import { isAuthorized } from '../middleware/Auth'
-import { Context } from './CreateContext'
 
-export const cartRouter = router<Context>()
-  .middleware(isAuthorized)
-  .mutation('add', {
-    input: z.object({ imageId: z.string() }),
-    async resolve({ input, ctx }) {
-      const userId = ctx.user.id
+export const cartRouter = router({
+  add: publicProcedure
+    .use(isAuthorized)
+    .input(z.object({ imageId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.user['id']
+
       const user = await prisma.user.findUnique({
         where: { id: userId },
         include: { cart: true },
@@ -43,38 +44,34 @@ export const cartRouter = router<Context>()
           galleryImages: { connect: [{ id: input.imageId }] },
         },
       })
-    },
-  })
-  .query('list', {
-    async resolve({ ctx }) {
-      const cart = await prisma.cart.findUnique({
-        where: { userId: ctx.user.id },
-        include: { galleryImages: true },
-      })
+    }),
+  list: publicProcedure.use(isAuthorized).query(async ({ ctx }) => {
+    const cart = await prisma.cart.findUnique({
+      where: { userId: ctx.user.id },
+      include: { galleryImages: true },
+    })
 
-      return cart as (Cart & { galleryImages: GalleryImage[] }) | null
-    },
-  })
-  .mutation('delete', {
-    input: z.object({ imageId: z.string() }),
-    async resolve({ input, ctx }) {
+    return cart as (Cart & { galleryImages: GalleryImage[] }) | null
+  }),
+  delete: publicProcedure
+    .use(isAuthorized)
+    .input(z.object({ imageId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
       return prisma.cart.update({
         where: { userId: ctx.user.id },
         data: { galleryImages: { disconnect: { id: input.imageId } } },
       })
-    },
-  })
-  .mutation('clear', {
-    async resolve({ ctx }) {
-      const cart = await prisma.cart.findUnique({
-        where: { userId: ctx.user.id },
-        include: { galleryImages: true },
-      })
-      const imagesInCartIds = cart?.galleryImages.map(({ id }) => ({ id }))
+    }),
+  clear: publicProcedure.use(isAuthorized).mutation(async ({ ctx }) => {
+    const cart = await prisma.cart.findUnique({
+      where: { userId: ctx.user.id },
+      include: { galleryImages: true },
+    })
+    const imagesInCartIds = cart?.galleryImages.map(({ id }) => ({ id }))
 
-      return prisma.cart.update({
-        where: { userId: ctx.user.id },
-        data: { galleryImages: { disconnect: imagesInCartIds } },
-      })
-    },
-  })
+    return prisma.cart.update({
+      where: { userId: ctx.user.id },
+      data: { galleryImages: { disconnect: imagesInCartIds } },
+    })
+  }),
+})

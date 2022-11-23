@@ -1,11 +1,10 @@
-import { router } from '@trpc/server'
 import Env from 'src/constants/EnvProxy'
 import prisma from 'src/lib/prisma'
 import { filterNullValues } from 'src/lib/utils/PrismaUtils'
 import { GalleryImage } from 'src/types/PrismaProxy'
 import { z } from 'zod'
 import { isAuthorized } from '../middleware/Auth'
-import { Context } from './CreateContext'
+import { publicProcedure, router } from '../trpc'
 import { s3 } from './S3Router'
 
 const categoryZod = z.enum(['acryl', 'oil', 'graphics', 'other'])
@@ -34,42 +33,38 @@ const imageUpdateInput: z.ZodType<Partial<GalleryImage>> = z.object({
   url: z.string().optional(),
 })
 
-export const galleryImageRouter = router<Context>()
-  .query('imagesList', {
-    input: z.object({
-      category: categoryZod,
-    }),
-    async resolve({ input }) {
+export const galleryImageRouter = router({
+  imagesList: publicProcedure
+    .input(z.object({ category: categoryZod }))
+    .query(async ({ input }) => {
       const res = await prisma.galleryImage.findMany({
         where: {
           category: { equals: input.category },
         },
         orderBy: { createDate: 'asc' },
       })
+      console.log({ res })
       return res.map(filterNullValues) as GalleryImage[]
-    },
-  })
-  .middleware(isAuthorized)
-  .mutation('save', {
-    input: imageSaveInput,
-    async resolve({ input }) {
-      return prisma.galleryImage.create({
+    }),
+  save: publicProcedure
+    .use(isAuthorized)
+    .input(imageSaveInput)
+    .mutation(async ({ input }) => {
+      return await prisma.galleryImage.create({
         data: input,
       })
-    },
-  })
-  .mutation('update', {
-    input: imageUpdateInput,
-    async resolve({ input }) {
-      return prisma.galleryImage.update({
+    }),
+  update: publicProcedure
+    .input(imageUpdateInput)
+    .mutation(async ({ input }) => {
+      return await prisma.galleryImage.update({
         where: { id: input.id },
         data: input,
       })
-    },
-  })
-  .mutation('delete', {
-    input: z.object({ id: z.string() }),
-    async resolve({ input }) {
+    }),
+  delete: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
       await s3
         .deleteObject({
           Bucket: Env.S3_BUCKET_NAME,
@@ -79,5 +74,5 @@ export const galleryImageRouter = router<Context>()
       return prisma.galleryImage.delete({
         where: { id: input.id },
       })
-    },
-  })
+    }),
+})

@@ -8,6 +8,7 @@ function HOC<T>(Component: (props: T) => JSX.Element) {
       setMounted(true)
     }, [])
 
+    // @ts-ignore
     return <Fragment>{mounted && <Component {...props} />}</Fragment>
   }
   return WithClientRender

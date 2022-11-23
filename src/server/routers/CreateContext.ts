@@ -1,4 +1,4 @@
-import { inferAsyncReturnType } from '@trpc/server'
+import { inferAsyncReturnType, initTRPC } from '@trpc/server'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 

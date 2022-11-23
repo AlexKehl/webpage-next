@@ -3,7 +3,7 @@ import { Category } from '@prisma/client'
 import { Fragment, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import useI18n from 'src/lib/hooks/useI18n'
-import { useQuery } from 'src/utils/Trpc'
+import { trpc } from 'src/utils/Trpc'
 import ImageFromDbPreview from './ImageFromDbPreview'
 import NewImagePreview from './NewImagePreview'
 
@@ -13,9 +13,10 @@ interface Props {
 
 const GalleryEdit = ({ category }: Props) => {
   const { t } = useI18n()
-  const { data: images } = useQuery(['gallery.imagesList', { category }], {
-    refetchOnWindowFocus: false,
-  })
+  const { data: images } = trpc.galleryImageRouter.imagesList.useQuery(
+    { category },
+    { refetchOnWindowFocus: false }
+  )
 
   const [addedFiles, setAddedFiles] = useState<File[]>([])
 

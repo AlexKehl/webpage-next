@@ -16,6 +16,7 @@ export default NextAuth({
   adapter: PrismaAdapter(prisma),
   callbacks: {
     async session({ session, user }) {
+      // @ts-ignore
       session.user.role = user['role'] as Role
       session.user.id = user['id']
       return session

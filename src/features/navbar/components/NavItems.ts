@@ -20,7 +20,7 @@ export const getNavItems = ({
       onClick: () => router.push('/about'),
     },
     {
-      label: locale!.toUpperCase(),
+      label: locale?.toUpperCase() || '',
       children: Languages.map((lang) => {
         return {
           label: lang.toUpperCase(),

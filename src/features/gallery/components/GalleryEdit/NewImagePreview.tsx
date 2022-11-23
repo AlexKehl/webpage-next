@@ -5,7 +5,7 @@ import Env from 'src/constants/EnvProxy'
 import useI18n from 'src/lib/hooks/useI18n'
 import useToasts from 'src/lib/hooks/useToasts'
 import { GalleryImage } from 'src/types/PrismaProxy'
-import { useContext, useMutation } from 'src/utils/Trpc'
+import { trpc } from 'src/utils/Trpc'
 import ImagePreview from './ImagePreview'
 
 interface Props {
@@ -16,14 +16,14 @@ interface Props {
 
 const NewImagePreview = ({ category, file, onRemove }: Props) => {
   const { t } = useI18n()
-  const { invalidateQueries, client } = useContext()
+  const utils = trpc.useContext()
   const [isUploading, setIsUploading] = useState(false)
   const { showSuccessToast } = useToasts()
 
-  const { mutate: saveImage } = useMutation('gallery.save', {
+  const { mutate: saveImage } = trpc.galleryImageRouter.save.useMutation({
     onSuccess: () => {
       onRemove()
-      invalidateQueries(['gallery.imagesList'])
+      utils.galleryImageRouter.imagesList.invalidate()
       showSuccessToast(t.successfullySubmitted)
     },
   })
@@ -31,7 +31,7 @@ const NewImagePreview = ({ category, file, onRemove }: Props) => {
   const onSubmitHandler = async (
     data: Omit<GalleryImage, 'url' | 'id' | 'category'>
   ) => {
-    const { uploadUrl, id } = await client.query('s3.getUploadUrl', {
+    const { uploadUrl, id } = await utils.client.s3Router.getUploadUrl.query({
       name: file.name,
       contentType: file.type,
     })

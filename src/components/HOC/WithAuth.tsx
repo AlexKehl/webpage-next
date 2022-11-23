@@ -16,6 +16,7 @@ function HOC<T>(Component: (props: T) => JSX.Element) {
       return <Center my="auto">{t.loginToViewContent}</Center>
     }
 
+    // @ts-ignore
     return <Component {...props} />
   }
   return WithAuth

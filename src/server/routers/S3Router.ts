@@ -1,10 +1,9 @@
-import { router } from '@trpc/server'
 import { S3 } from 'aws-sdk'
 import cuid from 'cuid'
 import Env from 'src/constants/EnvProxy'
 import { z } from 'zod'
 import { isAuthorized } from '../middleware/Auth'
-import { Context } from './CreateContext'
+import { publicProcedure, router } from '../trpc'
 
 export const s3 = new S3({
   region: 'eu-central-1',
@@ -13,14 +12,11 @@ export const s3 = new S3({
   signatureVersion: 'v4',
 })
 
-export const s3Router = router<Context>()
-  .middleware(isAuthorized)
-  .query('getUploadUrl', {
-    input: z.object({
-      name: z.string(),
-      contentType: z.string(),
-    }),
-    async resolve({ input }) {
+export const s3Router = router({
+  getUploadUrl: publicProcedure
+    .use(isAuthorized)
+    .input(z.object({ name: z.string(), contentType: z.string() }))
+    .query(async ({ input }) => {
       const id = cuid()
       const fileParams = {
         Bucket: Env.S3_BUCKET_NAME,
@@ -31,5 +27,5 @@ export const s3Router = router<Context>()
 
       const uploadUrl = await s3.getSignedUrlPromise('putObject', fileParams)
       return { uploadUrl, id }
-    },
-  })
+    }),
+})

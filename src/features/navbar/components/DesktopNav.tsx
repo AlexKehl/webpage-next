@@ -15,7 +15,7 @@ import useI18n from 'src/lib/hooks/useI18n'
 const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200')
   const linkHoverColor = useColorModeValue('gray.800', 'white')
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+  const popoverContentBgColor = useColorModeValue('white', 'gray.801')
 
   const i18n = useI18n()
 

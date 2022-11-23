@@ -1,6 +1,6 @@
 import { Center, Stack } from '@chakra-ui/react'
 import { Step, Steps } from 'chakra-ui-steps'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import WithAuth from 'src/components/HOC/WithAuth'
 import useI18n from 'src/lib/hooks/useI18n'
 import AddressInformation from './AddressInformation'

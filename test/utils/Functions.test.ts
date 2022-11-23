@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals'
 import { getCyclic } from 'src/utils/Functions'
 import cases from 'jest-in-case'
 

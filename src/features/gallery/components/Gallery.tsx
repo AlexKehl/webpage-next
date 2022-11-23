@@ -4,11 +4,11 @@ import { Category } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import Lightbox from 'react-image-lightbox'
+import Lightbox from 'react-18-image-lightbox'
 import ImagePresenter from 'src/components/ImagePresenter'
 import useI18n from 'src/lib/hooks/useI18n'
 import { getCyclic } from 'src/utils/Functions'
-import { useQuery } from 'src/utils/Trpc'
+import { trpc } from 'src/utils/Trpc'
 import GalleryImageInfo from './GalleryImageInfo'
 
 interface Props {
@@ -19,9 +19,10 @@ const Gallery = ({ category }: Props) => {
   const { t } = useI18n()
   const router = useRouter()
   const { data: session } = useSession()
-  const { data: images } = useQuery(['gallery.imagesList', { category }], {
-    refetchOnWindowFocus: false,
-  })
+  const { data: images } = trpc.galleryImageRouter.imagesList.useQuery(
+    { category },
+    { refetchOnWindowFocus: false }
+  )
   const [lightBox, setLightBox] = useState({ isOpen: false, idx: 0 })
   const [infoModal, setInfoModal] = useState({ isOpen: false, idx: 0 })
 
@@ -47,7 +48,7 @@ const Gallery = ({ category }: Props) => {
         {images?.map((image, idx) => (
           <ImagePresenter
             key={idx}
-            src={image.url}
+            src={image['url']}
             onClick={() => setLightBox({ idx, isOpen: true })}
             onInfoClick={() => setInfoModal({ idx, isOpen: true })}
           />
